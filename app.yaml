@@ -5,18 +5,33 @@ api_version: 1
 threadsafe: yes
 
 handlers:
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /
-  script: main.app
+- url: /google1ff5118afda594f4\.html
+  static_files: google1ff5118afda594f4.html
+  upload: google1ff5118afda594f4\.html
 
-- url: /index\.html
-  script: main.app
+- url: /googleb9b28effe8247c2a\.html
+  static_files: googleb9b28effe8247c2a.html
+  upload: googleb9b28effe8247c2a\.html
 
-- url: .*
-  script: main.app
+- url: /mywot0240ebf0c66812002ba5\.html
+  static_files: mywot0240ebf0c66812002ba5.html
+  upload: mywot0240ebf0c66812002ba5\.html
+
+- url: /y_key_6348032cd345c781\.html
+  static_files: y_key_6348032cd345c781.html
+  upload: y_key_6348032cd345c781\.html
+
+- url: /robots\.txt
+  static_files: robots.txt
+  upload: robots\.txt
+
+- url: /.*
+  script: handlers.app
 
 libraries:
 - name: webapp2
