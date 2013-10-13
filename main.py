@@ -18,7 +18,7 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world! Test 1')
+        self.response.write('This is a placeholder while the site gets rewritten.')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
