@@ -19,5 +19,14 @@ class IndexHandler(webapp2.RequestHandler):
     self.response.out.write(utils.render_template("index.html", template_vals))
 
 app = webapp2.WSGIApplication([
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/', IndexHandler),
     ('/', IndexHandler),
 ])
