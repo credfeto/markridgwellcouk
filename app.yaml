@@ -46,3 +46,34 @@ skip_files:
 libraries:
 - name: webapp2
   version: "2.5.2"
+
+pagespeed:
+  enabled_rewriters:
+ - MinifyCss
+ - ProxyCss
+ - ProxyImages
+ - ConvertMetaTags
+ - InlineJs
+ - InlinePreviewImages
+ - CollapseWhitespace
+ - CombineHeads
+ - ElideAttributes
+ - RemoveComments
+ - RemoveQuotes
+ - LeftTrimUrls
+ - CombineCss
+ - MoveCssToHead
+ - CombineJs
+ - JsOptimize
+ - DeferJs
+ - WebpOptimization
+ - ImageConvertToJpeg
+ - ImageRecompressJpeg
+ - ImageProgressiveJpeg
+ - ImageRecompressPng
+ - ImageStripMetadata
+ - ImageStripColorProfile
+ - ImageResize
+ - LazyloadImages
+ - ImageAddDimensions
+
