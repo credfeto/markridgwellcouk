@@ -23,12 +23,32 @@
     <Content Include="google1ff5118afda594f4.html" />
     <Content Include="googleb9b28effe8247c2a.html" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
+    <Content Include="static\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="static\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="static\bootstrap\css\bootstrap.css" />
+    <Content Include="static\bootstrap\css\bootstrap.min.css" />
+    <Content Include="static\bootstrap\css\navbar-fixed-top.css" />
+    <Content Include="static\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="static\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="static\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="static\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="static\bootstrap\js\bootstrap.js" />
+    <Content Include="static\bootstrap\js\bootstrap.min.js" />
+    <Content Include="static\js\html5shiv.js" />
+    <Content Include="static\js\jquery.js" />
+    <Content Include="static\js\respond.min.js" />
     <Content Include="y_key_6348032cd345c781.html" />
     <Content Include="views\base.html" />
     <Content Include="views\index.html" />
     <Content Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="static\" />
+    <Folder Include="static\bootstrap\" />
+    <Folder Include="static\bootstrap\css\" />
+    <Folder Include="static\bootstrap\fonts\" />
+    <Folder Include="static\bootstrap\js\" />
+    <Folder Include="static\js\" />
     <Folder Include="views" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
