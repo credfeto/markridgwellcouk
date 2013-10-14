@@ -33,6 +33,12 @@ handlers:
 - url: /.*
   script: handlers.app
 
+skip_files:
+- ^(.*/)?\.pyproj
+- ^(.*/)?\.sln
+- ^\.gitignore
+- ^\.git/(.*/)?
+
 libraries:
 - name: webapp2
   version: "2.5.2"
