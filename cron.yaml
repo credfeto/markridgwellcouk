@@ -1,0 +1,5 @@
+cron:
+
+- description: daily sync
+  url: /tasks/sync
+  schedule: every 24 hours 

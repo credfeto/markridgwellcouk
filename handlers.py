@@ -1,7 +1,6 @@
 import datetime
 import webapp2
 import json
-import hashlib
 from collections import defaultdict 
 
 from google.appengine.api import mail
@@ -19,10 +18,20 @@ class IndexHandler(webapp2.RequestHandler):
 
         searchPath = self.request.path.lower()
 
-        hash = hashlib.sha512(searchPath).hexdigest()
+        hash = utils.generate_url_hash(searchPath)
 
-        template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
-        self.response.out.write(utils.render_template("index.html", template_vals))
+        q = models.GalleryItem.all()
+        q.filter("id =", hash)
+
+        item = q.get()
+        if item is None:
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
+            self.response.out.write(utils.render_template("notfound.html", template_vals))
+            self.response.set_status(404) 
+        else:
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title }
+            self.response.out.write(utils.render_template("index.html", template_vals))
+
 
 class ResizeImageHandler(webapp2.RequestHandler):
     def get(self):
@@ -31,7 +40,7 @@ class ResizeImageHandler(webapp2.RequestHandler):
         searchPath = self.request.path.lower()[ 6 : pos ]
         width = self.request.path[ pos : -10 ]
 
-        hash = hashlib.sha512(searchPath).hexdigest()
+        hash = utils.generate_url_hash(searchPath)
 
         template_vals = { 'path': searchPath + ':' + width, 'hash' : hash, 'users' : users }
         self.response.out.write(utils.render_template("index.html", template_vals))
@@ -40,7 +49,7 @@ class ThumbnailImageHandler(webapp2.RequestHandler):
     def get(self):
         searchPath = self.request.path.lower()[ 10 : -13 ]
 
-        hash = hashlib.sha512(searchPath).hexdigest()
+        hash = utils.generate_url_hash(searchPath)
 
         template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
         self.response.out.write(utils.render_template("index.html", template_vals))

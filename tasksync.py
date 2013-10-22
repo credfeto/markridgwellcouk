@@ -1,0 +1,84 @@
+import datetime
+import webapp2
+import json
+import hashlib
+import urllib2
+from collections import defaultdict 
+
+from google.appengine.api import mail
+from google.appengine.ext import blobstore
+from google.appengine.api import files
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.api import users
+from google.appengine.ext import db
+from google.appengine.api import urlfetch 
+
+import models
+import utils
+
+class TaskSyncHandler(webapp2.RequestHandler):
+    def get(self):
+
+        if utils.is_development:
+            url = 'http://localhost/gallerymetadata/site.js'
+
+            result = urlfetch.fetch(url);
+            if result.status_code == 200:
+                self.response.write(result.content+ '<br/>')
+
+                decoded = json.loads(result.content)
+                version = decoded["version"]
+
+                self.response.write('<br/>' + "Decoded Version: " + version )
+
+                for item in decoded["items"]:
+                    path = item["path"]
+                    title = item["title"]
+                    type = "virtual"
+                    description = "A"
+                    rating = None
+                    location = None
+
+                    #description = item["description"]
+
+                    hash = utils.generate_url_hash(path)
+                    self.response.write('<br/>' + "Path: " + path )
+                    self.response.write('<br/>' + "Hash: " + hash )
+
+                    q = models.GalleryItem.all()
+                    q.filter("id =", hash)
+
+                    dbItem = q.get()
+                    if dbItem is None:
+                        dbItem = models.GalleryItem(
+                                                    id = hash,
+                                                    path = path,
+                                                    title = title,
+                                                    type = type,
+                                                    description = description,
+                                                    rating = rating,
+                                                    location = location
+                                                    )
+                        dbItem.put()
+                        self.response.write('<br/>Created')
+                    else:
+                        dbItem.path = path
+                        dbItem.title = title
+                        dbItem.type = type
+                        dbItem.description = description
+                        dbItem.rating = rating
+                        dbItem.location = location
+                    
+                        dbItem.put()
+
+                        self.response.write('<br/>Updated')
+
+                    self.response.write('<br/>')
+            else:
+                self.response.write("Error!")
+        else:
+            self.response.write("In Development")
+
+app = webapp2.WSGIApplication([
+    ('/tasks/sync', TaskSyncHandler)
+], debug=True)

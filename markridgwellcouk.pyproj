@@ -17,7 +17,10 @@
   <ItemGroup>
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
+    <Compile Include="tasksync.py" />
     <Compile Include="utils.py" />
+    <Content Include="cron.yaml" />
+    <Content Include="index.yaml" />
     <Content Include="app.yaml" />
     <Content Include="robots.txt" />
     <Content Include="google1ff5118afda594f4.html" />
@@ -37,6 +40,7 @@
     <Content Include="static\js\html5shiv.js" />
     <Content Include="static\js\jquery.js" />
     <Content Include="static\js\respond.min.js" />
+    <Content Include="views\notfound.html" />
     <Content Include="y_key_6348032cd345c781.html" />
     <Content Include="views\base.html" />
     <Content Include="views\index.html" />
