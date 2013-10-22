@@ -9,6 +9,7 @@ from google.appengine.ext import blobstore
 
 class GalleryItem(db.Model):
     id = db.StringProperty(required=True, indexed=True)
+    path = db.StringProperty(required=True, indexed=True)
     title = db.StringProperty(required=True, indexed=False)
     type = db.StringProperty(required=True, indexed=False)
     description = db.StringProperty(required=True, indexed=False)
