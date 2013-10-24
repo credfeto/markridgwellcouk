@@ -20,8 +20,7 @@ class IndexHandler(webapp2.RequestHandler):
 
         hash = utils.generate_url_hash(searchPath)
 
-        q = models.GalleryItem.all()
-        q.filter("id =", hash)
+        q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
         item = q.get()
         if item is None:

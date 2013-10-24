@@ -45,8 +45,7 @@ class TaskSyncHandler(webapp2.RequestHandler):
                     self.response.write('<br/>' + "Path: " + path )
                     self.response.write('<br/>' + "Hash: " + hash )
 
-                    q = models.GalleryItem.all()
-                    q.filter("id =", hash)
+                    q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
                     dbItem = q.get()
                     if dbItem is None:
