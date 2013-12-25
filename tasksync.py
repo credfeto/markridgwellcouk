@@ -18,65 +18,62 @@ import utils
 
 class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
+        
+        url = 'https://markridgwell-data.s3.amazonaws.com/site.js'
 
-        if utils.is_development:
-            url = 'http://localhost/gallerymetadata/site.js'
+        result = urlfetch.fetch(url);
+        if result.status_code == 200:
+            self.response.write(result.content+ '<br/>')
 
-            result = urlfetch.fetch(url);
-            if result.status_code == 200:
-                self.response.write(result.content+ '<br/>')
+            decoded = json.loads(result.content)
+            version = decoded["version"]
 
-                decoded = json.loads(result.content)
-                version = decoded["version"]
+            self.response.write('<br/>' + "Decoded Version: " + str(version) )
 
-                self.response.write('<br/>' + "Decoded Version: " + version )
+            for item in decoded["items"]:
+                path = item["Path"]
+                title = item["Title"]
+                type = "virtual"
+                description = item["Description"]
+                rating = item["Rating"]
+                location = None
 
-                for item in decoded["items"]:
-                    path = item["path"]
-                    title = item["title"]
-                    type = "virtual"
-                    description = "A"
-                    rating = None
-                    location = None
+                #description = item["description"]
 
-                    #description = item["description"]
+                hash = utils.generate_url_hash(path)
+                self.response.write('<br/>' + "Path: " + path )
+                self.response.write('<br/>' + "Hash: " + hash )
 
-                    hash = utils.generate_url_hash(path)
-                    self.response.write('<br/>' + "Path: " + path )
-                    self.response.write('<br/>' + "Hash: " + hash )
+                q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
-                    q = models.GalleryItem.query(models.GalleryItem.id == hash)
-
-                    dbItem = q.get()
-                    if dbItem is None:
-                        dbItem = models.GalleryItem(
-                                                    id = hash,
-                                                    path = path,
-                                                    title = title,
-                                                    type = type,
-                                                    description = description,
-                                                    rating = rating,
-                                                    location = location
-                                                    )
-                        dbItem.put()
-                        self.response.write('<br/>Created')
-                    else:
-                        dbItem.path = path
-                        dbItem.title = title
-                        dbItem.type = type
-                        dbItem.description = description
-                        dbItem.rating = rating
-                        dbItem.location = location
+                dbItem = q.get()
+                if dbItem is None:
+                    dbItem = models.GalleryItem(
+                                                id = hash,
+                                                path = path,
+                                                title = title,
+                                                type = type,
+                                                description = description,
+                                                rating = rating,
+                                                location = location
+                                                )
+                    dbItem.put()
+                    self.response.write('<br/>Created')
+                else:
+                    dbItem.path = path
+                    dbItem.title = title
+                    dbItem.type = type
+                    dbItem.description = description
+                    dbItem.rating = rating
+                    dbItem.location = location
                     
-                        dbItem.put()
+                    dbItem.put()
 
-                        self.response.write('<br/>Updated')
+                    self.response.write('<br/>Updated')
 
-                    self.response.write('<br/>')
-            else:
-                self.response.write("Error!")
+                self.response.write('<br/>')
         else:
-            self.response.write("In Development")
+            self.response.write("Error!")
 
 app = webapp2.WSGIApplication([
     ('/tasks/sync', TaskSyncHandler)
