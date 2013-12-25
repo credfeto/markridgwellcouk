@@ -16,9 +16,11 @@ from google.appengine.ext import blobstore
 # https://developers.google.com/appengine/docs/python/ndb/queries
 
 class ChildItem(ndb.Model):
-    id = ndb.StringProperty(required=True, indexed=True)
-    path = ndb.StringProperty(required=True, indexed=True)
-    title = ndb.StringProperty(required=True, indexed=False)
+    id = ndb.StringProperty(required=True)
+    path = ndb.StringProperty(required=True)
+    title = ndb.StringProperty(required=True)
+    type = ndb.StringProperty(required=True)
+    description = ndb.StringProperty(required=True)
 
 class ResizedImage(ndb.Model):
     width = ndb.IntegerProperty(required=True)

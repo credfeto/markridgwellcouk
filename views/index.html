@@ -8,7 +8,19 @@
 <div class="jumbotron">
     <h1>{{path}}</h1>
     <p>You are here: {{path}}</p>
-    <p>Hash: {{hash}}</p>
+    <!--<p>Hash: {{hash}}</p>-->
     <p>Title: {{title}}</p>
+    {% if item %}
+    <p>Title: {{item.description}}</p>
+        {% if item.children %}
+            <ul>
+                {% for child in item.children %}
+                <li><a href="{{child.path}}">{{child.title}}</a>
+
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}
 </div>
 {% endblock %}

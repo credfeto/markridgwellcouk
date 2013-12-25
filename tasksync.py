@@ -10,7 +10,7 @@ from google.appengine.ext import blobstore
 from google.appengine.api import files
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import urlfetch 
 
 import models
@@ -35,12 +35,36 @@ class TaskSyncHandler(webapp2.RequestHandler):
             for item in decoded["items"]:
                 path = item["Path"]
                 title = item["Title"]
-                type = "virtual"
+                type = item["Type"]
                 description = item["Description"]
                 rating = None #item["Rating"]
-                location = None
 
-                #description = item["description"]
+                location = None
+                loc = item["Location"]
+                if loc <> None:
+                    if "Latitude" in loc and "Longitude" in loc:
+                        lat = loc["Latitude"]
+                        lng = loc["Latitude"]
+                        location = ndb.GeoPt( lat, lng )
+                
+
+                children = None
+                childItems = item["Children"]
+                if childItems <> None:
+                    children = []
+                    for child in childItems:
+                            childPath = child["Path"]
+                            childHash = utils.generate_url_hash(childPath)
+                            childTitle = child["Title"]
+                            childType = child["Type"]
+                            childDescription = child["Description"]
+                            children.append( models.ChildItem(
+                                                            id = childHash,
+                                                            path = childPath,
+                                                            title = childTitle,
+                                                            type = childType,
+                                                            description = childDescription
+                                                        ) )
 
                 hash = utils.generate_url_hash(path)
                 self.response.write('<br/>' + "Path: " + path )
@@ -57,7 +81,8 @@ class TaskSyncHandler(webapp2.RequestHandler):
                                                 type = type,
                                                 description = description,
                                                 rating = rating,
-                                                location = location
+                                                location = location,
+                                                children = children
                                                 )
                     dbItem.put()
                     self.response.write('<br/>Created')
@@ -68,7 +93,8 @@ class TaskSyncHandler(webapp2.RequestHandler):
                     dbItem.description = description
                     dbItem.rating = rating
                     dbItem.location = location
-                    
+                    dbItem.children = children
+
                     dbItem.put()
 
                     self.response.write('<br/>Updated')

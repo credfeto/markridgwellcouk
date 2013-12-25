@@ -28,7 +28,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.out.write(utils.render_template("notfound.html", template_vals))
             self.response.set_status(404) 
         else:
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title }
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 
