@@ -37,7 +37,7 @@ class TaskSyncHandler(webapp2.RequestHandler):
                 title = item["Title"]
                 type = "virtual"
                 description = item["Description"]
-                rating = item["Rating"]
+                rating = None #item["Rating"]
                 location = None
 
                 #description = item["description"]
