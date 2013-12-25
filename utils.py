@@ -6,6 +6,9 @@ import hashlib
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
+def site_url(path):
+    return 'https://markridgwell-data.s3.amazonaws.com' + path
+
 def is_development():
     appId = os.environ['APPENGINE_RUNTIME']
 

@@ -20,7 +20,8 @@ class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
         
         
-        url = 'https://markridgwell-data.s3.amazonaws.com/site.js'
+        url = utils.site_url('/site.js')
+
         self.response.write('<br/>Downloading from: ' + url );
 
         result = urlfetch.fetch(url);
