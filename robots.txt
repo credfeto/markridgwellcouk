@@ -1,5 +1,5 @@
 
-User-agent: *
+User-agent: GoogleBot
 Sitemap: https://www.markridgwell.co.uk/sitemap
 Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
 Disallow: /avatar.jpg
@@ -8,3 +8,106 @@ Disallow: /Thumbnail/Albums/Private/
 Disallow: /Image/Albums/Private/
 Disallow: /Albums/Private/
 Disallow: /SaveRating/
+
+User-agent: GoogleBot-Mobile
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: GoogleBot-Image
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: Mediapartners-GoogleBot
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: adsbot-GoogleBot
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: msnbot
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: msnbot-media
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: bingbot
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: bingbot-Media
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: slurp
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: teoma
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
+User-agent: *
+Disallow: /
