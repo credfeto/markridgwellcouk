@@ -9,6 +9,13 @@ from google.appengine.ext.webapp import template
 def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 
+def image_url( path, image ):
+
+    base = path[7:]
+    filestub = base[base.rfind('/', 0, len(base) -2 )+1:-1]
+
+    return site_url( base + filestub + '-' + str(image.width) +'x' +str(image.height) + '.jpg')
+
 def is_development():
     appId = os.environ['APPENGINE_RUNTIME']
 

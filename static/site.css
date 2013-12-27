@@ -1,0 +1,8 @@
+﻿.folderItem {
+    float: left;
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+    margin: 10px;
+    border: black solid 1px;
+}

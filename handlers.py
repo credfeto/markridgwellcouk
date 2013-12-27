@@ -13,6 +13,7 @@ from google.appengine.ext import db
 import models
 import utils
 
+
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
@@ -28,7 +29,18 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.out.write(utils.render_template("notfound.html", template_vals))
             self.response.set_status(404) 
         else:
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item }
+            children = None
+            if item.children <> None:
+                children = []
+                for child in item.children:
+                    thumbnailUrl = None
+                    if child.thumbnail:                        
+                        thumbnailUrl = utils.image_url( child.path, child.thumbnail )
+
+                    childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl }
+                    children.append(childItem)
+
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 

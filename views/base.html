@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="https://www.facebook.com/2008/fbml" xml:lang="en" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mark Ridgwell" />
     <link rel="shortcut icon" href="favicon.ico"/>
     <title>{% block title %}{% endblock %}</title>
+    <meta property="og:type" content="article" />
+    <meta name="title" content="{% block title1 %}{% endblock %}" />    
+    <meta property="og:title" content="{% block title2 %}{% endblock %}" />
     <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/bootstrap/css/navbar-fixed-top.css" rel="stylesheet" />
     <!--[if lt IE 9]>
       <script src="/static/js/html5shiv.js"></script>
       <script src="/static/js/respond.min.js"></script>
     <![endif]-->
+    <link href="/static/site.css" rel="stylesheet" />
 	{% block head %}{% endblock %}
 </head>
 <body>
@@ -26,12 +31,12 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-              <li {% ifequal path "/albums/>" %}class="active"{% endifequal %}><a href="/albums/">Albums</a></li>
-              <li {% ifequal path "/places/>" %}class="active"{% endifequal %}><a href="/places/">Places</a></li>
-              <li {% ifequal path "/events/>" %}class="active"{% endifequal %}><a href="/events/">Events</a></li>
+              <li {% ifequal path "/albums/" %}class="active"{% endifequal %}><a href="/albums/">Albums</a></li>
+              <li {% ifequal path "/places/" %}class="active"{% endifequal %}><a href="/places/">Places</a></li>
+              <li {% ifequal path "/events/" %}class="active"{% endifequal %}><a href="/events/">Events</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li {% ifequal path "/contact/>" %}class="active"{% endifequal %}><a href="/contact/">Contact</a></li>            
+              <li {% ifequal path "/contact/" %}class="active"{% endifequal %}><a href="/contact/">Contact</a></li>            
               <li {% ifequal path "/about/" %}class="active"{% endifequal %}><a href="/about/">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->

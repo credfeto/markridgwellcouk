@@ -59,13 +59,47 @@ class TaskSyncHandler(webapp2.RequestHandler):
                             childTitle = child["Title"]
                             childType = child["Type"]
                             childDescription = child["Description"]
+                            
+                            foundThumbnailSize = None
+                            childImageSizes = child["ImageSizes"]
+                            if childImageSizes <> None:
+                                childImageWidth = 0
+                                childImageHeight = 0
+                                
+                                for childImageSize in childImageSizes:
+                                    childImageSizeWidth = childImageSize["Width"]
+                                    childImageSizeHeight = childImageSize["Height"]
+
+                                    if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                                        childImageWidth = childImageSizeWidth
+                                        childImageHeight = childImageSizeHeight
+                                    
+                                if childImageWidth <> 0 and childImageHeight <> 0:
+                                    foundThumbnailSize = models.ResizedImage(
+                                                                                    width = childImageWidth,
+                                                                                    height = childImageHeight )
+
                             children.append( models.ChildItem(
                                                             id = childHash,
                                                             path = childPath,
                                                             title = childTitle,
                                                             type = childType,
-                                                            description = childDescription
+                                                            description = childDescription,
+                                                            thumbnail = foundThumbnailSize
                                                         ) )
+
+                foundImageSizes = None
+                imageSizes = item["ImageSizes"]
+                if imageSizes <> None:
+                    foundImageSizes = []
+                    for imageSize in imageSizes:
+                        imageSizeWidth = imageSize["Width"]
+                        imageSizeHeight = imageSize["Height"]
+                        foundImageSizes.append( models.ResizedImage(
+                                                                        width = imageSizeWidth,
+                                                                        height = imageSizeHeight
+                                                                    ) )
+
 
                 hash = utils.generate_url_hash(path)
                 self.response.write('<br/>' + "Path: " + path )
@@ -83,7 +117,8 @@ class TaskSyncHandler(webapp2.RequestHandler):
                                                 description = description,
                                                 rating = rating,
                                                 location = location,
-                                                children = children
+                                                children = children,
+                                                resizes = foundImageSizes
                                                 )
                     dbItem.put()
                     self.response.write('<br/>Created')

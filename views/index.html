@@ -1,25 +1,48 @@
 {% extends "base.html" %}
 {% block title %}{{title}}{% endblock %}
+{% block title1 %}{{title}}{% endblock %}
+{% block title2 %}{{title}}{% endblock %}
 {% block head %}
 <!-- Head block -->
+<meta name="Gallery.Id" content="{{hash}}" />
+{% if item %}
+    {% if item.location %}
+            <meta property="og:latitude" content="{{item.location.lat}}" />
+<meta property="og:longitude" content="{{item.location.lon}}" />
+<meta name="geo.position" content="{{item.location.lat}};{{item.location.lon}}" />
+<meta name="ICBM" content="{{item.location.lat}}, {{item.location.lon}}" />
+{% endif %}
+    {% if item.description %}
+        <meta name="description" content="{{item.description}}" />
+<meta property="og:description" content="{{item.description}}" />
+{% endif %}
+{% endif %}
 {% endblock %}
 {% block body %}
 <!-- Body block -->
 <div class="jumbotron">
-    <h1>{{path}}</h1>
-    <p>You are here: {{path}}</p>
-    <!--<p>Hash: {{hash}}</p>-->
-    <p>Title: {{title}}</p>
+    <h1>{{title}}</h1>
     {% if item %}
-    <p>Title: {{item.description}}</p>
-        {% if item.children %}
-            <ul>
-                {% for child in item.children %}
-                <li><a href="{{child.path}}">{{child.title}}</a>
-
-                </li>
+        {% if item.description %}<p>{{item.description}}</p>{% endif %}
+    {% endif %}
+</div>
+<div class="Shit">
+    {% if item %}
+        {% if children %}
+            <div>
+                {% for child in children %}
+                <a href="{{child.path}}">
+                    <div class="folderItem">
+                        {% if child.type = 'photo' %}
+                            {% if child.thumbnailUrl %}
+                                <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
+                            {% endif %}
+                        {% endif %}
+                        {{child.title}}                
+                    </div>
+                </a>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
     {% endif %}
 </div>

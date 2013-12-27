@@ -40,6 +40,7 @@
     <Content Include="static\js\html5shiv.js" />
     <Content Include="static\js\jquery.js" />
     <Content Include="static\js\respond.min.js" />
+    <Content Include="static\site.css" />
     <Content Include="views\notfound.html" />
     <Content Include="y_key_6348032cd345c781.html" />
     <Content Include="views\base.html" />
