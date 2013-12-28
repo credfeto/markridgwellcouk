@@ -6,3 +6,15 @@
     margin: 10px;
     border: black solid 1px;
 }
+
+.image {
+    margin: 10px;
+
+    -moz-box-shadow: 2px 2px 10px #000;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=4)";
+    -webkit-box-shadow: 2px 2px 10px #000;
+    border: none;
+    box-shadow: 2px 2px 10px #000;
+    margin-bottom: 5px;
+    vertical-align: bottom;
+}

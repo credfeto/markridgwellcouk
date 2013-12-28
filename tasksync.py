@@ -26,7 +26,7 @@ class TaskSyncHandler(webapp2.RequestHandler):
 
         result = urlfetch.fetch(url);
         if result.status_code == 200:
-            self.response.write(result.content+ '<br/>')
+            #self.response.write(result.content+ '<br/>')
 
             decoded = json.loads(result.content)
             version = decoded["version"]
@@ -39,6 +39,8 @@ class TaskSyncHandler(webapp2.RequestHandler):
                 type = item["Type"]
                 description = item["Description"]
                 rating = None #item["Rating"]
+
+                hash = utils.generate_url_hash(path)
 
                 location = None
                 loc = item["Location"]
@@ -88,22 +90,24 @@ class TaskSyncHandler(webapp2.RequestHandler):
                                                             thumbnail = foundThumbnailSize
                                                         ) )
 
+                self.response.write('<br/>' + "Path: " + path )
+                self.response.write('<br/>' + "Hash: " + hash )
+
                 foundImageSizes = None
                 imageSizes = item["ImageSizes"]
                 if imageSizes <> None:
                     foundImageSizes = []
-                    for imageSize in imageSizes:
+                    for imageSize in imageSizes:                            
                         imageSizeWidth = imageSize["Width"]
                         imageSizeHeight = imageSize["Height"]
+                        self.response.write('<br/>' + " * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) )
                         foundImageSizes.append( models.ResizedImage(
                                                                         width = imageSizeWidth,
                                                                         height = imageSizeHeight
                                                                     ) )
 
 
-                hash = utils.generate_url_hash(path)
-                self.response.write('<br/>' + "Path: " + path )
-                self.response.write('<br/>' + "Hash: " + hash )
+                
 
                 q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
@@ -130,6 +134,7 @@ class TaskSyncHandler(webapp2.RequestHandler):
                     dbItem.rating = rating
                     dbItem.location = location
                     dbItem.children = children
+                    dbItem.resizes = foundImageSizes
 
                     dbItem.put()
 

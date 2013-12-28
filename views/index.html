@@ -20,13 +20,13 @@
 {% endblock %}
 {% block body %}
 <!-- Body block -->
-<div class="jumbotron">
+<div class="jumbotron center-block">
     <h1>{{title}}</h1>
     {% if item %}
-        {% if item.description %}<p>{{item.description}}</p>{% endif %}
+    {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
 </div>
-<div class="Shit">
+<div>
     {% if item %}
         {% if children %}
             <div>
@@ -43,6 +43,10 @@
                 </a>
                 {% endfor %}
             </div>
+        {% endif %}
+        {% if resizecss %}
+            {{resizecss|safe}}
+            <div class="image">&nbsp;</div>
         {% endif %}
     {% endif %}
 </div>

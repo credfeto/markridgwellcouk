@@ -30,7 +30,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.set_status(404) 
         else:
             children = None
-            if item.children <> None:
+            if item.children:
                 children = []
                 for child in item.children:
                     thumbnailUrl = None
@@ -40,7 +40,50 @@ class IndexHandler(webapp2.RequestHandler):
                     childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl }
                     children.append(childItem)
 
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children }
+            resizecss = None;
+            if item.resizes:
+
+                orderedResizes = sorted( item.resizes, key=lambda r: r.width )
+
+                resizecss = '<style>'
+                first = None
+                
+                for (i, resize ) in enumerate(orderedResizes):
+                    if first is None:
+                        first = resize #Set the defauult image size
+                        resizecss = resizecss + '\n'
+                        resizecss = resizecss + '\t.image {\n'
+                        resizecss = resizecss + '\twidth:' + str(resize.width) + 'px;\n'
+                        resizecss = resizecss + '\theight:' + str(resize.height) + 'px;\n'
+                        resizecss = resizecss + '\tmin-width:' + str(resize.width) + 'px;\n'
+                        resizecss = resizecss + '\tmin-height:' + str(resize.height) + 'px;\n'
+                        resizecss = resizecss + '\tmax-width:' + str(resize.width) + 'px;\n'
+                        resizecss = resizecss + '\tmax-height:' + str(resize.height) + 'px;\n'                        
+                        resizecss = resizecss + '\tbackground-image:url(' + utils.image_url( item.path, resize ) +');\n'
+                        resizecss = resizecss + '}\n'
+                        resizecss = resizecss + '\n'
+
+                    resizecss = resizecss + '\n'
+                    if i < (len(item.resizes) - 1):
+                            resizecss = resizecss + '@media (min-width: ' + str(resize.width + 20) + 'px) and (max-width: ' + str(orderedResizes[i+1].width + 19) + 'px) {\n'
+                    else:
+                        resizecss = resizecss + '@media (min-width: ' + str(resize.width) + 'px) {\n'
+                    resizecss = resizecss + '\t.image {\n'
+                    resizecss = resizecss + '\t\twidth:' + str(resize.width) + 'px;\n'
+                    resizecss = resizecss + '\t\theight:' + str(resize.height) + 'px;\n'
+                    resizecss = resizecss + '\t\tmin-width:' + str(resize.width) + 'px;\n'
+                    resizecss = resizecss + '\t\tmin-height:' + str(resize.height) + 'px;\n'
+                    resizecss = resizecss + '\t\tmax-width:' + str(resize.width) + 'px;\n'
+                    resizecss = resizecss + '\t\tmax-height:' + str(resize.height) + 'px;\n'                        
+                    resizecss = resizecss + '\t\tbackground-image:url(' + utils.image_url( item.path, resize ) +');\n'
+                    resizecss = resizecss + '\t}'
+                    resizecss = resizecss + '}\n'
+                    resizecss = resizecss + '\n'
+                if first is None:
+                    resizecss = resizecss + 'wtf'
+                resizecss = resizecss + '</style>'
+
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 
