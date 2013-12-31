@@ -20,40 +20,41 @@
 {% endblock %}
 {% block body %}
 <!-- Body block -->
-<div class="jumbotron center-block">
+<div class="jumbotron">
     <h1>{{title}}</h1>
     {% if item %}
     {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
 </div>
-<div>
+<div class="row row-offcanvas row-offcanvas-left">
+    <div class="col-xs-3 col-sm-3" id="sidebar" role="navigation" data-social-share-privacy='true'></div>
+    <div class="col-xs-9 col-sm-9 ">    
     {% if item %}
     {% if children %}
-    <div style="float:left">
-        {% for child in children %}
-        <a href="{{child.path}}">
-            <div class="folderItem">
-                {% if child.type = 'photo' %}
-                {% if child.thumbnailUrl %}
-                <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
-                {% endif %}
-                {% endif %}
-                {{child.title}}                
-            </div>
-        </a>
-        {% endfor %}
-    </div>
+    
+    {% for child in children %}
+    <a href="{{child.path}}">
+        <div class="folderItem">
+            {% if child.type = 'photo' %}
+            {% if child.thumbnailUrl %}
+            <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
+            {% endif %}
+            {% endif %}
+            {{child.title}}                
+        </div>
+    </a>
+    {% endfor %}
     {% endif %}
     {% if resizecss %}
     {{resizecss|safe}}
-    <div style="float:left">
         <div class="image">&nbsp;</div>
+    {% endif %}
+    {% endif %}
     </div>
-    {% endif %}
-    {% endif %}
-    <div style="float:left" data-social-share-privacy='true'></div>
+    
 </div>
 <script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",
-    "services":{"buffer":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}</script>
+    "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
+    "services":{"buffer":{"status":false},"disqus":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}</script>
 
 {% endblock %}
