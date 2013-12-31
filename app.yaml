@@ -14,21 +14,9 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /google1ff5118afda594f4\.html
-  static_files: google1ff5118afda594f4.html
-  upload: google1ff5118afda594f4\.html
-
-- url: /googleb9b28effe8247c2a\.html
-  static_files: googleb9b28effe8247c2a.html
-  upload: googleb9b28effe8247c2a\.html
-
 - url: /mywot0240ebf0c66812002ba5\.html
   static_files: mywot0240ebf0c66812002ba5.html
   upload: mywot0240ebf0c66812002ba5\.html
-
-- url: /y_key_6348032cd345c781\.html
-  static_files: y_key_6348032cd345c781.html
-  upload: y_key_6348032cd345c781\.html
 
 - url: /robots\.txt
   static_files: robots.txt
@@ -38,14 +26,25 @@ handlers:
   script: tasksync.app
   login: admin
 
+- url: /albums/private/.*
+  script: handlers.app
+  login: required
+  secure: always
+
 - url: /.*
   script: handlers.app
+  secure: optional
 
 skip_files:
 - ^(.*/)?\.pyproj
 - ^(.*/)?\.sln
 - ^\.gitignore
 - ^\.git/(.*/)?
+
+pagespeed:
+  domains_to_rewrite:
+    - www.markridgwell.co.uk
+    - www.markridgwell.com
 
 libraries:
 - name: webapp2

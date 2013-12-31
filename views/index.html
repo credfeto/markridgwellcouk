@@ -28,26 +28,32 @@
 </div>
 <div>
     {% if item %}
-        {% if children %}
-            <div>
-                {% for child in children %}
-                <a href="{{child.path}}">
-                    <div class="folderItem">
-                        {% if child.type = 'photo' %}
-                            {% if child.thumbnailUrl %}
-                                <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
-                            {% endif %}
-                        {% endif %}
-                        {{child.title}}                
-                    </div>
-                </a>
-                {% endfor %}
+    {% if children %}
+    <div style="float:left">
+        {% for child in children %}
+        <a href="{{child.path}}">
+            <div class="folderItem">
+                {% if child.type = 'photo' %}
+                {% if child.thumbnailUrl %}
+                <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
+                {% endif %}
+                {% endif %}
+                {{child.title}}                
             </div>
-        {% endif %}
-        {% if resizecss %}
-            {{resizecss|safe}}
-            <div class="image">&nbsp;</div>
-        {% endif %}
+        </a>
+        {% endfor %}
+    </div>
     {% endif %}
+    {% if resizecss %}
+    {{resizecss|safe}}
+    <div style="float:left">
+        <div class="image">&nbsp;</div>
+    </div>
+    {% endif %}
+    {% endif %}
+    <div style="float:left" data-social-share-privacy='true'></div>
 </div>
+<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",
+    "services":{"buffer":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}</script>
+
 {% endblock %}
