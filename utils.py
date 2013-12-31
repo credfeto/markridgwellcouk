@@ -19,7 +19,7 @@ def image_url( path, image ):
     for idx in indexes:
         base = base[:idx] + '/' + base[idx:]
         
-    filestub = path[base.rfind('/', 0, len(base) -2 )+1:-1]
+    filestub = path[path.rfind('/', 0, len(path)-2)+1:-1]
 
     return site_url( '/' + base + '/' + filestub + '-' + str(image.width) +'x' +str(image.height) + '.jpg')
 
