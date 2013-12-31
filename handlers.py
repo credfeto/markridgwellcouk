@@ -59,7 +59,7 @@ class IndexHandler(webapp2.RequestHandler):
                         resizecss = resizecss + '\tmin-height:' + str(resize.height) + 'px;\n'
                         resizecss = resizecss + '\tmax-width:' + str(resize.width) + 'px;\n'
                         resizecss = resizecss + '\tmax-height:' + str(resize.height) + 'px;\n'                        
-                        resizecss = resizecss + '\tbackground-image:url(' + utils.image_url( item.path, resize ) +');\n'
+                        resizecss = resizecss + '\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');\n'
                         resizecss = resizecss + '}\n'
                         resizecss = resizecss + '\n'
 
@@ -75,7 +75,7 @@ class IndexHandler(webapp2.RequestHandler):
                     resizecss = resizecss + '\t\tmin-height:' + str(resize.height) + 'px;\n'
                     resizecss = resizecss + '\t\tmax-width:' + str(resize.width) + 'px;\n'
                     resizecss = resizecss + '\t\tmax-height:' + str(resize.height) + 'px;\n'                        
-                    resizecss = resizecss + '\t\tbackground-image:url(' + utils.image_url( item.path, resize ) +');\n'
+                    resizecss = resizecss + '\t\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');\n'
                     resizecss = resizecss + '\t}'
                     resizecss = resizecss + '}\n'
                     resizecss = resizecss + '\n'
