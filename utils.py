@@ -11,10 +11,17 @@ def site_url(path):
 
 def image_url( path, image ):
 
-    base = path[7:]
-    filestub = base[base.rfind('/', 0, len(base) -2 )+1:-1]
+    hash = generate_url_hash(path);
+    indexes = [ 2, 4, 8, 12, 20 ];
+    indexes.sort(reverse = True)
 
-    return site_url( base + filestub + '-' + str(image.width) +'x' +str(image.height) + '.jpg')
+    base = hash;
+    for idx in indexes:
+        base = base[:idx] + '/' + base[idx:]
+        
+    filestub = path[base.rfind('/', 0, len(base) -2 )+1:-1]
+
+    return site_url( '/' + base + '/' + filestub + '-' + str(image.width) +'x' +str(image.height) + '.jpg')
 
 def is_development():
     appId = os.environ['APPENGINE_RUNTIME']
