@@ -20,7 +20,6 @@
     <Compile Include="tasksync.py" />
     <Compile Include="utils.py" />
     <Content Include="cron.yaml" />
-    <Content Include="index.yaml" />
     <Content Include="app.yaml" />
     <Content Include="robots.txt" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
