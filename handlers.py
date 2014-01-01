@@ -35,7 +35,8 @@ class IndexHandler(webapp2.RequestHandler):
                 for child in item.children:
                     thumbnailUrl = None
                     if child.thumbnail:                        
-                        thumbnailUrl = utils.image_url( child.path, child.thumbnail )
+                        thumbnailUrl = utils.image_url( 
+                                                       child.path, child.thumbnail )
 
                     childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl }
                     children.append(childItem)

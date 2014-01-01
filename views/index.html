@@ -5,6 +5,7 @@
 {% block head %}
 <!-- Head block -->
 <meta name="Gallery.Id" content="{{hash}}" />
+<meta name="Gallery.Path" content="{{path}}" />
 {% if item %}
     {% if item.location %}
             <meta property="og:latitude" content="{{item.location.lat}}" />
