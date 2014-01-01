@@ -18,7 +18,9 @@
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
     <Compile Include="tasksync.py" />
+    <Compile Include="upload.py" />
     <Compile Include="utils.py" />
+    <Compile Include="sync.py" />
     <Content Include="cron.yaml" />
     <Content Include="app.yaml" />
     <Content Include="robots.txt" />

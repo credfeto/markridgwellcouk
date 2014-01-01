@@ -6,10 +6,6 @@ threadsafe: yes
 
 handlers:
 
-- url: /remoteapi.*
-  script: google.appengine.ext.remote_api.handler.application
-  login: admin
-
 - url: /static/(.*)
   static_files: static/\1
   upload: static/(.*)
@@ -44,6 +40,9 @@ skip_files:
 - ^(.*/)?\.sln
 - ^\.gitignore
 - ^\.git/(.*/)?
+
+builtins:
+- remote_api: on
 
 pagespeed:
   domains_to_rewrite:
