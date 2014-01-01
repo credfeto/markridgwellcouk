@@ -38,7 +38,7 @@
         <div class="folderItem">
             {% if child.type = 'photo' %}
             {% if child.thumbnailUrl %}
-            <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.width}}" alt="{{child.title}}" title="{{child.title}}"/>
+            <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
             {% endif %}
             {% endif %}
             {{child.title}}                
