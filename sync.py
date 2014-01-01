@@ -94,15 +94,21 @@ def keywords_changed( current, toupdate ):
 
 def synchronize():
     url = utils.site_url('/site.js')
+    url = 'E:\\Gallery\\LiveImages\\site.js'
 
     sys.stdout.write('\n\n')
     sys.stdout.write('Downloading from: ' + url + '\n');
 
-    result = urlfetch.fetch(url);
-    if result.status_code == 200:
-        #sys.stdout.write(result.content+ '\n\n')
+    #result = urlfetch.fetch(url);
+    #if result.status_code == 200:
 
-        decoded = json.loads(result.content)
+    #    contents = result.content
+    #    #sys.stdout.write(contents+ '\n\n')
+    with open(url, "r") as myfile:
+        contents = myfile.read()
+        myfile.close()
+
+        decoded = json.loads(contents)
         version = decoded["version"]
 
         sys.stdout.write("Decoded Version: " + str(version) + '\n' )
