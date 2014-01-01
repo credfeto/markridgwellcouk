@@ -42,4 +42,5 @@ class GalleryItem(ndb.Model):
     children = ndb.StructuredProperty(ChildItem, repeated=True, required=False)
     resizes = ndb.StructuredProperty(ResizedImage, repeated=True, required=False)
     metadata = ndb.StructuredProperty(MetadataProperty, repeated=True, required=False)
+    keywords = ndb.StringProperty(repeated=True, required=False)
     updated = ndb.DateTimeProperty(auto_now=True)

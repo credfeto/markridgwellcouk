@@ -20,7 +20,7 @@ import sync
 class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
 
-        sync.synchronize()
+        self.response.out.write("OK")
 
 app = webapp2.WSGIApplication([
     ('/tasks/sync', TaskSyncHandler)

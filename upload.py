@@ -8,4 +8,4 @@ def auth_func():
 remote_api_stub.ConfigureRemoteApi(None, '/_ah/remote_api', auth_func,
                                'markridgwellcouk.appspot.com')
 
-sync.synchronize()
+# sync.synchronize()

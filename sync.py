@@ -62,10 +62,40 @@ def resizes_changed( current, toupdate ):
 
     return False
 
+def metadata_changed( current, toupdate ):
+
+    if len( current ) <> len(toupdate):
+        return True
+
+    for (i, currentMetadata ) in enumerate(current):
+        newMetadata = toupdate[i]
+
+        if currentMetadata.name <> newMetadata.name:
+            return True
+
+        if currentMetadata.value <> newMetadata.value:
+            return True
+
+    return False
+
+def keywords_changed( current, toupdate ):
+
+    if len( current ) <> len(toupdate):
+        return True
+
+    for (i, currentKeyword ) in enumerate(current):
+        newKeyword = toupdate[i]
+
+        if currentKeyword <> newKeyword:
+            return True
+
+    return False
+
 
 def synchronize():
     url = utils.site_url('/site.js')
 
+    sys.stdout.write('\n\n')
     sys.stdout.write('Downloading from: ' + url + '\n');
 
     result = urlfetch.fetch(url);
@@ -134,6 +164,21 @@ def synchronize():
                                                         thumbnail = foundThumbnailSize
                                                     ) )
 
+            metadata = None
+            metadataItems = item['Metadata']
+            if metadataItems <> None:
+                metadata = []
+                for mdItem in metadataItems:
+                    mdName = mdItem['Name']
+                    mdValue = mdItem['Value']
+
+                    metadata.append( models.MetadataProperty(
+                                                    name = mdName,
+                                                    value = mdValue
+                                                    ) )
+
+            keywords = item['Keywords']
+
             sys.stdout.write("Path: " + path + '\n' )
             sys.stdout.write("Hash: " + hash + '\n' )
 
@@ -166,13 +211,15 @@ def synchronize():
                                             rating = rating,
                                             location = location,
                                             children = children,
-                                            resizes = foundImageSizes
+                                            resizes = foundImageSizes,
+                                            metadata = metadata,
+                                            keywords = keywords
                                             )
                 dbItem.put()
                 sys.stdout.write('Created\n')
             else:
 
-                if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ):
+                if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ):
                     dbItem.path = path
                     dbItem.title = title
                     dbItem.type = type
@@ -181,6 +228,8 @@ def synchronize():
                     dbItem.location = location
                     dbItem.children = children
                     dbItem.resizes = foundImageSizes
+                    dbItem.metadata = metadata
+                    dbItem.keywords = keywords
 
                     dbItem.put()
 
