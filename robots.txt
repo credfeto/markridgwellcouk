@@ -79,7 +79,7 @@ Disallow: /Image/Albums/Private/
 Disallow: /Albums/Private/
 Disallow: /SaveRating/
 
-User-agent: bingbot-Media
+User-agent: bingbot-media
 Sitemap: https://www.markridgwell.co.uk/sitemap
 Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
 Disallow: /avatar.jpg
