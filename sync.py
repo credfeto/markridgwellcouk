@@ -1,5 +1,5 @@
 import datetime
-import webapp2
+import sys
 import json
 import hashlib
 import urllib2
@@ -16,19 +16,66 @@ from google.appengine.api import urlfetch
 import models
 import utils
 
+def children_changed( current, toupdate ):
+
+    if len( current ) <> len(toupdate):
+        return True
+
+    for (i, currentChild ) in enumerate(current):
+        newChild = toupdate[i]
+
+        if currentChild.id <> newChild.id:
+            return True
+
+        if currentChild.title <> newChild.title:
+            return True
+
+        if currentChild.type <> newChild.type:
+            return True
+
+        if currentChild.description <> newChild.description:
+            return True
+
+        if currentChild.type == 'photo':
+            if currentChild.thumbnail.width <> newChild.thumbnail.width:
+                return True
+
+            if currentChild.thumbnail.height <> newChild.thumbnail.height:
+                return True
+
+    return False
+
+
+def resizes_changed( current, toupdate ):
+
+    if len( current ) <> len(toupdate):
+        return True
+
+    for (i, currentSize ) in enumerate(current):
+        newSize = toupdate[i]
+
+        if currentSize.width <> newSize.width:
+            return True
+
+        if currentSize.height <> newSize.height:
+            return True
+
+    return False
+
+
 def synchronize():
     url = utils.site_url('/site.js')
 
-    #self.response.write('<br/>Downloading from: ' + url );
+    sys.stdout.write('Downloading from: ' + url + '\n');
 
     result = urlfetch.fetch(url);
     if result.status_code == 200:
-        #self.response.write(result.content+ '<br/>')
+        #sys.stdout.write(result.content+ '\n\n')
 
         decoded = json.loads(result.content)
         version = decoded["version"]
 
-        self.response.write('<br/>' + "Decoded Version: " + str(version) )
+        sys.stdout.write("Decoded Version: " + str(version) + '\n' )
 
         for item in decoded["items"]:
             path = item["Path"]
@@ -87,8 +134,8 @@ def synchronize():
                                                         thumbnail = foundThumbnailSize
                                                     ) )
 
-            #self.response.write('<br/>' + "Path: " + path )
-            #self.response.write('<br/>' + "Hash: " + hash )
+            sys.stdout.write("Path: " + path + '\n' )
+            sys.stdout.write("Hash: " + hash + '\n' )
 
             foundImageSizes = None
             imageSizes = item["ImageSizes"]
@@ -97,7 +144,7 @@ def synchronize():
                 for imageSize in imageSizes:                            
                     imageSizeWidth = imageSize["Width"]
                     imageSizeHeight = imageSize["Height"]
-                    #self.response.write('<br/>' + " * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) )
+                    sys.stdout.write(" * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) + '\n' )
                     foundImageSizes.append( models.ResizedImage(
                                                                     width = imageSizeWidth,
                                                                     height = imageSizeHeight
@@ -122,21 +169,22 @@ def synchronize():
                                             resizes = foundImageSizes
                                             )
                 dbItem.put()
-                #self.response.write('<br/>Created')
+                sys.stdout.write('Created\n')
             else:
-                dbItem.path = path
-                dbItem.title = title
-                dbItem.type = type
-                dbItem.description = description
-                dbItem.rating = rating
-                dbItem.location = location
-                dbItem.children = children
-                dbItem.resizes = foundImageSizes
 
-                dbItem.put()
+                if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ):
+                    dbItem.path = path
+                    dbItem.title = title
+                    dbItem.type = type
+                    dbItem.description = description
+                    dbItem.rating = rating
+                    dbItem.location = location
+                    dbItem.children = children
+                    dbItem.resizes = foundImageSizes
 
-                #self.response.write('<br/>Updated')
+                    dbItem.put()
 
-            #self.response.write('<br/>')
-    #else:
-        #self.response.write("Error!")
+                    sys.stdout.write('Updated\n')
+                else:
+                    sys.stdout.write('Unchanged\n')
+            sys.stdout.write('\n')
