@@ -48,6 +48,7 @@ class IndexHandler(webapp2.RequestHandler):
 
                 resizecss = '<style>'
                 first = None
+                last = None
                 
                 for (i, resize ) in enumerate(orderedResizes):
                     if first is None:
@@ -64,6 +65,7 @@ class IndexHandler(webapp2.RequestHandler):
                         resizecss = resizecss + '}\n'
                         resizecss = resizecss + '\n'
 
+                    last = resize
                     resizecss = resizecss + '\n'
                     if i < (len(item.resizes) - 1):
                             resizecss = resizecss + '@media (min-width: ' + str(resize.width + 20) + 'px) and (max-width: ' + str(orderedResizes[i+1].width + 19) + 'px) {\n'
@@ -79,12 +81,17 @@ class IndexHandler(webapp2.RequestHandler):
                     resizecss = resizecss + '\t\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');\n'
                     resizecss = resizecss + '\t}'
                     resizecss = resizecss + '}\n'
-                    resizecss = resizecss + '\n'
-                if first is None:
-                    resizecss = resizecss + 'wtf'
+                    resizecss = resizecss + '\n'                
                 resizecss = resizecss + '</style>'
 
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static') }
+                if first is None:
+                    resizecss = ''
+                else:
+                    thumbnailImageUrl = utils.image_url( item.path, first )
+
+                    imageUrl = utils.image_url( item.path, last )
+
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):

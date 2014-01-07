@@ -15,8 +15,15 @@
 {% endif %}
     {% if item.description %}
         <meta name="description" content="{{item.description}}" />
-<meta property="og:description" content="{{item.description}}" />
+        <meta property="og:description" content="{{item.description}}" />
 {% endif %}
+{% endif %}
+{% if thumbnailUrl %}
+<meta property="og:image" content="{{thumbnailUrl}}" itemtype="http://schema.org/ImageObject" itemprop="thumbnailUrl" />
+{% endif %}
+{% if fullImageUrl %}
+<meta property="og:image" content="{{fullImageUrl}}" itemtype="http://schema.org/thumbnailUrl" itemprop="contentURL" />
+
 {% endif %}
 {% endblock %}
 {% block body %}
@@ -46,9 +53,16 @@
     </a>
     {% endfor %}
     {% endif %}
-    {% if resizecss %}
-    {{resizecss|safe}}
-        <div class="image">&nbsp;</div>
+        {% if resizecss %}
+        <div itemscope itemtype="http://schema.org/ImageObject">
+            {{resizecss|safe}}
+            <div class="image"></div>
+            <span itemprop="name">{{title}}</span> by <a href="https://plus.google.com/+MarkRidgwell" itemprop="author">Mark Ridgwell</a>
+                                
+            {% if item.description %}
+                <span itemprop="description">{{item.description}}</span>
+            {% endif %}            
+        </div>
     {% endif %}
     {% endif %}
     </div>
