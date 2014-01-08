@@ -42,6 +42,8 @@ class IndexHandler(webapp2.RequestHandler):
                     children.append(childItem)
 
             resizecss = None;
+            thumbnailImageUrl = None
+            imageUrl = None
             if item.resizes:
 
                 orderedResizes = sorted( item.resizes, key=lambda r: r.width )
