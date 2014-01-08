@@ -28,6 +28,27 @@ def image_url( path, image ):
 
     return site_url( '/' + base + '/' + filestub + '-' + str(image.width) +'x' +str(image.height) + '.jpg')
 
+def convert_old_url( originalPath ):
+
+    base = originalPath
+    
+    tildePos = base.rfind('/~')
+    if tildePos <> -1:
+        base = base[:tildePos+1]
+    else:
+        tildePos = base.rfind('/%7e')
+        if tildePos <> -1:
+            base = base[:tildePos+1]
+
+    root =  base.strip();
+    
+    replacedWrongSlash = root.replace("\\", "/" )
+    replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
+    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens )
+    replacedEndingHyphens = replacedBadChars.rstrip('-') 
+
+    return replacedEndingHyphens
+
 def is_development():
     appId = os.environ['APPENGINE_RUNTIME']
 

@@ -25,9 +25,23 @@ class IndexHandler(webapp2.RequestHandler):
 
         item = q.get()
         if item is None:
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
-            self.response.out.write(utils.render_template("notfound.html", template_vals))
-            self.response.set_status(404) 
+            newSearchPath = utils.convert_old_url(searchPath)
+            
+            shouldReportError = True
+            if newSearchPath <> searchPath:
+                hash = utils.generate_url_hash(newSearchPath)
+                searchPath = newSearchPath
+                q = models.GalleryItem.query(models.GalleryItem.id == hash)
+                item = q.get()
+
+                if item <> None:
+                    shouldReportError = False
+                    self.redirect(newSearchPath, permanent=True)
+            
+            if shouldReportError:
+                template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
+                self.response.out.write(utils.render_template("notfound.html", template_vals))
+                self.response.set_status(404) 
         else:
             children = None
             if item.children:
@@ -127,6 +141,16 @@ app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/', IndexHandler),
-    ('/[\w\-]*/', IndexHandler),
+    ('/[\w\-]*/', IndexHandler),    
     ('/', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/~[0-9]+', IndexHandler),    
+    ('/~[0-9]+', IndexHandler),
 ])
