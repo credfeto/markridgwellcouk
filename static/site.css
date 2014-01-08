@@ -18,3 +18,12 @@
     margin-bottom: 5px;
     vertical-align: bottom;
 }
+
+.main-content {
+    margin-right: 100px;
+}
+
+.side-bar {
+    float: right;
+    width: 100px;
+}
