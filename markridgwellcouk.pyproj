@@ -15,6 +15,8 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Compile Include="contact.py" />
+    <Compile Include="about.py" />
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
     <Compile Include="tasksync.py" />
@@ -243,6 +245,8 @@
     <Content Include="static\socialshareprivacy\stylesheets\modules\twitter.css" />
     <Content Include="static\socialshareprivacy\stylesheets\modules\xing.css" />
     <Content Include="static\socialshareprivacy\stylesheets\socialshareprivacy.css" />
+    <Content Include="views\contact.html" />
+    <Content Include="views\about.html" />
     <Content Include="views\notfound.html" />
     <Content Include="views\base.html" />
     <Content Include="views\index.html" />

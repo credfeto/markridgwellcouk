@@ -26,6 +26,14 @@ handlers:
   script: tasksync.app
   login: admin
 
+- url: /about/
+  script: about.app
+  secure: optional
+
+- url: /contact/
+  script: contact.app
+  secure: optional
+
 - url: /albums/private/.*
   script: handlers.app
   login: required
