@@ -1,11 +1,11 @@
 ﻿.folderItem {
     float: left;
-    height: 200px;
     margin: 10px;
     max-width: 160px;
-    min-height: 200px;
+    height: 200px;    
     padding: 5px;
     width: 160px;
+    overflow: hidden;
 }
 
 
@@ -189,21 +189,27 @@
 
 .folder span.title {
     text-align: center;
+    text-overflow: ellipsis;
 }
 
 .photo { border: none; }
 
-.photo img {
+.photo div.box {
+    max-height: 150px;
+    overflow-y: hidden;
+    margin-bottom: 5px;
+    vertical-align: middle;
+
     -moz-box-shadow: 2px 2px 10px #000;
     -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color=#000000,direction=135,strength=4)";
     -webkit-box-shadow: 2px 2px 10px #000;
     border: none;
     box-shadow: 2px 2px 10px #000;
-    margin-bottom: 5px;
 }
 
 .photo span.title {
     text-align: center;
+    text-overflow: ellipsis;
 }
 
 .image {
