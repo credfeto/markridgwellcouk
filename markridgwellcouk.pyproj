@@ -260,6 +260,7 @@
     <Folder Include="static\bootstrap\js\" />
     <Folder Include="static\js\" />
     <Folder Include="static\js\jquery\" />
+    <Folder Include="static\images\" />
     <Folder Include="static\socialshareprivacy\" />
     <Folder Include="static\socialshareprivacy\images\" />
     <Folder Include="static\socialshareprivacy\images\de\" />

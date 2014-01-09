@@ -34,39 +34,47 @@
     {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
 </div>
-<div class="row row-offcanvas row-offcanvas-left">
-    <div class="col-xs-3 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation" data-social-share-privacy='true'></div>
-    <div class="col-xs-9 col-sm-9 ">    
+<div class="side-bar" role="navigation" data-social-share-privacy='true'></div>
+<div class="main-content">
     {% if item %}
     {% if children %}
     
     {% for child in children %}
     <a href="{{child.path}}">
-        <div class="folderItem">
+        <div class="folderItem">            
             {% if child.type = 'photo' %}
             {% if child.thumbnailUrl %}
-            <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
+            <div class="photo">
+                <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
+                <span class="title">{{child.title}}</span>
+            </div>
             {% endif %}
-            {% endif %}
-            {{child.title}}                
+            {% else %}            
+            <div class="folder">
+                <div class="front"></div>
+                <div class="folder-content1"></div>
+                <div class="folder-content2"></div>
+                <div class="folder-content3"></div>
+                <div class="back"></div>           
+            </div>
+            <span class="title">{{child.title}}</span>    
+                {% endif %}            
         </div>
     </a>
     {% endfor %}
     {% endif %}
-        {% if resizecss %}
-        <div itemscope itemtype="http://schema.org/ImageObject">
-            {{resizecss|safe}}
-            <div class="image"></div>
-            <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
+    {% if resizecss %}
+    <div itemscope itemtype="http://schema.org/ImageObject">
+        {{resizecss|safe}}
+        <div class="image"></div>
+        <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
                                 
-            {% if item.description %}
-                <span itemprop="description">{{item.description}}</span>
-            {% endif %}            
-        </div>
-    {% endif %}
-    {% endif %}
+        {% if item.description %}
+        <span itemprop="description">{{item.description}}</span>
+        {% endif %}            
     </div>
-    
+    {% endif %}
+    {% endif %}
 </div>
 <script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",
     "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
