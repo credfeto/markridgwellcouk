@@ -38,6 +38,7 @@
     <Content Include="static\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="static\bootstrap\js\bootstrap.js" />
     <Content Include="static\bootstrap\js\bootstrap.min.js" />
+    <Content Include="static\js\fix-iemobile-responsive.js" />
     <Content Include="static\js\html5shiv.js" />
     <Content Include="static\js\jquery\jquery-1.10.2.min.js" />
     <Content Include="static\js\jquery\jquery-1.10.2.min.map" />
