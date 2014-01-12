@@ -2,6 +2,7 @@
 {% block title %}{{title}}{% endblock %}
 {% block title1 %}{{title}}{% endblock %}
 {% block title2 %}{{title}}{% endblock %}
+{% block title3 %}{{title}}{% endblock %}
 {% block head %}
 <!-- Head block -->
 <meta name="Gallery.Id" content="{{hash}}" />
@@ -16,6 +17,7 @@
     {% if item.description %}
         <meta name="description" content="{{item.description}}" />
         <meta property="og:description" content="{{item.description}}" />
+        <meta name="twitter:description" content="photo">
 {% endif %}
 {% endif %}
 {% if thumbnailUrl %}
@@ -23,7 +25,12 @@
 {% endif %}
 {% if fullImageUrl %}
 <meta property="og:image" content="{{fullImageUrl}}" itemtype="http://schema.org/thumbnailUrl" itemprop="contentURL" />
-
+<meta name="twitter:card" content="photo">
+<meta name="twitter:image:src" content="{{fullImageUrl}}">
+<meta name="twitter:image:width" content="{{fullImageWidth}}">
+<meta name="twitter:image:height" content="{{fullImageHeight}}">
+{% else %}
+<meta name="twitter:summary" content="photo">
 {% endif %}
 {% endblock %}
 {% block body %}

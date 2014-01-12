@@ -58,6 +58,8 @@ class IndexHandler(webapp2.RequestHandler):
             resizecss = None;
             thumbnailImageUrl = None
             imageUrl = None
+            imageWidth = None
+            imageHeight = None
             if item.resizes:
 
                 orderedResizes = sorted( item.resizes, key=lambda r: r.width )
@@ -106,8 +108,10 @@ class IndexHandler(webapp2.RequestHandler):
                     thumbnailImageUrl = utils.image_url( item.path, first )
 
                     imageUrl = utils.image_url( item.path, last )
+                    imageWidth = last.width
+                    imageHeight = last.height;
 
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl }
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
