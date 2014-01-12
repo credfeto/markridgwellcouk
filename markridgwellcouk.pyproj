@@ -26,6 +26,7 @@
     <Content Include="cron.yaml" />
     <Content Include="app.yaml" />
     <Content Include="favicon.png" />
+    <Content Include="humans.txt" />
     <Content Include="robots.txt" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
     <Content Include="static\bootstrap\css\bootstrap-theme.css" />
