@@ -30,7 +30,7 @@ class ChildItem(ndb.Model):
 class MetadataProperty(ndb.Model):
     name = ndb.StringProperty(required=True)
     value = ndb.StringProperty(required=True)
-     
+
 class GalleryItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
@@ -43,4 +43,8 @@ class GalleryItem(ndb.Model):
     resizes = ndb.StructuredProperty(ResizedImage, repeated=True, required=False)
     metadata = ndb.StructuredProperty(MetadataProperty, repeated=True, required=False)
     keywords = ndb.StringProperty(repeated=True, required=False)
+    firstSibling = ndb.StructuredProperty(ChildItem, repeated=False, required=False)
+    previousSibling = ndb.StructuredProperty(ChildItem, repeated=False, required=False)
+    nextSibling = ndb.StructuredProperty(ChildItem, repeated=False, required=False)
+    lastSibling = ndb.StructuredProperty(ChildItem, repeated=False, required=False)
     updated = ndb.DateTimeProperty(auto_now=True)

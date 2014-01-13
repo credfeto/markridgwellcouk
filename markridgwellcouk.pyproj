@@ -19,6 +19,7 @@
     <Compile Include="about.py" />
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
+    <Compile Include="taskphotoofday.py" />
     <Compile Include="tasksync.py" />
     <Compile Include="upload.py" />
     <Compile Include="utils.py" />

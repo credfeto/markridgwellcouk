@@ -45,6 +45,37 @@ def children_changed( current, toupdate ):
 
     return False
 
+def sibling_changed( current, toupdate ):
+
+    if current is None and toupdate is None:
+        return False
+
+    if current <> None and toupdate is None:
+        return True
+
+    if current is None and toupdate <> None:
+        return True
+
+    if current.id <> toupdate.id:
+        return True
+
+    if current.title <> toupdate.title:
+        return True
+
+    if current.type <> toupdate.type:
+        return True
+
+    if current.description <> toupdate.description:
+        return True
+
+    if current.type == 'photo':
+        if current.thumbnail.width <> toupdate.thumbnail.width:
+            return True
+
+        if current.thumbnail.height <> toupdate.thumbnail.height:
+            return True
+
+    return False
 
 def resizes_changed( current, toupdate ):
 
@@ -107,7 +138,22 @@ def synchronize():
     with open(url, "r") as myfile:
         contents = myfile.read()
         myfile.close()
+        synchronize_common( contents)
 
+def synchronize_url():
+    url = utils.site_url('/site.js')
+    url = 'http://localhost/GalleryMetadata/site.js'
+
+    sys.stdout.write('\n\n')
+    sys.stdout.write('Downloading from: ' + url + '\n');
+
+    result = urlfetch.fetch(url);
+    if result.status_code == 200:
+
+        contents = result.content
+        synchronize_common( contents)
+
+def synchronize_common(contents):
         decoded = json.loads(contents)
         version = decoded["version"]
 
@@ -203,6 +249,155 @@ def synchronize():
 
 
                 
+            firstSibling = None
+            fsibling = item["First"]
+            if fsibling <> None:
+                        childPath = fsibling["Path"]
+                        childHash = utils.generate_url_hash(childPath)
+                        childTitle = fsibling["Title"]
+                        childType = fsibling["Type"]
+                        childDescription = fsibling["Description"]
+                            
+                        foundThumbnailSize = None
+                        childImageSizes = fsibling["ImageSizes"]
+                        if childImageSizes <> None:
+                            childImageWidth = 0
+                            childImageHeight = 0
+                                
+                            for childImageSize in childImageSizes:
+                                childImageSizeWidth = childImageSize["Width"]
+                                childImageSizeHeight = childImageSize["Height"]
+
+                                if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                                    childImageWidth = childImageSizeWidth
+                                    childImageHeight = childImageSizeHeight
+                                    
+                            if childImageWidth <> 0 and childImageHeight <> 0:
+                                foundThumbnailSize = models.ResizedImage(
+                                                                                width = childImageWidth,
+                                                                                height = childImageHeight )
+
+                        firstSibling = models.ChildItem(
+                                                        id = childHash,
+                                                        path = childPath,
+                                                        title = childTitle,
+                                                        type = childType,
+                                                        description = childDescription,
+                                                        thumbnail = foundThumbnailSize
+                                                    )
+
+
+            previousSibling = None
+            psibling = item["Previous"]
+            if psibling <> None:
+                        childPath = psibling["Path"]
+                        childHash = utils.generate_url_hash(childPath)
+                        childTitle = psibling["Title"]
+                        childType = psibling["Type"]
+                        childDescription = psibling["Description"]
+                            
+                        foundThumbnailSize = None
+                        childImageSizes = psibling["ImageSizes"]
+                        if childImageSizes <> None:
+                            childImageWidth = 0
+                            childImageHeight = 0
+                                
+                            for childImageSize in childImageSizes:
+                                childImageSizeWidth = childImageSize["Width"]
+                                childImageSizeHeight = childImageSize["Height"]
+
+                                if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                                    childImageWidth = childImageSizeWidth
+                                    childImageHeight = childImageSizeHeight
+                                    
+                            if childImageWidth <> 0 and childImageHeight <> 0:
+                                foundThumbnailSize = models.ResizedImage(
+                                                                                width = childImageWidth,
+                                                                                height = childImageHeight )
+
+                        previousSibling = models.ChildItem(
+                                                        id = childHash,
+                                                        path = childPath,
+                                                        title = childTitle,
+                                                        type = childType,
+                                                        description = childDescription,
+                                                        thumbnail = foundThumbnailSize
+                                                    )
+
+            nextSibling = None
+            nsibling = item["Next"]
+            if nsibling <> None:
+                        childPath = nsibling["Path"]
+                        childHash = utils.generate_url_hash(childPath)
+                        childTitle = nsibling["Title"]
+                        childType = nsibling["Type"]
+                        childDescription = nsibling["Description"]
+                            
+                        foundThumbnailSize = None
+                        childImageSizes = nsibling["ImageSizes"]
+                        if childImageSizes <> None:
+                            childImageWidth = 0
+                            childImageHeight = 0
+                                
+                            for childImageSize in childImageSizes:
+                                childImageSizeWidth = childImageSize["Width"]
+                                childImageSizeHeight = childImageSize["Height"]
+
+                                if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                                    childImageWidth = childImageSizeWidth
+                                    childImageHeight = childImageSizeHeight
+                                    
+                            if childImageWidth <> 0 and childImageHeight <> 0:
+                                foundThumbnailSize = models.ResizedImage(
+                                                                                width = childImageWidth,
+                                                                                height = childImageHeight )
+
+                        nextSibling = models.ChildItem(
+                                                        id = childHash,
+                                                        path = childPath,
+                                                        title = childTitle,
+                                                        type = childType,
+                                                        description = childDescription,
+                                                        thumbnail = foundThumbnailSize
+                                                    )
+
+            lastSibling = None
+            lsibling = item["Last"]
+            if lsibling <> None:
+                        childPath = lsibling["Path"]
+                        childHash = utils.generate_url_hash(childPath)
+                        childTitle = lsibling["Title"]
+                        childType = lsibling["Type"]
+                        childDescription = lsibling["Description"]
+                            
+                        foundThumbnailSize = None
+                        childImageSizes = lsibling["ImageSizes"]
+                        if childImageSizes <> None:
+                            childImageWidth = 0
+                            childImageHeight = 0
+                                
+                            for childImageSize in childImageSizes:
+                                childImageSizeWidth = childImageSize["Width"]
+                                childImageSizeHeight = childImageSize["Height"]
+
+                                if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                                    childImageWidth = childImageSizeWidth
+                                    childImageHeight = childImageSizeHeight
+                                    
+                            if childImageWidth <> 0 and childImageHeight <> 0:
+                                foundThumbnailSize = models.ResizedImage(
+                                                                                width = childImageWidth,
+                                                                                height = childImageHeight )
+
+                        lastSibling = models.ChildItem(
+                                                        id = childHash,
+                                                        path = childPath,
+                                                        title = childTitle,
+                                                        type = childType,
+                                                        description = childDescription,
+                                                        thumbnail = foundThumbnailSize
+                                                    )
+
 
             q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
@@ -219,13 +414,17 @@ def synchronize():
                                             children = children,
                                             resizes = foundImageSizes,
                                             metadata = metadata,
-                                            keywords = keywords
+                                            keywords = keywords,
+                                            firstSibling = firstSibling,
+                                            previousSibling = previousSibling,
+                                            nextSibling = nextSibling,
+                                            lastSibling = lastSibling
                                             )
                 dbItem.put()
                 sys.stdout.write('Created\n')
             else:
 
-                if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ):
+                if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
                     dbItem.path = path
                     dbItem.title = title
                     dbItem.type = type
@@ -236,6 +435,10 @@ def synchronize():
                     dbItem.resizes = foundImageSizes
                     dbItem.metadata = metadata
                     dbItem.keywords = keywords
+                    dbItem.firstSibling = firstSibling
+                    dbItem.previousSibling = previousSibling
+                    dbItem.nextSibling = nextSibling
+                    dbItem.lastSibling = lastSibling
 
                     dbItem.put()
 

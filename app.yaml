@@ -26,6 +26,10 @@ handlers:
   script: tasksync.app
   login: admin
 
+- url: /tasks/photoofday
+  script: taskphotoofday.app
+  login: admin
+
 - url: /about/
   script: about.app
   secure: optional

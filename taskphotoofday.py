@@ -15,15 +15,12 @@ from google.appengine.api import urlfetch
 
 import models
 import utils
-import sync
 
-class TaskSyncHandler(webapp2.RequestHandler):
+class TaskPhotoOfDayHandler(webapp2.RequestHandler):
     def get(self):
-
-        sync.synchronize_url();
 
         self.response.out.write("OK")
 
 app = webapp2.WSGIApplication([
-    ('/tasks/sync', TaskSyncHandler)
+    ('/tasks/photoofday', TaskPhotoOfDayHandler)
 ])
