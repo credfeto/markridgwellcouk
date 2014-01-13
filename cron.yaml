@@ -1,5 +1,5 @@
 cron:
-- description: daily sync
-  url: /tasks/sync
+- description: Change Photo Of the Day
+  url: /tasks/photoofday
   schedule: every 24 hours
 
