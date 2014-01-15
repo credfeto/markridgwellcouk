@@ -51,13 +51,13 @@
     <div class="sibling-navigation">
         <span class="sibling-lhs">
             {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
-            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">&laquo; Previous</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
-        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next &raquo;</span></a>{% endif %}
+        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
         {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
         </span>
-    </div>
+    </div
 
     {% if item %}
     {% if children %}
@@ -104,10 +104,10 @@
     <div class="sibling-navigation">
         <span class="sibling-lhs">
             {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
-            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">&laquo; Previous</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
-        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next &raquo;</span></a>{% endif %}
+        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
         {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
         </span>
     </div>
