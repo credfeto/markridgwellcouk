@@ -228,3 +228,23 @@
     float: right;
     width: 100px;
 }
+
+div.sibling-navigation {
+    width: 100%;
+    height: 25px;
+}
+
+div.sibling-navigation span.sibling-lhs {
+    float: left;
+}
+
+div.sibling-navigation span.sibling-rhs {
+    float: right;
+}
+
+div.sibling-navigation span.sibling-item {
+    padding: 5px;
+    text-align: center;    
+    color: rgb(34, 31, 206);
+    font-weight: bold;
+}

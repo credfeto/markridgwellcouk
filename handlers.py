@@ -111,7 +111,25 @@ class IndexHandler(webapp2.RequestHandler):
                     imageWidth = last.width
                     imageHeight = last.height;
 
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight }
+
+            firstSibling = None
+            previousSibling = None
+            nextSibling = None
+            lastSibling = None
+
+            if item.firstSibling <> None:
+                firstSibling = { 'title' : item.firstSibling.title, 'url' : item.firstSibling.path }
+
+            if item.previousSibling <> None:
+                previousSibling = { 'title' : item.previousSibling.title, 'url' : item.previousSibling.path }
+
+            if item.nextSibling <> None:
+                nextSibling = { 'title' : item.nextSibling.title, 'url' : item.nextSibling.path }
+
+            if item.lastSibling <> None:
+                lastSibling = { 'title' : item.lastSibling.title, 'url' : item.lastSibling.path }
+
+            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):

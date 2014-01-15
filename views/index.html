@@ -18,7 +18,7 @@
     {% if item.description %}
         <meta name="description" content="{{item.description}}" />
         <meta property="og:description" content="{{item.description}}" />
-        <meta name="twitter:description" content="photo">
+        <meta name="twitter:description" content="photo" />
 {% endif %}
 {% endif %}
 {% if thumbnailUrl %}
@@ -26,13 +26,15 @@
 {% endif %}
 {% if fullImageUrl %}
 <meta property="og:image" content="{{fullImageUrl}}" itemtype="http://schema.org/thumbnailUrl" itemprop="contentURL" />
-<meta name="twitter:card" content="photo">
-<meta name="twitter:image:src" content="{{fullImageUrl}}">
-<meta name="twitter:image:width" content="{{fullImageWidth}}">
-<meta name="twitter:image:height" content="{{fullImageHeight}}">
+<meta name="twitter:card" content="photo" />
+<meta name="twitter:image:src" content="{{fullImageUrl}}" />
+<meta name="twitter:image:width" content="{{fullImageWidth}}" />
+<meta name="twitter:image:height" content="{{fullImageHeight}}" />
 {% else %}
 <meta name="twitter:summary" content="photo">
 {% endif %}
+{% if previousSibling %}<link href="https://www.markridgwell.co.uk{{previousSibling.url}}" rel="prev" />{% endif %}
+{% if nextSibling %}<link href="https://www.markridgwell.co.uk{{nextSibling.url}}" rel="next" />{% endif %}
 {% endblock %}
 {% block body %}
 <!-- Body block -->
@@ -43,7 +45,20 @@
     {% endif %}
 </div>
 <div class="side-bar" role="navigation" data-social-share-privacy='true'></div>
+
 <div class="main-content">
+    
+    <div class="sibling-navigation">
+        <span class="sibling-lhs">
+            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">&laquo; Previous</span></a>{% endif %}
+        </span>
+        <span class="sibling-rhs">
+        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next &raquo;</span></a>{% endif %}
+        {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
+        </span>
+    </div>
+
     {% if item %}
     {% if children %}
     
@@ -68,7 +83,7 @@
                 <div class="back"></div>           
             </div>
             <span class="title">{{child.title}}</span>    
-                {% endif %}            
+            {% endif %}            
         </div>
     </a>
     {% endfor %}
@@ -85,6 +100,17 @@
     </div>
     {% endif %}
     {% endif %}
+
+    <div class="sibling-navigation">
+        <span class="sibling-lhs">
+            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">&laquo; Previous</span></a>{% endif %}
+        </span>
+        <span class="sibling-rhs">
+        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next &raquo;</span></a>{% endif %}
+        {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
+        </span>
+    </div>
 </div>
 <script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",
     "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
