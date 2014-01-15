@@ -54,10 +54,10 @@
             {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
-        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
-        {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
+            {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
+            {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
         </span>
-    </div
+    </div>
 
     {% if item %}
     {% if children %}
