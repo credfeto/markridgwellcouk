@@ -126,6 +126,7 @@ def keywords_changed( current, toupdate ):
 def synchronize():
     url = utils.site_url('/site.js')
     url = 'E:\\Gallery\\LiveImages\\site.js'
+    url = 'E:\\GalleryMetadata\\site.js'
 
     sys.stdout.write('\n\n')
     sys.stdout.write('Downloading from: ' + url + '\n');
