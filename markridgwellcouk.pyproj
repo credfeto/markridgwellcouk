@@ -45,6 +45,7 @@
     <Content Include="static\js\html5shiv.js" />
     <Content Include="static\js\jquery\jquery-1.10.2.min.js" />
     <Content Include="static\js\jquery\jquery-1.10.2.min.map" />
+    <Content Include="static\js\jquery\jquery.cookie.min.js" />
     <Content Include="static\js\respond.min.js" />
     <Content Include="static\site.css" />
     <Content Include="static\socialshareprivacy\images\box_fbshare.png" />
