@@ -17,7 +17,10 @@ import utils
 class ContactHandler(webapp2.RequestHandler):
     def get(self):
 
-        template_vals = {  }
+        track = utils.should_track( self.request.headers )
+
+        template_vals = { 'track' : track }
+
         self.response.out.write(utils.render_template("contact.html", template_vals))
 
 app = webapp2.WSGIApplication([

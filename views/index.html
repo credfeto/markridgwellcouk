@@ -44,11 +44,12 @@
     {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
 </div>
+
+
 <div class="side-bar" role="navigation" data-social-share-privacy='true'></div>
 
-<div class="main-content">
-    
-    <div class="sibling-navigation">
+<div class="sibling-navigation row">
+    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <span class="sibling-lhs">
             {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
             {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
@@ -58,58 +59,62 @@
             {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
         </span>
     </div>
-
-    {% if item %}
-    {% if children %}
+</div>
+<div class="row">    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% if item %}
+        {% if children %}
     
-    {% for child in children %}
-    <a href="{{child.path}}">
-        <div class="folderItem">            
-            {% if child.type = 'photo' %}
-            {% if child.thumbnailUrl %}
-            <div class="photo">
-                <div class="box">
-                    <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
+        {% for child in children %}
+        <a href="{{child.path}}">
+            <div class="folderItem">            
+                {% if child.type = 'photo' %}
+                {% if child.thumbnailUrl %}
+                <div class="photo">
+                    <div class="box">
+                        <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
+                    </div>
+                    <span class="title">{{child.title}}</span>
                 </div>
-                <span class="title">{{child.title}}</span>
+                {% endif %}
+                {% else %}            
+                <div class="folder">
+                    <div class="front"></div>
+                    <div class="folder-content1"></div>
+                    <div class="folder-content2"></div>
+                    <div class="folder-content3"></div>
+                    <div class="back"></div>           
+                </div>
+                <span class="title">{{child.title}}</span>    
+                {% endif %}            
             </div>
-            {% endif %}
-            {% else %}            
-            <div class="folder">
-                <div class="front"></div>
-                <div class="folder-content1"></div>
-                <div class="folder-content2"></div>
-                <div class="folder-content3"></div>
-                <div class="back"></div>           
-            </div>
-            <span class="title">{{child.title}}</span>    
+        </a>
+        {% endfor %}
+        {% endif %}
+        {% if resizecss %}
+        <div itemscope itemtype="http://schema.org/ImageObject">
+            {{resizecss|safe}}
+            <div class="image"></div>
+            <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
+                                
+            {% if item.description %}
+            <span itemprop="description">{{item.description}}</span>
             {% endif %}            
         </div>
-    </a>
-    {% endfor %}
-    {% endif %}
-    {% if resizecss %}
-    <div itemscope itemtype="http://schema.org/ImageObject">
-        {{resizecss|safe}}
-        <div class="image"></div>
-        <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
-                                
-        {% if item.description %}
-        <span itemprop="description">{{item.description}}</span>
-        {% endif %}            
+        {% endif %}
+        {% endif %}
     </div>
-    {% endif %}
-    {% endif %}
-
-    <div class="sibling-navigation">
+</div>
+<div class="sibling-navigation row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
         <span class="sibling-lhs">
             {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
             {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
-        {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
-        {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
-        </span>
+            {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
+            {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
+        </span>        
     </div>
 </div>
 <script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",

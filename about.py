@@ -18,7 +18,9 @@ import utils
 class AboutHandler(webapp2.RequestHandler):
     def get(self):
 
-        template_vals = { 'year' : date.today().year + 1 }
+        track = utils.should_track( self.request.headers )
+
+        template_vals = { 'track' : track, 'year' : date.today().year + 1 }
         self.response.out.write(utils.render_template("about.html", template_vals))
 
 app = webapp2.WSGIApplication([

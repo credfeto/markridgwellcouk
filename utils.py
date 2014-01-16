@@ -6,6 +6,20 @@ import hashlib
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 
+import sys
+
+def should_track( headers ):
+
+    track = headers.get('DNT', "0")
+
+    if track is None:
+        return True
+
+    if track == "1":
+        return False
+
+    return True
+
 def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 

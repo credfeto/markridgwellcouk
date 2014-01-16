@@ -23,6 +23,8 @@ class IndexHandler(webapp2.RequestHandler):
 
         q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
+        track = utils.should_track( self.request.headers )
+
         item = q.get()
         if item is None:
             newSearchPath = utils.convert_old_url(searchPath)
@@ -39,7 +41,7 @@ class IndexHandler(webapp2.RequestHandler):
                     self.redirect(newSearchPath, permanent=True)
             
             if shouldReportError:
-                template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users }
+                template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users }
                 self.response.out.write(utils.render_template("notfound.html", template_vals))
                 self.response.set_status(404) 
         else:
@@ -129,7 +131,7 @@ class IndexHandler(webapp2.RequestHandler):
             if item.lastSibling <> None:
                 lastSibling = { 'title' : item.lastSibling.title, 'url' : item.lastSibling.path }
 
-            template_vals = { 'path': searchPath, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling }
+            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
