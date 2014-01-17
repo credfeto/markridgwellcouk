@@ -16,13 +16,23 @@ from google.appengine.api import urlfetch
 import models
 import utils
 import sync
+import sys
 
 class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
 
-        sync.synchronize_url();
+        ##sync.synchronize_url();
 
+        self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("OK")
+
+    def post(self):
+        content = self.request.body
+                
+        itemsWritten = sync.synchronize_common(content)
+
+        self.response.headers['Content-Type'] = "text/plain"
+        self.response.out.write("Items Written: " + str(itemsWritten))
 
 app = webapp2.WSGIApplication([
     ('/tasks/sync', TaskSyncHandler)

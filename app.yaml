@@ -24,7 +24,7 @@ handlers:
 
 - url: /tasks/sync
   script: tasksync.app
-  login: admin
+  secure: always
 
 - url: /tasks/photoofday
   script: taskphotoofday.app
@@ -54,7 +54,7 @@ skip_files:
 - ^\.git/(.*/)?
 
 builtins:
-- remote_api: on
+- remote_api: off
 
 pagespeed:
   domains_to_rewrite:
