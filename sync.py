@@ -128,8 +128,8 @@ def synchronize():
     url = 'E:\\Gallery\\LiveImages\\site.js'
     url = 'E:\\GalleryMetadata\\site.js'
 
-    sys.stdout.write('\n\n')
-    sys.stdout.write('Downloading from: ' + url + '\n');
+    #sys.stdout.write('\n\n')
+    #sys.stdout.write('Downloading from: ' + url + '\n');
 
     #result = urlfetch.fetch(url);
     #if result.status_code == 200:
@@ -145,8 +145,8 @@ def synchronize_url():
     url = utils.site_url('/site.js')
     url = 'http://localhost/GalleryMetadata/site.js'
 
-    sys.stdout.write('\n\n')
-    sys.stdout.write('Downloading from: ' + url + '\n');
+    #sys.stdout.write('\n\n')
+    #sys.stdout.write('Downloading from: ' + url + '\n');
 
     result = urlfetch.fetch(url);
     if result.status_code == 200:
@@ -160,7 +160,7 @@ def synchronize_common(contents):
 
     itemsWritten = 0
 
-    sys.stdout.write("Decoded Version: " + str(version) + '\n' )
+    #sys.stdout.write("Decoded Version: " + str(version) + '\n' )
 
     for item in decoded["items"]:
         path = item["Path"]
@@ -234,8 +234,8 @@ def synchronize_common(contents):
 
         keywords = item['Keywords']
 
-        sys.stdout.write("Path: " + path + '\n' )
-        sys.stdout.write("Hash: " + hash + '\n' )
+        #sys.stdout.write("Path: " + path + '\n' )
+        #sys.stdout.write("Hash: " + hash + '\n' )
 
         foundImageSizes = None
         imageSizes = item["ImageSizes"]
@@ -244,7 +244,7 @@ def synchronize_common(contents):
             for imageSize in imageSizes:                            
                 imageSizeWidth = imageSize["Width"]
                 imageSizeHeight = imageSize["Height"]
-                sys.stdout.write(" * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) + '\n' )
+                #sys.stdout.write(" * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) + '\n' )
                 foundImageSizes.append( models.ResizedImage(
                                                                 width = imageSizeWidth,
                                                                 height = imageSizeHeight
@@ -426,7 +426,7 @@ def synchronize_common(contents):
             dbItem.put()
                 
             itemsWritten = itemsWritten + 1
-            sys.stdout.write('Created\n')
+            #sys.stdout.write('Created\n')
         else:
 
             if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
@@ -448,9 +448,9 @@ def synchronize_common(contents):
                 dbItem.put()
                     
                 itemsWritten = itemsWritten + 1
-                sys.stdout.write('Updated\n')
-            else:
-                sys.stdout.write('Unchanged\n')
-        sys.stdout.write('\n')
+                #sys.stdout.write('Updated\n')
+            #else:
+                #sys.stdout.write('Unchanged\n')
+        #sys.stdout.write('\n')
 
     return itemsWritten

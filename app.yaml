@@ -24,7 +24,7 @@ handlers:
 
 - url: /tasks/sync
   script: tasksync.app
-  secure: always
+  secure: optional
 
 - url: /tasks/photoofday
   script: taskphotoofday.app
