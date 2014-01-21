@@ -8,6 +8,13 @@
     <title>{% block title %}{% endblock %}</title>
     <meta property="og:type" content="article" />
     <meta name="title" content="{% block title1 %}{% endblock %}" />    
+    <link rel="dns-prefetch" href="//markridgwell-data.s3.amazonaws.com"/>
+    <link rel="dns-prefetch" href="//www.markridgwell.com"/>
+    <link rel="dns-prefetch" href="//www.markridgwell.co.uk"/>
+    {% if track %}
+    <link rel="dns-prefetch" href="//ssl.google-analytics.com"/>
+    <link rel="dns-prefetch" href="//www.google-analytics.com"/>
+    {% endif %}
     <meta property="og:title" content="{% block title2 %}{% endblock %}" />
     <meta property="og:site_name" content="www.markridgwell.co.uk"/> 
     <meta name="twitter:site" content="@credfeto" />
