@@ -222,11 +222,10 @@
     vertical-align: bottom;
 }
 
-.main-content {  }
-
 .side-bar {
     float: right;
     width: 100px;
+    height: 685px;
 }
 
 div.sibling-navigation {
