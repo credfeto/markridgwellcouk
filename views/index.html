@@ -10,16 +10,19 @@
 <meta name="Gallery.Path" content="{{path}}" />
 {% if item %}
     {% if item.location %}
-            <meta property="og:latitude" content="{{item.location.lat}}" />
-<meta property="og:longitude" content="{{item.location.lon}}" />
-<meta name="geo.position" content="{{item.location.lat}};{{item.location.lon}}" />
-<meta name="ICBM" content="{{item.location.lat}}, {{item.location.lon}}" />
-{% endif %}
+        <meta property="og:latitude" content="{{item.location.lat}}" />
+        <meta property="og:longitude" content="{{item.location.lon}}" />
+        <meta name="geo.position" content="{{item.location.lat}};{{item.location.lon}}" />
+        <meta name="ICBM" content="{{item.location.lat}}, {{item.location.lon}}" />
+    {% endif %}
     {% if item.description %}
         <meta name="description" content="{{item.description}}" />
         <meta property="og:description" content="{{item.description}}" />
         <meta name="twitter:description" content="photo" />
-{% endif %}
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{keywords}}" />
+    {% endif %}
 {% endif %}
 {% if thumbnailUrl %}
 <meta property="og:image" content="{{thumbnailUrl}}" itemtype="http://schema.org/ImageObject" itemprop="thumbnailUrl" />

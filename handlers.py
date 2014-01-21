@@ -131,7 +131,11 @@ class IndexHandler(webapp2.RequestHandler):
             if item.lastSibling <> None:
                 lastSibling = { 'title' : item.lastSibling.title, 'url' : item.lastSibling.path }
 
-            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling }
+            keywords = None
+            if item.keywords:
+                keywords = ",".join(item.keywords)                
+
+            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords }
             self.response.out.write(utils.render_template("index.html", template_vals))
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
