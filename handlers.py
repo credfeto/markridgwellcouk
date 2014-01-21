@@ -88,7 +88,7 @@ class IndexHandler(webapp2.RequestHandler):
                     last = resize
                     resizecss = resizecss + '\n'
                     if i < (len(item.resizes) - 1):
-                            resizecss = resizecss + '@media (min-width: ' + str(resize.width + 20) + 'px) and (max-width: ' + str(orderedResizes[i+1].width + 19) + 'px) {\n'
+                            resizecss = resizecss + '@media (min-width: ' + str(resize.width + 150) + 'px) and (max-width: ' + str(orderedResizes[i+1].width + 149) + 'px) {\n'
                     else:
                         resizecss = resizecss + '@media (min-width: ' + str(resize.width) + 'px) {\n'
                     resizecss = resizecss + '\t.image {\n'
