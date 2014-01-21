@@ -1,4 +1,8 @@
-﻿.folderItem {
+﻿body {
+    overflow-x: hidden;
+}
+
+.folderItem {
     float: left;
     margin: 10px;
     max-width: 160px;
@@ -223,9 +227,11 @@
 }
 
 .side-bar {
-    float: right;
+    position: absolute;
+    right: 1px;
     width: 100px;
     height: 685px;
+    z-index: 10;
 }
 
 div.sibling-navigation {
