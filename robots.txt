@@ -139,6 +139,16 @@ Disallow: /Image/Albums/Private/
 Disallow: /Albums/Private/
 Disallow: /SaveRating/
 
+User-agent: ShowyouBot
+Sitemap: https://www.markridgwell.co.uk/sitemap
+Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Disallow: /avatar.jpg
+Disallow: /contact
+Disallow: /Thumbnail/Albums/Private/
+Disallow: /Image/Albums/Private/
+Disallow: /Albums/Private/
+Disallow: /SaveRating/
+
 User-agent: cococ
 Sitemap: https://www.markridgwell.co.uk/sitemap
 Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
