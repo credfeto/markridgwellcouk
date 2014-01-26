@@ -30,6 +30,18 @@ handlers:
   script: taskphotoofday.app
   login: admin
 
+- url: /rss\.xml
+  script: rss.app
+  secure: optional
+
+- url: /sitemap
+  script: sitemap.app
+  secure: optional
+
+- url: /sitemap/.*
+  script: sitemap.app
+  secure: optional
+
 - url: /about/
   script: about.app
   secure: optional

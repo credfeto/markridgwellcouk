@@ -19,9 +19,10 @@
     <Compile Include="about.py" />
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
+    <Compile Include="rss.py" />
     <Compile Include="taskphotoofday.py" />
+    <Compile Include="sitemap.py" />
     <Compile Include="tasksync.py" />
-    <Compile Include="upload.py" />
     <Compile Include="utils.py" />
     <Compile Include="sync.py" />
     <Content Include="browserconfig.xml" />
@@ -254,6 +255,7 @@
     <Content Include="static\socialshareprivacy\stylesheets\modules\xing.css" />
     <Content Include="static\socialshareprivacy\stylesheets\socialshareprivacy.css" />
     <Content Include="tiny.png" />
+    <Content Include="views\rss.html" />
     <Content Include="views\contact.html" />
     <Content Include="views\about.html" />
     <Content Include="views\notfound.html" />

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Mark's Photos</title>
+        <link>http://www.markridgwell.co.uk/</link>
+        <description>Photos taken by Mark Ridgwell.</description>
+        <language>en-us</language>
+        <pubDate>{{pubdate|date:"c"}}</pubDate>
+        <lastBuildDate>{{pubdate|date:"c"}}</lastBuildDate>
+        <docs>http://www.markridgwell.co.uk/rss.xml</docs>
+        <generator>Markridgwell</generator>
+        <managingEditor>Mark Ridgwell</managingEditor>
+        <webMaster>Mark Ridgwell</webMaster>
+
+        {% for photo in items %}
+        <item>
+            <title>{{photo.title}}</title>
+            <link>https://www.markridgwell.co.uk{{photo.path}}</link>
+            {% if photo.description %}<description>{{photo.description}}</description> {% endif %}
+            <pubDate>{{photo.updated|date:"c"}}</pubDate>
+            <guid>https://www.markridgwell.co.uk{{photo.path}}</guid>
+        </item>        
+        {% endfor %}
+    </channel>
+</rss>

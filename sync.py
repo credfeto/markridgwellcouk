@@ -444,6 +444,7 @@ def synchronize_common(contents):
                 dbItem.previousSibling = previousSibling
                 dbItem.nextSibling = nextSibling
                 dbItem.lastSibling = lastSibling
+                dbItem.updated = datetime.datetime.now()
 
                 dbItem.put()
                     

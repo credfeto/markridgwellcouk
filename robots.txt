@@ -1,7 +1,7 @@
 
 User-agent: GoogleBot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -11,7 +11,7 @@ Disallow: /SaveRating/
 
 User-agent: GoogleBot-Mobile
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -21,7 +21,7 @@ Disallow: /SaveRating/
 
 User-agent: GoogleBot-Image
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -31,7 +31,7 @@ Disallow: /SaveRating/
 
 User-agent: Mediapartners-GoogleBot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -41,7 +41,7 @@ Disallow: /SaveRating/
 
 User-agent: adsbot-GoogleBot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -51,7 +51,7 @@ Disallow: /SaveRating/
 
 User-agent: msnbot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -61,7 +61,7 @@ Disallow: /SaveRating/
 
 User-agent: msnbot-media
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -71,7 +71,7 @@ Disallow: /SaveRating/
 
 User-agent: bingbot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -81,7 +81,7 @@ Disallow: /SaveRating/
 
 User-agent: bingbot-media
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -91,7 +91,7 @@ Disallow: /SaveRating/
 
 User-agent: slurp
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -101,7 +101,7 @@ Disallow: /SaveRating/
 
 User-agent: teoma
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -111,7 +111,7 @@ Disallow: /SaveRating/
 
 User-agent: Baiduspider
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -121,7 +121,7 @@ Disallow: /SaveRating/
 
 User-agent: Yandex
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -131,7 +131,7 @@ Disallow: /SaveRating/
 
 User-agent: facebookexternalhit
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -141,7 +141,7 @@ Disallow: /SaveRating/
 
 User-agent: bitlybot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -151,7 +151,7 @@ Disallow: /SaveRating/
 
 User-agent: ShowyouBot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -161,7 +161,7 @@ Disallow: /SaveRating/
 
 User-agent: cococ
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -171,7 +171,7 @@ Disallow: /SaveRating/
 
 User-agent: Exa
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -181,7 +181,7 @@ Disallow: /SaveRating/
 
 User-agent: MJ12bot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -191,7 +191,7 @@ Disallow: /SaveRating/
 
 User-agent: twitterbot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -201,7 +201,7 @@ Disallow: /SaveRating/
 
 User-agent: ia_archiver
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
@@ -211,7 +211,7 @@ Disallow: /SaveRating/
 
 User-agent: archive.org_bot
 Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/RSS/rss.xml
+Sitemap: https://www.markridgwell.co.uk/rss.xml
 Disallow: /avatar.jpg
 Disallow: /contact
 Disallow: /Thumbnail/Albums/Private/
