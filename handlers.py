@@ -212,4 +212,13 @@ app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
     ('/[\w\-]*/~[0-9]+', IndexHandler),    
     ('/~[0-9]+', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*/[\w\-]*', IndexHandler),
+    ('/[\w\-]*', IndexHandler),    
 ])

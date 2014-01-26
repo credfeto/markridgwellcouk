@@ -61,6 +61,9 @@ def convert_old_url( originalPath ):
     replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens )
     replacedEndingHyphens = replacedBadChars.rstrip('-') 
 
+    if replacedEndingHyphens.endswith( '/' ) == False:
+        replacedEndingHyphens = replacedEndingHyphens + '/'
+
     return replacedEndingHyphens
 
 def is_development():
