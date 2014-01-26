@@ -22,13 +22,12 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
-        ##need to implement this!
         count = 30
 
         try:
             recentItems = memcache.get('rss')
         except KeyError:
-            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order('-updated').fetch(count)
+            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
         memcache.set('rss', recentItems)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400

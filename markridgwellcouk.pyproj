@@ -30,6 +30,7 @@
     <Content Include="app.yaml" />
     <Content Include="favicon.png" />
     <Content Include="humans.txt" />
+    <Content Include="index.yaml" />
     <Content Include="large.jpg" />
     <Content Include="robots.txt" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
