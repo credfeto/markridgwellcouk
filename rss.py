@@ -22,32 +22,29 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
-        count = 30
+        count = 200
 
-        #try:
-        #    recentItems = memcache.get('rss-output')
-        #except KeyError:
-        
-        
-
-        recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
-        when = datetime.datetime.now()
-        builddate = when
-        if recentItems:
-            latestDate = None
-            for item in recentItems:
-                if latestDate is None:
-                    latestDate = item.updated
-                else:
-                    if latestDate < item.updated:
+        try:
+            output = memcache.get('rss-output')
+        except KeyError:
+            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
+            when = datetime.datetime.now()
+            builddate = when
+            if recentItems:
+                latestDate = None
+                for item in recentItems:
+                    if latestDate is None:
                         latestDate = item.updated
-            if latestDate <> None:
-                when = latestDate
+                    else:
+                        if latestDate < item.updated:
+                            latestDate = item.updated
+                if latestDate <> None:
+                    when = latestDate
 
-        template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
+            template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
-        output = utils.render_template("rss.html", template_vals)
-        #memcache.set('rss-output', output)
+            output = utils.render_template("rss.html", template_vals)
+        memcache.set('rss-output', output)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
         self.response.headers['Content-Type'] = 'application/rss+xml'
