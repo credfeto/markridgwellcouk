@@ -17,7 +17,8 @@ import utils
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
-        if utils.is_development == False and self.request.scheme == 'http':
+        if utils.is_development() == False and self.request.scheme == 'http':
+            self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
             self.redirect('https://www.markridgwell.co.uk' + self.request.path, permanent=True)
 
         searchPath = self.request.path.lower()
