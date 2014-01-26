@@ -23,6 +23,11 @@ def should_track( headers ):
 def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 
+def redirect_url(path):
+    if is_development() == True:
+        return path
+    return 'https://www.markridgwell.co.uk' + path
+
 def pathify_hash( hash ):
     indexes = [ 2, 4, 8, 12, 20 ];
     indexes.sort(reverse = True)

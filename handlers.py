@@ -19,7 +19,7 @@ class IndexHandler(webapp2.RequestHandler):
 
         if utils.is_development() == False and self.request.scheme == 'http':
             self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
-            self.redirect('https://www.markridgwell.co.uk' + self.request.path, permanent=True)
+            self.redirect(utils.redirect_url(self.request.path), permanent=True)
 
         searchPath = self.request.path.lower()
 
@@ -42,7 +42,7 @@ class IndexHandler(webapp2.RequestHandler):
 
                 if item <> None:
                     shouldReportError = False
-                    self.redirect(newSearchPath, permanent=True)
+                    self.redirect(utils.redirect_url(newSearchPath), permanent=True)
             
             if shouldReportError:
                 template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users }
