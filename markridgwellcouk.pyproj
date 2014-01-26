@@ -24,12 +24,15 @@
     <Compile Include="upload.py" />
     <Compile Include="utils.py" />
     <Compile Include="sync.py" />
+    <Content Include="browserconfig.xml" />
     <Content Include="cron.yaml" />
     <Content Include="app.yaml" />
     <Content Include="favicon.png" />
     <Content Include="humans.txt" />
+    <Content Include="large.jpg" />
     <Content Include="robots.txt" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
+    <Content Include="square.png" />
     <Content Include="static\bootstrap\css\bootstrap-theme.css" />
     <Content Include="static\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="static\bootstrap\css\bootstrap.css" />
@@ -250,6 +253,7 @@
     <Content Include="static\socialshareprivacy\stylesheets\modules\twitter.css" />
     <Content Include="static\socialshareprivacy\stylesheets\modules\xing.css" />
     <Content Include="static\socialshareprivacy\stylesheets\socialshareprivacy.css" />
+    <Content Include="tiny.png" />
     <Content Include="views\contact.html" />
     <Content Include="views\about.html" />
     <Content Include="views\notfound.html" />
