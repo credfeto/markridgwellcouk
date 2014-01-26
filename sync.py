@@ -12,9 +12,13 @@ from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.api import urlfetch 
+from google.appengine.api import memcache
 
 import models
 import utils
+
+def invalidateOutputCaches():
+    memcache.delete('rss-output')
 
 def children_changed( current, toupdate ):
 
@@ -453,5 +457,7 @@ def synchronize_common(contents):
             #else:
                 #sys.stdout.write('Unchanged\n')
         #sys.stdout.write('\n')
+        if itemsWritten > 0:
+            invalidateOutputCaches()
 
     return itemsWritten
