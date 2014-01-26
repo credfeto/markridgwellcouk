@@ -24,9 +24,13 @@ class RssHandler(webapp2.RequestHandler):
 
         count = 200
 
+        output = ''
         try:
             output = memcache.get('rss-output')
         except KeyError:
+            output = ''
+
+        if output is None or output == '':
             recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
             when = datetime.datetime.now()
             builddate = when
@@ -44,6 +48,7 @@ class RssHandler(webapp2.RequestHandler):
             template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
             output = utils.render_template("rss.html", template_vals)
+
         memcache.set('rss-output', output)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
