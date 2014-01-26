@@ -33,6 +33,10 @@ handlers:
 - url: /rss\.xml
   script: rss.app
   secure: optional
+- url: /rss/.*
+  script: rss.app
+  secure: optional
+
 
 - url: /sitemap
   script: sitemap.app

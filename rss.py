@@ -24,16 +24,15 @@ class RssHandler(webapp2.RequestHandler):
 
         count = 30
 
-        try:
-            recentItems = memcache.get('rss')
-        except KeyError:
-            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
-        memcache.set('rss', recentItems)
+        #try:
+        #    recentItems = memcache.get('rss-output')
+        #except KeyError:
+        
+        
 
-        self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
-        self.response.headers['Content-Type'] = 'application/rss+xml'
-
+        recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
         when = datetime.datetime.now()
+        builddate = when
         if recentItems:
             latestDate = None
             for item in recentItems:
@@ -45,10 +44,20 @@ class RssHandler(webapp2.RequestHandler):
             if latestDate <> None:
                 when = latestDate
 
-        template_vals = {'items' : recentItems, 'pubdate' : when }
-        self.response.out.write(utils.render_template("rss.html", template_vals))
-        #self.response.set_status(404) 
+        template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
+
+        output = utils.render_template("rss.html", template_vals)
+        #memcache.set('rss-output', output)
+
+        self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
+        self.response.headers['Content-Type'] = 'application/rss+xml'
+        self.response.out.write(output)
+
+class RssRedirectHandler(webapp2.RequestHandler):
+    def get(self):
+        self.redirect('https://www.markridgwell.co.uk/rss.xml', permanent=True)
 
 app = webapp2.WSGIApplication([
-    ('/rss\.xml', RssHandler)
+    ('/rss\.xml', RssHandler),
+    ('/rss/.*\.xml', RssRedirectHandler)
 ])
