@@ -67,9 +67,9 @@ def convert_old_url( originalPath ):
     return replacedEndingHyphens
 
 def is_development():
-    appId = os.environ['APPENGINE_RUNTIME']
+    env = os.environ['SERVER_SOFTWARE']
 
-    return appId == 'dev~markridgwellcouk'
+    return env.startswith('Development/')
 
 def generate_url_hash(searchPath):
     return hashlib.sha512(searchPath).hexdigest()

@@ -17,6 +17,9 @@ import utils
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
+        if utils.is_development == False and self.request.scheme == 'http':
+            self.redirect('https://www.markridgwell.co.uk' + self.request.path, permanent=True)
+
         searchPath = self.request.path.lower()
 
         hash = utils.generate_url_hash(searchPath)
@@ -168,6 +171,8 @@ class IndexHandler(webapp2.RequestHandler):
 
             template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords }
             self.response.out.write(utils.render_template("index.html", template_vals))
+            self.response.headers['Strict-Transport-Security'] = 'max-age=31536000'
+            self.response.headers['P3P'] = 'max-age=31536000'
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
     def get(self):
