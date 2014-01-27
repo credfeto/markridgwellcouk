@@ -42,7 +42,8 @@ class RssHandler(webapp2.RequestHandler):
 
         output = utils.render_template("rss.html", template_vals)
 
-        self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
+        self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+        self.response.headers['Pragma'] = 'public'
         self.response.headers['Content-Type'] = 'application/rss+xml'
         self.response.out.write(output)
 

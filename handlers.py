@@ -18,7 +18,8 @@ class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
         if utils.is_development() == False and self.request.scheme == 'http':
-            self.response.headers['Cache-Control'] = 'public,max-age=%s' % 86400
+            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+            self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path), permanent=True)
 
         searchPath = self.request.path.lower()
@@ -42,6 +43,8 @@ class IndexHandler(webapp2.RequestHandler):
 
                 if item <> None:
                     shouldReportError = False
+                    self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+                    self.response.headers['Pragma'] = 'public'
                     self.redirect(utils.redirect_url(newSearchPath), permanent=True)
             
             if shouldReportError:
@@ -174,6 +177,8 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.out.write(utils.render_template("index.html", template_vals))
             self.response.headers['Strict-Transport-Security'] = 'max-age=31536000'
             self.response.headers['P3P'] = 'max-age=31536000'
+            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+            self.response.headers['Pragma'] = 'public'
 
 class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
     def get(self):
