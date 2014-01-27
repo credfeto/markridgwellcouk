@@ -263,6 +263,7 @@
     <Content Include="views\base.html" />
     <Content Include="views\index.html" />
     <Content Include="favicon.ico" />
+    <Content Include="wide.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="static\" />

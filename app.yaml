@@ -9,18 +9,57 @@ handlers:
 - url: /static/(.*)
   static_files: static/\1
   upload: static/(.*)
+  expiration: "100d"
 
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+  expiration: "100d"
+
+- url: /favicon\.png
+  static_files: favicon.png
+  upload: favicon\.png
+  expiration: "100d"
 
 - url: /mywot0240ebf0c66812002ba5\.html
   static_files: mywot0240ebf0c66812002ba5.html
   upload: mywot0240ebf0c66812002ba5\.html
+  expiration: "100d"
 
 - url: /robots\.txt
   static_files: robots.txt
   upload: robots\.txt
+  expiration: "100d"
+
+- url: /humans\.txt
+  static_files: humans.txt
+  upload: humans\.txt
+  expiration: "100d"
+
+- url: /large\.jpg
+  static_files: large.jpg
+  upload: large\.jpg
+  expiration: "100d"
+
+- url: /square\.jpg
+  static_files: square.jpg
+  upload: square\.jpg
+  expiration: "100d"
+
+- url: /tiny\.jpg
+  static_files: tiny.jpg
+  upload: tiny\.jpg
+  expiration: "100d"
+
+- url: /wide\.jpg
+  static_files: wide.jpg
+  upload: wide\.jpg
+  expiration: "100d"
+
+- url: /browserconfig\.xml
+  static_files: browserconfig.xml
+  upload: browserconfig\.xml
+  expiration: "100d"
 
 - url: /tasks/sync
   script: tasksync.app
@@ -33,6 +72,7 @@ handlers:
 - url: /rss\.xml
   script: rss.app
   secure: optional
+
 - url: /rss/.*
   script: rss.app
   secure: optional
