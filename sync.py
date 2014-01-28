@@ -457,7 +457,20 @@ def synchronize_common(contents):
             #else:
                 #sys.stdout.write('Unchanged\n')
         #sys.stdout.write('\n')
-        if itemsWritten > 0:
-            invalidateOutputCaches()
+    
+    for deletedItem in decoded["deletedItems"]:
+        #sys.stdout.write('Item: ' + deletedItem + '\n')
+        hash = utils.generate_url_hash(deletedItem)
+
+        q = models.GalleryItem.query(models.GalleryItem.id == hash)
+
+        dbItem = q.get()
+        if dbItem <> None:
+            itemsWritten = itemsWritten + 1
+            dbItem.key.delete()
+            #sys.stdout.write('Deleted\n')
+
+    if itemsWritten > 0:
+        invalidateOutputCaches()
 
     return itemsWritten
