@@ -53,5 +53,6 @@ class RssRedirectHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/rss\.xml', RssHandler),
-    ('/rss/.*\.xml', RssRedirectHandler)
+    ('/rss/.*\.xml', RssRedirectHandler),
+    ('/RSS/.*\.xml', RssRedirectHandler)
 ])
