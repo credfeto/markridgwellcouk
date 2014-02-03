@@ -17,7 +17,7 @@ import utils
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
-        if utils.is_development() == False and self.request.scheme == 'http':
+        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(self.request.headers.get('User-Agent', None) ):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path), permanent=True)

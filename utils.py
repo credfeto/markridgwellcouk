@@ -76,6 +76,30 @@ def is_development():
 
     return env.startswith('Development/')
 
+def device_supports_ssl_tni( userAgent ):
+    
+    agent = userAgent.lower()
+
+    if 'chrome' in agent:
+        return True
+
+    if 'firefox' in agent:
+        return true;
+
+    if 'opera' in agent:
+        return true;
+
+    if 'googlebot' in agent:
+        return true;
+
+    if 'msnbot' in agent:
+        return true;
+
+    if 'bingbot' in agent:
+        return true;
+
+    return False
+
 def generate_url_hash(searchPath):
     return hashlib.sha512(searchPath).hexdigest()
 
