@@ -84,19 +84,19 @@ def device_supports_ssl_tni( userAgent ):
         return True
 
     if 'firefox' in agent:
-        return true;
+        return True
 
     if 'opera' in agent:
-        return true;
+        return True
 
     if 'googlebot' in agent:
-        return true;
+        return True
 
     if 'msnbot' in agent:
-        return true;
+        return True
 
     if 'bingbot' in agent:
-        return true;
+        return True
 
     return False
 
