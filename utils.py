@@ -28,8 +28,8 @@ def redirect_url(path, query_string):
         path = 'https://www.markridgwell.co.uk' + path
     if path.endswith( '/' ) == False:
         path = path + '/'
-    if query_string and selfquery_string.length > 0:
-        path = path + '?' + self.request.query_string
+    if query_string and query_string.length > 0:
+        path = path + '?' + query_string
 
     return path
 
