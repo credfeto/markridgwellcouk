@@ -20,7 +20,7 @@ class IndexHandler(webapp2.RequestHandler):
         if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(self.request.headers.get('User-Agent', None) ):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
-            self.redirect(utils.redirect_url(self.request.path), permanent=True)
+            self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
         searchPath = self.request.path.lower()
 
@@ -45,7 +45,7 @@ class IndexHandler(webapp2.RequestHandler):
                     shouldReportError = False
                     self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
                     self.response.headers['Pragma'] = 'public'
-                    self.redirect(utils.redirect_url(newSearchPath), permanent=True)
+                    self.redirect(utils.redirect_url(newSearchPath, self.request.query_string), permanent=True)
             
             if shouldReportError:
                 template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users }

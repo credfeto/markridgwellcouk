@@ -10,9 +10,36 @@
 {% block body %}
 <!-- Body block -->
 <div class="jumbotron">
-    <h1>{{path}}</h1>
-    <p>You are here: {{path}}</p>
-    <p>Hash: {{hash}}</p>
-    <p>Error: Item not found!</p>
+    <h1>Not found</h1>
+    <p>Sorry, could not find the page you were looking for.</p>
+</div>
+
+<div class="row">
+    <div class ="container">
+        <script>
+            (function () {
+                var cx = '005166718619035407522:WMX-138509273';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//www.google.com/cse/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+            })();
+        </script>
+        <gcse:search></gcse:search>
+    </div>
+
+    {% if track %}
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+        style="display: inline-block; width: 970px; height: 90px"
+        data-ad-client="ca-pub-3898732689274219"
+        data-ad-slot="6573739813"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    {% endif %}
 </div>
 {% endblock %}

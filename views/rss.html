@@ -2,7 +2,7 @@
 <rss version="2.0">
     <channel>
         <title>Mark's Photos</title>
-        <link>http://www.markridgwell.co.uk/</link>
+        <link>http://www.markridgwell.co.uk/?utm_content=rss&utm_source=mtr&utm_medium=rss&utm_campaign=rss</link>
         <description>Photos taken by Mark Ridgwell.</description>
         <language>en-us</language>
         <pubDate>{{pubdate|date:"c"}}</pubDate>
@@ -13,7 +13,7 @@
         <webMaster>Mark Ridgwell</webMaster>
         {% for photo in items %}<item>
             <title>{{photo.title}}</title>
-            <link>http://www.markridgwell.co.uk{{photo.path}}</link>{% if photo.description %}
+            <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&utm_source=mtr&utm_medium=rss&utm_campaign=rss</link>{% if photo.description %}
             <description>{{photo.description}}</description>{% endif %}
             <pubDate>{{photo.updated|date:"c"}}</pubDate>
             <guid>https://www.markridgwell.co.uk{{photo.path}}</guid>
