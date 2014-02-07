@@ -22,25 +22,32 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
-        count = 200
+        output = ''
+        try:
+            output = memcache.get('rss-output')
+        except KeyError:
+            output = ''
 
-        recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
-        when = datetime.datetime.now()
-        builddate = when
-        if recentItems:
-            latestDate = None
-            for item in recentItems:
-                if latestDate is None:
-                    latestDate = item.updated
-                else:
-                    if latestDate < item.updated:
+        if output is None or len(output) == 0:
+            count = 200
+
+            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
+            when = datetime.datetime.now()
+            builddate = when
+            if recentItems:
+                latestDate = None
+                for item in recentItems:
+                    if latestDate is None:
                         latestDate = item.updated
-            if latestDate <> None:
-                when = latestDate
+                    else:
+                        if latestDate < item.updated:
+                            latestDate = item.updated
+                if latestDate <> None:
+                    when = latestDate
 
-        template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
+            template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
-        output = utils.render_template("rss.html", template_vals)
+            output = utils.render_template("rss.html", template_vals)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
