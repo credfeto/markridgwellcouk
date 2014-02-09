@@ -22,11 +22,14 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
+        expiry_seconds = 60 * 60 * 12
+        memcachedKey = 'rss-output'
         output = ''
-        #try:
-        #    output = memcache.get('rss-output')
-        #except KeyError:
-        #    output = ''
+        
+        try:
+            output = memcache.get(memcachedKey)
+        except KeyError:
+            output = ''
 
         if output is None or len(output) == 0:
             count = 200
@@ -48,8 +51,8 @@ class RssHandler(webapp2.RequestHandler):
             template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
             output = utils.render_template("rss.html", template_vals)
-            #expiry_seconds = 60 * 60 * 12
-            #memcache.set('rss-output', output, time = expiry_seconds)
+            
+            memcache.set(memcachedKey, output, expiry_seconds)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
