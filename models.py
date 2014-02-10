@@ -3,6 +3,7 @@ import webapp2
 
 from google.appengine.api import mail
 from google.appengine.api import urlfetch
+from google.appengine.ext import db
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 
@@ -14,6 +15,14 @@ from google.appengine.ext import blobstore
 
 # Queries
 # https://developers.google.com/appengine/docs/python/ndb/queries
+
+class UserPrefs(db.Model):
+    userid = db.StringProperty()
+    lastEmailAddress = db.EmailProperty()
+    lastNickname = db.StringProperty()
+    banned = db.BooleanProperty()
+    firstLoggedIn = db.DateTimeProperty()
+    lastAccessed = db.DateTimeProperty()
 
 class ResizedImage(ndb.Model):
     width = ndb.IntegerProperty(required=True)

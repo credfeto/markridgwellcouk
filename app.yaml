@@ -98,7 +98,7 @@ handlers:
   secure: optional
 
 - url: /albums/private/.*
-  script: handlers.app
+  script: privatehandlers.app
   login: required
   secure: always
 
