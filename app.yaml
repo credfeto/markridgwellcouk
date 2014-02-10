@@ -106,6 +106,12 @@ handlers:
   script: handlers.app
   secure: optional
 
+- url: /.*
+  script: notfound.app
+  secure: optional
+
+
+
 skip_files:
 - ^(.*/)?\.pyproj
 - ^(.*/)?\.sln

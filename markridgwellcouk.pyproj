@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="contact.py" />
     <Compile Include="about.py" />
+    <Compile Include="notfound.py" />
     <Compile Include="privatehandlers.py" />
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />

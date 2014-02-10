@@ -180,29 +180,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
 
-class LegacyUrlNotFoundNotFoundHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.set_status(404) 
-
 app = webapp2.WSGIApplication([
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/thumbnail/[\w\-]*/thumbnail\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
-    ('/image/[\w\-]*/[0-9]+_image\.jpg', LegacyUrlNotFoundNotFoundHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
