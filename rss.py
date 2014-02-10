@@ -13,6 +13,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.api import urlfetch 
 from google.appengine.api import memcache
+from google.appengine.api import capabilities
 
 import models
 import utils
@@ -26,10 +27,13 @@ class RssHandler(webapp2.RequestHandler):
         memcachedKey = 'rss-output'
         output = ''
         
-        try:
-            output = memcache.get(memcachedKey)
-        except KeyError:
-            output = ''
+        memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
+
+        if memcacheEnabled:
+            try:
+                output = memcache.get(memcachedKey)
+            except KeyError:
+                output = ''
 
         if output is None or len(output) == 0:
             count = 200
@@ -51,8 +55,9 @@ class RssHandler(webapp2.RequestHandler):
             template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
             output = utils.render_template("rss.html", template_vals)
-            
-            memcache.set(memcachedKey, output, expiry_seconds)
+        
+            if memcacheEnabled:    
+                memcache.set(memcachedKey, output, expiry_seconds)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
