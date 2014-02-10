@@ -12,6 +12,7 @@ handlers:
   expiration: "100d"
 
 - url: /favicon\.ico
+  mime_type: image/vnd.microsoft.icon
   static_files: favicon.ico
   upload: favicon\.ico
   expiration: "100d"
@@ -34,6 +35,11 @@ handlers:
 - url: /humans\.txt
   static_files: humans.txt
   upload: humans\.txt
+  expiration: "100d"
+
+- url: /crossdomain\.xml
+  static_files: crossdomain.xml
+  upload: crossdomain\.xml
   expiration: "100d"
 
 - url: /large\.jpg

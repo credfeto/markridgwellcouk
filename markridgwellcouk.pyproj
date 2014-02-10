@@ -30,6 +30,7 @@
     <Content Include="browserconfig.xml" />
     <Content Include="cron.yaml" />
     <Content Include="app.yaml" />
+    <Content Include="crossdomain.xml" />
     <Content Include="favicon.png" />
     <Content Include="humans.txt" />
     <Content Include="index.yaml" />
