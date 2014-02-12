@@ -266,6 +266,7 @@
     <Content Include="views\base.html" />
     <Content Include="views\index.html" />
     <Content Include="favicon.ico" />
+    <Content Include="views\sitemapindex.html" />
     <Content Include="wide.jpg" />
   </ItemGroup>
   <ItemGroup>
