@@ -40,9 +40,7 @@ class SiteMapIndexHandler(webapp2.RequestHandler):
             when = datetime.datetime.now()
 
             items = []
-
-            print 'here1'
-
+            
             items.append( { 'index' : '0', 'lastMod' : when } )
             items.append( { 'index' : '1', 'lastMod' : when } )
             items.append( { 'index' : '2', 'lastMod' : when } )
@@ -73,15 +71,82 @@ class SiteMapIndexHandler(webapp2.RequestHandler):
         self.response.out.write(output)
 
 
-class SiteMapYearHandler(webapp2.RequestHandler):
+class SiteMapSectionHandler(webapp2.RequestHandler):
     def get(self):
 
-        ##need to implement this!
+        print self.request.path
+        key = self.request.path[-1:].lower()
+        print key
 
-        self.response.set_status(404) 
+        memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
+
+        expiry_seconds = 60 * 60 * 12
+        memcachedKey = 'sitemap-section-' + key + '-output'
+        output = ''
+
+        if memcacheEnabled:
+            try:
+                output = memcache.get(memcachedKey)
+            except KeyError:
+                output = ''
+
+        if output is None or len(output) == 0:
+            
+            when = datetime.datetime.now()
+
+            if key == '0':
+                next = '1'
+            if key == '1':
+                next = '2'
+            if key == '2':
+                next = '3'
+            if key == '3':
+                next = '4'
+            if key == '4':
+                next = '5'
+            if key == '5':
+                next = '6'
+            if key == '6':
+                next = '7'
+            if key == '7':
+                next = '8'
+            if key == '8':
+                next = '9'
+            if key == '9':
+                next = 'a'
+            if key == 'a':
+                next = 'b'
+            if key == 'b':
+                next = 'c'
+            if key == 'c':
+                next = 'd'
+            if key == 'd':
+                next = 'e'
+            if key == 'e':
+                next = 'f'
+            if key == 'f':
+                next = 'g'
+
+            q = models.GalleryItem.query(models.GalleryItem.id >= key and models.GalleryItem.id < '1')
+
+            items = []
+            for item in q:
+                items.append( { 'path' : item.path } )
+
+            template_vals = {'items' : items, 'host' : self.request.host_url }
+
+            output = utils.render_template("sitemapsection.html", template_vals)
+        
+            #if memcacheEnabled:    
+            #    memcache.set(memcachedKey, output, expiry_seconds)
+
+        #self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+        self.response.headers['Pragma'] = 'public'
+        self.response.headers['Content-Type'] = 'text/xml'
+        self.response.out.write(output)
 
 
 app = webapp2.WSGIApplication([
-    ('/sitemap/[0-9]+', SiteMapYearHandler),
+    ('/sitemap/[a-zA-Z0-9]', SiteMapSectionHandler),
     ('/sitemap', SiteMapIndexHandler)
 ])
