@@ -74,9 +74,7 @@ class SiteMapIndexHandler(webapp2.RequestHandler):
 class SiteMapSectionHandler(webapp2.RequestHandler):
     def get(self):
 
-        print self.request.path
         key = self.request.path[-1:].lower()
-        print key
 
         memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
 
@@ -104,10 +102,10 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
             output = utils.render_template("sitemapsection.html", template_vals)
         
-            #if memcacheEnabled:    
-            #    memcache.set(memcachedKey, output, expiry_seconds)
+            if memcacheEnabled:    
+                memcache.set(memcachedKey, output, expiry_seconds)
 
-        #self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+        self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
         self.response.headers['Content-Type'] = 'text/xml'
         self.response.out.write(output)
