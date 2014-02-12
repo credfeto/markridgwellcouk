@@ -29,11 +29,11 @@ class RssHandler(webapp2.RequestHandler):
         
         memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
 
-        #if memcacheEnabled:
-        #    try:
-        #        output = memcache.get(memcachedKey)
-        #    except KeyError:
-        #        output = ''
+        if memcacheEnabled:
+            try:
+                output = memcache.get(memcachedKey)
+            except KeyError:
+                output = ''
 
         if output is None or len(output) == 0:
             count = 200
@@ -56,8 +56,8 @@ class RssHandler(webapp2.RequestHandler):
 
             output = utils.render_template("rss.html", template_vals)
         
-            #if memcacheEnabled:    
-            #    memcache.set(memcachedKey, output, expiry_seconds)
+            if memcacheEnabled:    
+                memcache.set(memcachedKey, output, expiry_seconds)
 
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
