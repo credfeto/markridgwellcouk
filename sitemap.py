@@ -34,6 +34,6 @@ class SiteMapYearHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/sitemap/[0-9]+', SiteMapYearHandler)
+    ('/sitemap/[0-9]+', SiteMapYearHandler),
     ('/sitemap', SiteMapIndexHandler)
 ])

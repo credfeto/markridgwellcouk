@@ -91,7 +91,7 @@ handlers:
   script: sitemap.app
   secure: optional
 
-- url: /sitemap/.*
+- url: /sitemap/[0-9]+
   script: sitemap.app
   secure: optional
 
