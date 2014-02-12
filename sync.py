@@ -172,8 +172,10 @@ def synchronize_common(contents):
         type = item["Type"]
         description = item["Description"]
         rating = None #item["Rating"]
+        
 
         hash = utils.generate_url_hash(path)
+        indexSection = hash[:1]
 
         location = None
         loc = item["Location"]
@@ -182,7 +184,6 @@ def synchronize_common(contents):
                 lat = loc["Latitude"]
                 lng = loc["Latitude"]
                 location = ndb.GeoPt( lat, lng )
-                
 
         children = None
         childItems = item["Children"]
@@ -413,6 +414,7 @@ def synchronize_common(contents):
             dbItem = models.GalleryItem(
                                         id = hash,
                                         path = path,
+                                        indexSection = indexSection,
                                         title = title,
                                         type = type,
                                         description = description,
@@ -433,8 +435,9 @@ def synchronize_common(contents):
             #sys.stdout.write('Created\n')
         else:
 
-            if path <> dbItem.path or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
+            if path <> dbItem.path or indexSection <> dbItem.indexSection or  dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
                 dbItem.path = path
+                dbItem.indexSection = indexSection
                 dbItem.title = title
                 dbItem.type = type
                 dbItem.description = description

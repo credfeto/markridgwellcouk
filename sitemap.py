@@ -94,40 +94,7 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
             
             when = datetime.datetime.now()
 
-            if key == '0':
-                next = '1'
-            if key == '1':
-                next = '2'
-            if key == '2':
-                next = '3'
-            if key == '3':
-                next = '4'
-            if key == '4':
-                next = '5'
-            if key == '5':
-                next = '6'
-            if key == '6':
-                next = '7'
-            if key == '7':
-                next = '8'
-            if key == '8':
-                next = '9'
-            if key == '9':
-                next = 'a'
-            if key == 'a':
-                next = 'b'
-            if key == 'b':
-                next = 'c'
-            if key == 'c':
-                next = 'd'
-            if key == 'd':
-                next = 'e'
-            if key == 'e':
-                next = 'f'
-            if key == 'f':
-                next = 'g'
-
-            q = models.GalleryItem.query(models.GalleryItem.id >= key and models.GalleryItem.id < '1')
+            q = models.GalleryItem.query(models.GalleryItem.indexSection == key)
 
             items = []
             for item in q:

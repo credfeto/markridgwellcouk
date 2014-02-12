@@ -43,6 +43,7 @@ class MetadataProperty(ndb.Model):
 class GalleryItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
+    indexSection = ndb.StringProperty(required=False)
     title = ndb.StringProperty(required=True)
     type = ndb.StringProperty(required=True)
     description = ndb.StringProperty(required=True)
