@@ -13,7 +13,7 @@
             <title>{{photo.title}}</title>
             <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{% if photo.description %}
             <description>{{photo.description}}</description>{% endif %}
-            <pubDate>{{photo.updated|date:"c"}}</pubDate>
+            <pubDate>{{photo.updated|date:"D, d M Y H:i:s O"}}}</pubDate>
             <guid>https://www.markridgwell.co.uk{{photo.path}}</guid>
         </item>{% endfor %}
     </channel>
