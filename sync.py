@@ -13,12 +13,34 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.api import urlfetch 
 from google.appengine.api import memcache
+from google.appengine.api import capabilities
 
 import models
 import utils
 
 def invalidateOutputCaches():
-    memcache.delete('rss-output')
+
+    memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
+
+    if memcacheEnabled:
+        memcache.delete('rss-output')
+        memcache.delete('sitemap-index-output')
+        memcache.delete('sitemap-section-0-output')
+        memcache.delete('sitemap-section-1-output')
+        memcache.delete('sitemap-section-2-output')
+        memcache.delete('sitemap-section-3-output')
+        memcache.delete('sitemap-section-4-output')
+        memcache.delete('sitemap-section-5-output')
+        memcache.delete('sitemap-section-6-output')
+        memcache.delete('sitemap-section-7-output')
+        memcache.delete('sitemap-section-8-output')
+        memcache.delete('sitemap-section-9-output')
+        memcache.delete('sitemap-section-a-output')
+        memcache.delete('sitemap-section-b-output')
+        memcache.delete('sitemap-section-c-output')
+        memcache.delete('sitemap-section-d-output')
+        memcache.delete('sitemap-section-e-output')
+        memcache.delete('sitemap-section-f-output')
 
 def children_changed( current, toupdate ):
 
