@@ -5,12 +5,10 @@
         <link>http://www.markridgwell.co.uk/?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>
         <description>Photos taken by Mark Ridgwell.</description>
         <language>en-us</language>
-        <pubDate>{{pubdate|date:"c"}}</pubDate>
-        <lastBuildDate>{{builddate|date:"c"}}</lastBuildDate>
+        <pubDate>{{pubdate|date:"D, d M Y H:i:s O"}}</pubDate>
+        <lastBuildDate>{{builddate|date:"D, d M Y H:i:s O"}}</lastBuildDate>
         <docs>http://www.markridgwell.co.uk/rss.xml</docs>
         <generator>Markridgwell</generator>
-        <managingEditor>Mark Ridgwell</managingEditor>
-        <webMaster>Mark Ridgwell</webMaster>
         {% for photo in items %}<item>
             <title>{{photo.title}}</title>
             <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{% if photo.description %}
