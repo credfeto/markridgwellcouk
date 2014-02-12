@@ -13,7 +13,7 @@
         <webMaster>Mark Ridgwell</webMaster>
         {% for photo in items %}<item>
             <title>{{photo.title}}</title>
-            <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&utm_source=mtr&utm_medium=rss&utm_campaign=rss</link>{% if photo.description %}
+            <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{% if photo.description %}
             <description>{{photo.description}}</description>{% endif %}
             <pubDate>{{photo.updated|date:"c"}}</pubDate>
             <guid>https://www.markridgwell.co.uk{{photo.path}}</guid>
