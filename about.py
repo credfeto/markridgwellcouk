@@ -20,7 +20,7 @@ class AboutHandler(webapp2.RequestHandler):
 
         track = utils.should_track( self.request.headers )
 
-        template_vals = { 'track' : track, 'year' : date.today().year }
+        template_vals = { 'track' : track, 'year' : date.today().year, 'showShare' : False }
         self.response.out.write(utils.render_template("about.html", template_vals))
 
 app = webapp2.WSGIApplication([

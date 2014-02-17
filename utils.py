@@ -20,6 +20,30 @@ def should_track( headers ):
 
     return True
 
+def should_share( userAgent ):
+
+    if userAgent is None:
+        return True
+
+    agent = userAgent.lower()
+
+    if 'googlebot' in agent:
+        return False
+
+    if 'msnbot' in agent:
+        return False
+
+    if 'bingbot' in agent:
+        return False
+
+    if 'slurp' in agent:
+        return False
+
+    if 'facebookexternalhit' in agent:
+        return False
+
+    return True
+
 def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 
