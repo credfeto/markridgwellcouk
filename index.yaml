@@ -12,6 +12,11 @@ indexes:
 
 - kind: GalleryItem
   properties:
+  - name: indexSection
+  - name: path
+
+- kind: GalleryItem
+  properties:
   - name: type
   - name: updated
     direction: desc
