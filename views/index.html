@@ -97,7 +97,7 @@
         {% if resizecss %}
         <div itemscope itemtype="http://schema.org/ImageObject">
             {{resizecss|safe}}
-            <div class="image"></div>
+            <div class="image">&nbsp;<a itemprop="image" href="{{fullImageUrl}}">{{title}}</a></div>            
             <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
                                 
             {% if item.description %}
