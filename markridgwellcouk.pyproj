@@ -21,6 +21,7 @@
     <Compile Include="privatehandlers.py" />
     <Compile Include="handlers.py" />
     <Compile Include="models.py" />
+    <Compile Include="pubsubhubub.py" />
     <Compile Include="rss.py" />
     <Compile Include="taskphotoofday.py" />
     <Compile Include="sitemap.py" />
@@ -35,6 +36,7 @@
     <Content Include="humans.txt" />
     <Content Include="index.yaml" />
     <Content Include="large.jpg" />
+    <Content Include="queue.yaml" />
     <Content Include="robots.txt" />
     <Content Include="mywot0240ebf0c66812002ba5.html" />
     <Content Include="square.png" />

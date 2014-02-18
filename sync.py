@@ -17,6 +17,7 @@ from google.appengine.api import capabilities
 
 import models
 import utils
+import pubsubhubub
 
 def invalidateOutputCaches():
 
@@ -497,5 +498,7 @@ def synchronize_common(contents):
 
     if itemsWritten > 0:
         invalidateOutputCaches()
+
+    pubsubhubub.queueupdate()
 
     return itemsWritten

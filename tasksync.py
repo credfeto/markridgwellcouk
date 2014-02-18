@@ -17,11 +17,10 @@ import models
 import utils
 import sync
 import sys
+import pubsubhubub
 
 class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
-
-        ##sync.synchronize_url();
 
         self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("OK")
@@ -34,6 +33,15 @@ class TaskSyncHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("Items Written: " + str(itemsWritten))
 
+class TaskPublishHandler(webapp2.RequestHandler):
+    def get(self):
+
+        pubsubhubub.update( 'http://markridgwell.superfeedr.com', 'http://www.markridgwell.co.uk/rss.xml')
+
+        self.response.headers['Content-Type'] = "text/plain"
+        self.response.out.write("OK")
+
 app = webapp2.WSGIApplication([
+    ('/tasks/publish', TaskPublishHandler),
     ('/tasks/sync', TaskSyncHandler)
 ])
