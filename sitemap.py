@@ -92,7 +92,7 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
             
             when = datetime.datetime.now()
 
-            q = models.GalleryItem.query(models.GalleryItem.indexSection == key).order(models.GalleryItem.path)
+            q = models.GalleryItem.query(models.GalleryItem.indexSection == key, projection=["path"]).order(models.GalleryItem.path)
 
             items = []
             for item in q:
