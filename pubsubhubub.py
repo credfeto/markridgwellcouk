@@ -11,7 +11,7 @@ def queue_update():
         q = taskqueue.Queue('default')
 
         if not taskqueue.Task(name='publish'):
-            q.add(url='tasks/publish', name='publish')
+            q.add( url = 'tasks/publish', name = 'publish', countdown = 300 )
 
 def update(hub, feed):
 
