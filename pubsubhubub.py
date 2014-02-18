@@ -1,17 +1,19 @@
 import urllib
 import urllib2
+import utils
 from google.appengine.api import urlfetch 
 from google.appengine.api import taskqueue
 
 def queue_update():
 
-    taskqueueEnabled = capabilities.CapabilitySet('taskqueue').is_enabled()
-    if taskqueueEnabled:
+    if not utils.is_development():
+        taskqueueEnabled = capabilities.CapabilitySet('taskqueue').is_enabled()
+        if taskqueueEnabled:
 
-        q = taskqueue.Queue('default')
+            q = taskqueue.Queue('default')
 
-        if not taskqueue.Task(name='publish'):
-            q.add( url = 'tasks/publish', name = 'publish', countdown = 300 )
+            if not taskqueue.Task(name='publish'):
+                q.add( url = 'tasks/publish', name = 'publish', countdown = 300 )
 
 def update(hub, feed):
 
