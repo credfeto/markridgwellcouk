@@ -120,8 +120,6 @@ handlers:
   script: notfound.app
   secure: optional
 
-
-
 skip_files:
 - ^(.*/)?\.pyproj
 - ^(.*/)?\.sln
