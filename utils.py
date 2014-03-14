@@ -149,3 +149,81 @@ def render_template(template_name, template_vals=None):
   })
   template_path = os.path.join("views", template_name)
   return template.render(template_path, template_vals)
+
+def find_double_size( orderedResizes, width ):
+    doubleWidth = width * 2
+    for (i, resize ) in enumerate(orderedResizes):
+        if resize.width == doubleWidth:
+            return resize
+
+    return None
+
+def build_image_css( item, orderedResizes ):
+    first = None
+    last = None
+    newLine = '' #'\n'
+    imageMargin = 150
+    resizecss = ''
+    for (i, resize ) in enumerate(orderedResizes):
+        if first is None:
+            first = resize #Set the default image size
+            resizecss = resizecss + newLine
+            resizecss = resizecss + '.image{' + newLine
+            resizecss = resizecss + 'width:' + str(resize.width) + 'px;' + newLine
+            resizecss = resizecss + 'height:' + str(resize.height) + 'px;' + newLine
+            resizecss = resizecss + 'min-width:' + str(resize.width) + 'px;' + newLine
+            resizecss = resizecss + 'min-height:' + str(resize.height) + 'px;' + newLine
+            resizecss = resizecss + 'max-width:' + str(resize.width) + 'px;' + newLine
+            resizecss = resizecss + 'max-height:' + str(resize.height) + 'px;' + newLine
+            resizecss = resizecss + 'background-color:transparent;' + newLine
+            resizecss = resizecss + 'background-repeat:no-repeat;' + newLine
+            resizecss = resizecss + 'background-position:top left;' + newLine
+            resizecss = resizecss + 'background-image:url(\'' + image_url( item.path, resize ) +'\');' + newLine
+                        
+            doubleSize = find_double_size( orderedResizes, resize.width );
+            if doubleSize <> None:
+
+                resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
+                resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
+                resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
+                resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5) {' + newLine
+                resizecss = resizecss + 'background-image:url(\'' + image_url( item.path, doubleSize ) +'\');' + newLine
+                resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(doubleSize.height / 2) + 'px;' + newLine
+                resizecss = resizecss + '}' + newLine
+
+            resizecss = resizecss + '}' + newLine
+            resizecss = resizecss + newLine
+
+        last = resize
+        resizecss = resizecss + newLine
+        if i < (len(item.resizes) - 1):
+                resizecss = resizecss + '@media (min-width:' + str(resize.width + imageMargin) + 'px) and (max-width:' + str(orderedResizes[i+1].width + imageMargin - 1) + 'px){' + newLine
+        else:
+            resizecss = resizecss + '@media(min-width:' + str(resize.width + imageMargin) + 'px) {' + newLine
+        resizecss = resizecss + '.image {' + newLine
+        resizecss = resizecss + 'width:' + str(resize.width) + 'px;' + newLine
+        resizecss = resizecss + 'height:' + str(resize.height) + 'px;' + newLine
+        resizecss = resizecss + 'min-width:' + str(resize.width) + 'px;' + newLine
+        resizecss = resizecss + 'min-height:' + str(resize.height) + 'px;' + newLine
+        resizecss = resizecss + 'tmax-width:' + str(resize.width) + 'px;' + newLine
+        resizecss = resizecss + 'tmax-height:' + str(resize.height) + 'px;' + newLine                        
+        resizecss = resizecss + 'background-image:url(\'' + image_url( item.path, resize ) +'\');' + newLine
+
+        doubleSize = find_double_size( orderedResizes, resize.width );
+        if doubleSize <> None:
+
+            resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
+            resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
+            resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
+            resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5){' + newLine
+            resizecss = resizecss + 'background-image:url(\'' + image_url( item.path, doubleSize ) +'\');' + newLine
+            resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(doubleSize.height / 2) + 'px;' + newLine
+            resizecss = resizecss + '}' + newLine
+
+        resizecss = resizecss + '}'
+        resizecss = resizecss + '}' + newLine
+        resizecss = resizecss + newLine
+
+    if len(resizecss) == 0:
+        return None
+    return { 'css' : resizecss, 'first' : first, 'last' : last }

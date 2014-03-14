@@ -73,74 +73,15 @@ class IndexHandler(webapp2.RequestHandler):
 
                 orderedResizes = sorted( item.resizes, key=lambda r: r.width )
 
-                resizecss = '<style>'
-                first = None
-                last = None
-                
-                newLine = '' #'\n'
-                imageMargin = 150
-                for (i, resize ) in enumerate(orderedResizes):
-                    if first is None:
-                        first = resize #Set the default image size
-                        resizecss = resizecss + newLine
-                        resizecss = resizecss + '.image {' + newLine
-                        resizecss = resizecss + '\twidth:' + str(resize.width) + 'px;' + newLine
-                        resizecss = resizecss + '\theight:' + str(resize.height) + 'px;' + newLine
-                        resizecss = resizecss + '\tmin-width:' + str(resize.width) + 'px;' + newLine
-                        resizecss = resizecss + '\tmin-height:' + str(resize.height) + 'px;' + newLine
-                        resizecss = resizecss + '\tmax-width:' + str(resize.width) + 'px;' + newLine
-                        resizecss = resizecss + '\tmax-height:' + str(resize.height) + 'px;' + newLine                        
-                        resizecss = resizecss + '\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');' + newLine
-                        resizecss = resizecss + '}' + newLine
-                        resizecss = resizecss + newLine
-
-                    last = resize
-                    resizecss = resizecss + newLine
-                    if i < (len(item.resizes) - 1):
-                            resizecss = resizecss + '@media (min-width: ' + str(resize.width + imageMargin) + 'px) and (max-width: ' + str(orderedResizes[i+1].width + imageMargin - 1) + 'px) {' + newLine
-                    else:
-                        resizecss = resizecss + '@media (min-width: ' + str(resize.width + imageMargin) + 'px) {' + newLine
-                    resizecss = resizecss + '\t.image {' + newLine
-                    resizecss = resizecss + '\t\twidth:' + str(resize.width) + 'px;' + newLine
-                    resizecss = resizecss + '\t\theight:' + str(resize.height) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmin-width:' + str(resize.width) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmin-height:' + str(resize.height) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmax-width:' + str(resize.width) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmax-height:' + str(resize.height) + 'px;' + newLine                        
-                    resizecss = resizecss + '\t\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');' + newLine
-                    resizecss = resizecss + '\t}'
-                    resizecss = resizecss + '}' + newLine
-                    resizecss = resizecss + newLine
-
-                    if i < (len(item.resizes) - 1):
-                        retinaWidth = '(min-width: ' + str( (resize.width / 2 ) + imageMargin) + 'px) and (max-width: ' + str( ( orderedResizes[i+1].width / 2 ) + imageMargin - 1) + 'px)'
-
-                        resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5) and ' + retinaWidth + ' {' + newLine
-                    else:
-                        retinaWidth = '(min-width: ' + str( (resize.width / 2 ) + imageMargin) + 'px)'
-
-                        resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2) and ' + retinaWidth + ', '
-                        resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5) and ' + retinaWidth + ' {' + newLine
-
-                    resizecss = resizecss + '\t.image {' + newLine
-                    resizecss = resizecss + '\t\twidth:' + str(resize.width / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\theight:' + str(resize.height / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmin-width:' + str(resize.width / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmin-height:' + str(resize.height / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmax-width:' + str(resize.width / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tmax-height:' + str(resize.height / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t\tbackground-image:url(\'' + utils.image_url( item.path, resize ) +'\');' + newLine
-                    resizecss = resizecss + '\t\tbackground-size:' + str(resize.width / 2) + 'px ' + str(resize.height / 2) + 'px;' + newLine
-                    resizecss = resizecss + '\t}'
-                    resizecss = resizecss + '}' + newLine
-                    resizecss = resizecss + newLine
-
-                resizecss = resizecss + '</style>'
+                css = utils.build_image_css( item, orderedResizes )
+                if css is None:
+                    first = None
+                    last = None
+                    resizecss = None
+                else:
+                    first = css['first']
+                    last = css['last']
+                    resizecss = '<style>' + css['css'] + '</style>'
 
                 if first is None:
                     resizecss = ''
