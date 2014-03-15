@@ -3,6 +3,7 @@ import urllib2
 import utils
 from google.appengine.api import urlfetch 
 from google.appengine.api import taskqueue
+from google.appengine.api import capabilities
 
 def queue_update():
 
