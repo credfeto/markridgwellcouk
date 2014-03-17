@@ -27,7 +27,8 @@
     <link rel="dns-prefetch" href="//www.google-analytics.com"/>
     {% endif %}
     <link rel="alternate" type="application/rss+xml" title="Mark's Photos" id="gallery" href="https://www.markridgwell.co.uk/rss.xml" />
-    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/static/bootstrap/css/bootstrap.theme.min.css" rel="stylesheet"/>
     <link href="/static/bootstrap/css/navbar-fixed-top.css" rel="stylesheet" />
     <link rel="icon" href="https://www.markridgwell.co.uk/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="https://www.markridgwell.co.uk/favicon.ico" type="image/x-icon" />
@@ -36,11 +37,8 @@
     <link rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" />
     <link rel="publisher" href="https://plus.google.com/+MarkRidgwellCoUk/?rel=publisher" /> 
     <link href="https://www.markridgwell.co.uk{{path}}" rel="canonical" />
-    <script src="/static/js/fix-iemobile-responsive.js"></script>    
-    <!--[if lt IE 9]>
-      <script src="/static/js/html5shiv.js"></script>
-      <script src="/static/js/respond.min.js"></script>
-    <![endif]-->
+    <!--[if IE]><script src="/static/js/fix-iemobile-responsive.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="/static/js/html5shiv.js"></script><script src="/static/js/respond.min.js"></script><![endif]-->
     <link href="/static/site.css" rel="stylesheet" />
     {% block head %}{% endblock %}    
 </head>
