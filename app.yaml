@@ -125,6 +125,9 @@ skip_files:
 - ^(.*/)?\.sln
 - ^\.gitignore
 - ^\.git/(.*/)?
+- ^\static/bootstrap/css/bootstrap\.css
+- ^\static/bootstrap/css/bootstrap-theme\.css
+- ^\static/bootstrap/js/bootstrap\.js
 
 builtins:
 - remote_api: off
