@@ -112,6 +112,19 @@
 </div>
 
 {% if item %}
+
+{% if item.metadata %}
+<div class="row">
+    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+        <h3>Image Properties</h3>
+        <table class="table" itemprop="exif">
+            <tr><th>Name</th><th>Value</th></tr>
+            {% for mdprop in item.metadata %}<tr><td>{{mdprop.name}}</td><td>{% if mdprop.value == "Mark Ridgwell" %}<a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>{%else%}{{mdprop.value}}{%endif%}</td></tr>{% endfor %}
+        </table>
+    </div>
+</div>
+{% endif %}
+
 {% if item.location %}
 <div class="row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
