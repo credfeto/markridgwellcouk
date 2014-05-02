@@ -205,7 +205,7 @@ def synchronize_common(contents):
         if loc <> None:
             if "Latitude" in loc and "Longitude" in loc:
                 lat = loc["Latitude"]
-                lng = loc["Latitude"]
+                lng = loc["Longitude"]
                 location = ndb.GeoPt( lat, lng )
 
         children = None

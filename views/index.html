@@ -110,6 +110,17 @@
         {% endif %}
     </div>
 </div>
+
+{% if item %}
+{% if item.location %}
+<div class="row">
+    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+            <img src="https://maps.google.com/maps/api/staticmap?size=256x256&zoom=12&maptype=roadmap&sensor=false&markers=color:blue%7Clabel:P%7C{{item.location.lat}},{{item.location.lon}}" width="256" height="256" alt ="Map showing location of {{title}}"/>
+    </div>
+</div>
+{% endif %}
+{% endif %}
+
 <div class="sibling-navigation row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <span class="sibling-lhs">
