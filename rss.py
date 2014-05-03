@@ -38,17 +38,20 @@ class RssHandler(webapp2.RequestHandler):
         if output is None or len(output) == 0:
             count = 200
 
-            recentItems = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
+            recentItemsSearch = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
             when = datetime.datetime.now()
             builddate = when
-            if recentItems:
+
+            recentItems = []
+            if recentItemsSearch:
                 latestDate = None
-                for item in recentItems:
-                    if latestDate is None:
-                        latestDate = item.updated
-                    else:
-                        if latestDate < item.updated:
+                for item in recentItemsSearch:
+                    if not item.path.startswith('/albums/private/'):
+                        if latestDate is None:
                             latestDate = item.updated
+                        else:
+                            if latestDate < item.updated:
+                                latestDate = item.updated
                 if latestDate <> None:
                     when = latestDate
 
