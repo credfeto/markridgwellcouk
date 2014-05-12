@@ -64,6 +64,13 @@ class IndexHandler(webapp2.RequestHandler):
                     childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl }
                     children.append(childItem)
 
+            breadcrumbs = None
+            if item.breadcrumbs:
+                breadcrumbs = []
+                for crumb in item.breadcrumbs:
+                    crumbItem = { 'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description }
+                    breadcrumbs.append(crumbItem)
+
             resizecss = None;
             thumbnailImageUrl = None
             imageUrl = None
@@ -116,7 +123,7 @@ class IndexHandler(webapp2.RequestHandler):
 
             showShare =  utils.should_share( self.request.headers.get( 'User-Agent', None ) )
 
-            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare }
+            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare }
             self.response.out.write(utils.render_template("index.html", template_vals))
             self.response.headers['Strict-Transport-Security'] = 'max-age=31536000'
             self.response.headers['P3P'] = 'max-age=31536000'

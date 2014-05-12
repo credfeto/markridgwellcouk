@@ -48,6 +48,14 @@
     {% if item %}
     {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
+
+{% if breadcrumbs %}
+<div class="row">
+    {% for crumb in breadcrumbs %}
+    <span class="breadcrumb"><a href="{{crumb.path}}">{{crumb.title}}</a></span>
+    {% endfor %}
+</div>
+{% endif %}
 </div>
 
 
