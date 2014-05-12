@@ -3,3 +3,78 @@ cron:
   url: /tasks/photoofday
   schedule: every 24 hours
 
+- description: Build Sitemap Index
+  url: /sitemap
+  schedule: every 6 hours
+
+- description: Build Sitemap A
+  url: /sitemap/a
+  schedule: every 6 hours
+
+- description: Build Sitemap 0
+  url: /sitemap/0
+  schedule: every 6 hours
+
+- description: Build Sitemap 1
+  url: /sitemap/1
+  schedule: every 6 hours
+
+- description: Build Sitemap 2
+  url: /sitemap/2
+  schedule: every 6 hours
+
+- description: Build Sitemap 3
+  url: /sitemap/3
+  schedule: every 6 hours
+
+- description: Build Sitemap 4
+  url: /sitemap/4
+  schedule: every 6 hours
+
+- description: Build Sitemap 5
+  url: /sitemap/5
+  schedule: every 6 hours
+
+- description: Build Sitemap 6
+  url: /sitemap/6
+  schedule: every 6 hours
+
+- description: Build Sitemap 7
+  url: /sitemap/7
+  schedule: every 6 hours
+
+- description: Build Sitemap 8
+  url: /sitemap/8
+  schedule: every 6 hours
+
+- description: Build Sitemap 9
+  url: /sitemap/9
+  schedule: every 6 hours
+
+- description: Build Sitemap A
+  url: /sitemap/a
+  schedule: every 6 hours
+
+- description: Build Sitemap B
+  url: /sitemap/b
+  schedule: every 6 hours
+
+- description: Build Sitemap C
+  url: /sitemap/c
+  schedule: every 6 hours
+
+- description: Build Sitemap D
+  url: /sitemap/d
+  schedule: every 6 hours
+
+- description: Build Sitemap E
+  url: /sitemap/e
+  schedule: every 6 hours
+
+- description: Build Sitemap F
+  url: /sitemap/b
+  schedule: every 6 hours
+
+- description: Build RSS
+  url: /rss.xml
+  schedule: every 6 hours
