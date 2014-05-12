@@ -28,6 +28,13 @@ class ResizedImage(ndb.Model):
     width = ndb.IntegerProperty(required=True)
     height = ndb.IntegerProperty(required=True)
 
+class BreadcrumbItem(ndb.Model):
+    id = ndb.StringProperty(required=True)
+    path = ndb.StringProperty(required=True)
+    title = ndb.StringProperty(required=True)
+    description = ndb.StringProperty(required=True)
+
+
 class ChildItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
@@ -49,6 +56,7 @@ class GalleryItem(ndb.Model):
     description = ndb.StringProperty(required=True)
     rating = ndb.IntegerProperty(required=False)
     location = ndb.GeoPtProperty(required=False)
+    breadcrumbs = ndb.StructuredProperty(BreadcrumbItem, repeated=True, required=False)
     children = ndb.StructuredProperty(ChildItem, repeated=True, required=False)
     resizes = ndb.StructuredProperty(ResizedImage, repeated=True, required=False)
     metadata = ndb.StructuredProperty(MetadataProperty, repeated=True, required=False)

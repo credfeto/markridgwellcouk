@@ -72,6 +72,25 @@ def children_changed( current, toupdate ):
 
     return False
 
+def breadcrumbs_changed( current, toupdate ):
+
+    if len( current ) <> len(toupdate):
+        return True
+
+    for (i, currentCrumb ) in enumerate(current):
+        newCrumb = toupdate[i]
+
+        if currentCrumb.id <> newCrumb.id:
+            return True
+
+        if currentCrumb.title <> newCrumb.title:
+            return True
+
+        if currentCrumb.description <> newCrumb.description:
+            return True
+
+    return False
+
 def sibling_changed( current, toupdate ):
 
     if current is None and toupdate is None:
@@ -246,6 +265,23 @@ def synchronize_common(contents):
                                                     description = childDescription,
                                                     thumbnail = foundThumbnailSize
                                                 ) )
+
+        breadcrumbs = None
+        breadcrumbItems = item["Breadcrumbs"]
+        if breadcrumbItems <> None:
+            breadcrumbs = []
+            for crumb in breadcrumbItems:
+                    crumbPath = crumb["Path"]
+                    crumbHash = utils.generate_url_hash(crumbPath)
+                    crumbTitle = crumb["Title"]
+                    crumbDescription = crumb["Description"]
+
+                    breadcrumbs.append( models.BreadcrumbItem(
+                                                    id = crumbHash,
+                                                    path = crumbPath,
+                                                    title = crumbTitle
+                                                ) )
+
 
         metadata = None
         metadataItems = item['Metadata']
@@ -444,6 +480,7 @@ def synchronize_common(contents):
                                         rating = rating,
                                         location = location,
                                         children = children,
+                                        breadcrumbs = breadcrumbs,
                                         resizes = foundImageSizes,
                                         metadata = metadata,
                                         keywords = keywords,
@@ -458,7 +495,7 @@ def synchronize_common(contents):
             #sys.stdout.write('Created\n')
         else:
 
-            if path <> dbItem.path or indexSection <> dbItem.indexSection or  dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
+            if path <> dbItem.path or indexSection <> dbItem.indexSection or  dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or breadcrumbs_changed( dbItem.breadcrumbs, breadcrumbs ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
                 dbItem.path = path
                 dbItem.indexSection = indexSection
                 dbItem.title = title
@@ -467,6 +504,7 @@ def synchronize_common(contents):
                 dbItem.rating = rating
                 dbItem.location = location
                 dbItem.children = children
+                dbItem.breadcrumbs = breadcrumbs
                 dbItem.resizes = foundImageSizes
                 dbItem.metadata = metadata
                 dbItem.keywords = keywords
