@@ -23,7 +23,8 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
-        expiry_seconds = 60 * 60 * 12
+        # Long expiry - so don't need to generate unless an upload has taken place
+        expiry_seconds = 60 * 60 * 24 * 7
         memcachedKey = 'rss-output'
         output = ''
         

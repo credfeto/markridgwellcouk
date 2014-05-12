@@ -23,7 +23,8 @@ import sys
 class SiteMapIndexHandler(webapp2.RequestHandler):
     def get(self):
 
-        expiry_seconds = 60 * 60 * 12
+        # Long expiry - so don't need to generate unless an upload has taken place
+        expiry_seconds = 60 * 60 * 24 * 7
         memcachedKey = 'sitemap-index-output'
         output = ''
         
@@ -78,7 +79,8 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
         memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
 
-        expiry_seconds = 60 * 60 * 12
+        # Long expiry - so don't need to generate unless an upload has taken place
+        expiry_seconds = 60 * 60 * 24 * 7
         memcachedKey = 'sitemap-section-' + key + '-output'
         output = ''
 
