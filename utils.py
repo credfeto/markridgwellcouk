@@ -92,8 +92,9 @@ def convert_old_url( originalPath ):
     
     replacedWrongSlash = root.replace("\\", "/" )
     replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
-    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens )
-    replacedEndingHyphens = replacedBadChars.rstrip('-') 
+    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens)
+    replacedHyphensNextToSlash = re.sub(r"(\-*/\-*)", "/", replacedBadChars)
+    replacedEndingHyphens = replacedHyphensNextToSlash.rstrip('-') 
 
     if replacedEndingHyphens.endswith( '/' ) == False:
         replacedEndingHyphens = replacedEndingHyphens + '/'
