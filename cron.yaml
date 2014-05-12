@@ -7,10 +7,6 @@ cron:
   url: /sitemap
   schedule: every 6 hours
 
-- description: Build Sitemap A
-  url: /sitemap/a
-  schedule: every 6 hours
-
 - description: Build Sitemap 0
   url: /sitemap/0
   schedule: every 6 hours
@@ -72,7 +68,7 @@ cron:
   schedule: every 6 hours
 
 - description: Build Sitemap F
-  url: /sitemap/b
+  url: /sitemap/f
   schedule: every 6 hours
 
 - description: Build RSS
