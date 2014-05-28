@@ -92,18 +92,30 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
         if output is None or len(output) == 0:
             
-            when = datetime.datetime.now()
+            q = models.SubscriptionItem.query(models.SubscriptionItem.id == memcachedKey)
+            subscriptionItem = q.get()
+            if subscriptionItem is None:
 
-            q = models.GalleryItem.query(models.GalleryItem.indexSection == key, projection=["path"]).order(models.GalleryItem.path)
+                when = datetime.datetime.now()
 
-            items = []
-            for item in q:
-                items.append( { 'path' : item.path } )
+                q = models.GalleryItem.query(models.GalleryItem.indexSection == key, projection=["path"]).order(models.GalleryItem.path)
 
-            template_vals = {'items' : items, 'host' : self.request.host_url }
+                items = []
+                for item in q:
+                    items.append( { 'path' : item.path } )
 
-            output = utils.render_template("sitemapsection.html", template_vals)
+                template_vals = {'items' : items, 'host' : self.request.host_url }
+
+                output = utils.render_template("sitemapsection.html", template_vals)
         
+                subscriptionItem = models.SubscriptionItem(
+                                                            id = memcachedKey,
+                                                            text = models.SubscriptionItem,
+                                                            updated = when )
+                subscriptionItem.put();
+            else:
+                output = subscriptionItem.text
+
             if memcacheEnabled:    
                 memcache.set(memcachedKey, output, expiry_seconds)
 
@@ -111,7 +123,6 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
         self.response.headers['Pragma'] = 'public'
         self.response.headers['Content-Type'] = 'text/xml'
         self.response.out.write(output)
-
 
 app = webapp2.WSGIApplication([
     ('/sitemap/[a-zA-Z0-9]', SiteMapSectionHandler),

@@ -37,32 +37,45 @@ class RssHandler(webapp2.RequestHandler):
                 output = ''
 
         if output is None or len(output) == 0:
-            count = 200
 
-            recentItemsSearch = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
-            when = datetime.datetime.now()
-            builddate = when
+            q = models.SubscriptionItem.query(models.SubscriptionItem.id == memcachedKey)
+            subscriptionItem = q.get()
+            if subscriptionItem is None:
+                count = 200
 
-            recentItems = []
-            if recentItemsSearch:
-                latestDate = None
-                for item in recentItemsSearch:
-                    if not item.path.startswith('/albums/private/'):
-                        recentItems.append(item)
-                        if latestDate is None:
-                            latestDate = item.updated
-                        else:
-                            if latestDate < item.updated:
+                recentItemsSearch = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
+                when = datetime.datetime.now()
+                builddate = when
+
+                recentItems = []
+                if recentItemsSearch:
+                    latestDate = None
+                    for item in recentItemsSearch:
+                        if not item.path.startswith('/albums/private/'):
+                            recentItems.append(item)
+                            if latestDate is None:
                                 latestDate = item.updated
-                if latestDate <> None:
-                    when = latestDate
+                            else:
+                                if latestDate < item.updated:
+                                    latestDate = item.updated
+                    if latestDate <> None:
+                        when = latestDate
 
-            template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
+                template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
-            output = utils.render_template("rss.html", template_vals)
+                output = utils.render_template("rss.html", template_vals)
+
+                subscriptionItem = models.SubscriptionItem(
+                                                            id = memcachedKey,
+                                                            text = models.SubscriptionItem,
+                                                            updated = when )
+                subscriptionItem.put();
+        else:
+            output = subscriptionItem.text
         
-            if memcacheEnabled:    
-                memcache.set(memcachedKey, output, expiry_seconds)
+        if memcacheEnabled:    
+            memcache.set(memcachedKey, output, expiry_seconds)
+
 
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
