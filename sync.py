@@ -523,6 +523,11 @@ def synchronize_common(contents):
                 
             itemsWritten = itemsWritten + 1
             #sys.stdout.write('Created\n')
+
+            if type == 'photo' and not path.startswith('/albums/private/'):
+                publishItem = models.PublishableItem( id = dbItem.id )
+                publishItem.put()
+             
         else:
 
             if path <> dbItem.path or indexSection <> dbItem.indexSection or  dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or breadcrumbs_changed( dbItem.breadcrumbs, breadcrumbs ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
@@ -563,6 +568,11 @@ def synchronize_common(contents):
             itemsWritten = itemsWritten + 1
             dbItem.key.delete()
             #sys.stdout.write('Deleted\n')
+
+        piq = models.PublishableItem.query(models.PublishableItem.id == hash)
+        pi = piq.get()
+        if piq <> None:
+            piq.key.delete()
 
     if itemsWritten > 0:
         invalidateOutputCaches()
