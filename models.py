@@ -18,7 +18,7 @@ from google.appengine.ext import blobstore
 
 class SubscriptionItem(ndb.Model):
     id = db.StringProperty()
-    text = db.StringProperty()
+    text = db.TextProperty()
     updated = ndb.DateTimeProperty(auto_now=True)
 
 class PublishableItem(ndb.Model):
@@ -40,16 +40,16 @@ class ResizedImage(ndb.Model):
 class BreadcrumbItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
-    title = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(required=True)
+    title = ndb.TextProperty(required=True)
+    description = ndb.TextProperty(required=True)
 
 
 class ChildItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
-    title = ndb.StringProperty(required=True)
+    title = ndb.TextProperty(required=True)
     type = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(required=True)
+    description = ndb.TextProperty(required=True)
     thumbnail = ndb.StructuredProperty(ResizedImage, repeated=False, required=False)
 
 class MetadataProperty(ndb.Model):
@@ -60,9 +60,9 @@ class GalleryItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
     indexSection = ndb.StringProperty(required=False)
-    title = ndb.StringProperty(required=True)
+    title = ndb.TextProperty(required=True)
     type = ndb.StringProperty(required=True)
-    description = ndb.StringProperty(required=True)
+    description = ndb.TextProperty(required=True)
     rating = ndb.IntegerProperty(required=False)
     location = ndb.GeoPtProperty(required=False)
     breadcrumbs = ndb.StructuredProperty(BreadcrumbItem, repeated=True, required=False)
