@@ -92,7 +92,7 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
         if output is None or len(output) == 0:
             
-            q = models.SubscriptionItem.query(models.SubscriptionItem.id == memcachedKey)
+            q = models.GeneratedItem.query(models.GeneratedItem.id == memcachedKey)
             subscriptionItem = q.get()
             if subscriptionItem is None:
 
@@ -108,9 +108,9 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
                 output = utils.render_template("sitemapsection.html", template_vals)
         
-                subscriptionItem = models.SubscriptionItem(
+                subscriptionItem = models.GeneratedItem(
                                                             id = memcachedKey,
-                                                            text = models.SubscriptionItem,
+                                                            text = output,
                                                             updated = when )
                 subscriptionItem.put();
             else:

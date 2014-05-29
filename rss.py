@@ -67,7 +67,7 @@ class RssHandler(webapp2.RequestHandler):
 
                 GeneratedItem = models.GeneratedItem(
                                                             id = memcachedKey,
-                                                            text = models.GeneratedItem,
+                                                            text = output,
                                                             updated = when )
                 GeneratedItem.put();
         else:
