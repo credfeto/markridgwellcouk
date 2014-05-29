@@ -19,29 +19,29 @@ import models
 import utils
 import pubsubhubub
 
-def invalidateSubscriptionItems():
-        invalidateSubscriptionItem('rss-output')
-        invalidateSubscriptionItem('sitemap-index-output')
-        invalidateSubscriptionItem('sitemap-section-0-output')
-        invalidateSubscriptionItem('sitemap-section-1-output')
-        invalidateSubscriptionItem('sitemap-section-2-output')
-        invalidateSubscriptionItem('sitemap-section-3-output')
-        invalidateSubscriptionItem('sitemap-section-4-output')
-        invalidateSubscriptionItem('sitemap-section-5-output')
-        invalidateSubscriptionItem('sitemap-section-6-output')
-        invalidateSubscriptionItem('sitemap-section-7-output')
-        invalidateSubscriptionItem('sitemap-section-8-output')
-        invalidateSubscriptionItem('sitemap-section-9-output')
-        invalidateSubscriptionItem('sitemap-section-a-output')
-        invalidateSubscriptionItem('sitemap-section-b-output')
-        invalidateSubscriptionItem('sitemap-section-c-output')
-        invalidateSubscriptionItem('sitemap-section-d-output')
-        invalidateSubscriptionItem('sitemap-section-e-output')
-        invalidateSubscriptionItem('sitemap-section-f-output')
+def invalidateGeneratedItems():
+        invalidateGeneratedItem('rss-output')
+        invalidateGeneratedItem('sitemap-index-output')
+        invalidateGeneratedItem('sitemap-section-0-output')
+        invalidateGeneratedItem('sitemap-section-1-output')
+        invalidateGeneratedItem('sitemap-section-2-output')
+        invalidateGeneratedItem('sitemap-section-3-output')
+        invalidateGeneratedItem('sitemap-section-4-output')
+        invalidateGeneratedItem('sitemap-section-5-output')
+        invalidateGeneratedItem('sitemap-section-6-output')
+        invalidateGeneratedItem('sitemap-section-7-output')
+        invalidateGeneratedItem('sitemap-section-8-output')
+        invalidateGeneratedItem('sitemap-section-9-output')
+        invalidateGeneratedItem('sitemap-section-a-output')
+        invalidateGeneratedItem('sitemap-section-b-output')
+        invalidateGeneratedItem('sitemap-section-c-output')
+        invalidateGeneratedItem('sitemap-section-d-output')
+        invalidateGeneratedItem('sitemap-section-e-output')
+        invalidateGeneratedItem('sitemap-section-f-output')
 
-def invalidateSubscriptionItem( key ):
+def invalidateGeneratedItem( key ):
 
-    q = models.SubscriptionItem.query(models.SubscriptionItem.id == key)    
+    q = models.GeneratedItem.query(models.GeneratedItem.id == key)    
     dbItem = q.get()
     if dbItem <> None:
         dbItem.key.delete()
@@ -71,7 +71,7 @@ def invalidateOutputCaches():
         memcache.delete('sitemap-section-e-output')
         memcache.delete('sitemap-section-f-output')
 
-    invalidateSubscriptionItem()
+    invalidateGeneratedItem()
 
 def children_changed( current, toupdate ):
 

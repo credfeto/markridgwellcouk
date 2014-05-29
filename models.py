@@ -16,14 +16,14 @@ from google.appengine.ext import blobstore
 # Queries
 # https://developers.google.com/appengine/docs/python/ndb/queries
 
-class SubscriptionItem(ndb.Model):
-    id = db.StringProperty()
-    text = db.TextProperty()
-    updated = ndb.DateTimeProperty(auto_now=True)
+class GeneratedItem(ndb.Model):
+    id = ndb.StringProperty(required=True)
+    text = ndb.TextProperty(required=True)
+    updated = ndb.DateTimeProperty(required=True,auto_now=True)
 
 class PublishableItem(ndb.Model):
-    id = db.StringProperty()
-    updated = ndb.DateTimeProperty(auto_now=True)
+    id = ndb.StringProperty(required=True)
+    updated = ndb.DateTimeProperty(required=True,auto_now=True)
         
 class UserPrefs(db.Model):
     userid = db.StringProperty()

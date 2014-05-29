@@ -38,9 +38,9 @@ class RssHandler(webapp2.RequestHandler):
 
         if output is None or len(output) == 0:
 
-            q = models.SubscriptionItem.query(models.SubscriptionItem.id == memcachedKey)
-            subscriptionItem = q.get()
-            if subscriptionItem is None:
+            q = models.GeneratedItem.query(models.GeneratedItem.id == memcachedKey)
+            GeneratedItem = q.get()
+            if GeneratedItem is None:
                 count = 200
 
                 recentItemsSearch = models.GalleryItem.query(models.GalleryItem.type == 'photo').order(-models.GalleryItem.updated).fetch(count)
@@ -65,13 +65,13 @@ class RssHandler(webapp2.RequestHandler):
 
                 output = utils.render_template("rss.html", template_vals)
 
-                subscriptionItem = models.SubscriptionItem(
+                GeneratedItem = models.GeneratedItem(
                                                             id = memcachedKey,
-                                                            text = models.SubscriptionItem,
+                                                            text = models.GeneratedItem,
                                                             updated = when )
-                subscriptionItem.put();
+                GeneratedItem.put();
         else:
-            output = subscriptionItem.text
+            output = GeneratedItem.text
         
         if memcacheEnabled:    
             memcache.set(memcachedKey, output, expiry_seconds)
