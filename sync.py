@@ -486,7 +486,6 @@ def synchronize_common(contents):
 
     if itemsWritten > 0:
         invalidateOutputCaches()
-
-    pubsubhubub.queue_update()
+        pubsubhubub.queue_update()
 
     return itemsWritten
