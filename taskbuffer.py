@@ -16,7 +16,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = "text/plain"
         
         itemsToPublish = models.PublishableItem.query().fetch(1)
-        if itemToPublish <> None:
+        if itemsToPublish <> None:
             for itemToPublish in itemsToPublish:
                 
                 self.response.out.write("Id: " + itemToPublish.id +"\r\n" )
