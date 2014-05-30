@@ -46,6 +46,9 @@ class PrivateIndexHandler(handlers.IndexHandler):
                                              )
                 userprefs.put()
 
+                sender_address = "Mark Ridgwell's Photos <newusernotification@markridgwellcouk.appspotmail.com>"
+                mail.send_mail_to_admins(sender_address, "New user logged in", "User " + userprefs.lastEmailAddress + " logged in to https://www.markridgwell.co.uk/" )
+
         return handlers.IndexHandler.get(self)
 
 app = webapp2.WSGIApplication([
