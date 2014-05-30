@@ -93,8 +93,8 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
         if output is None or len(output) == 0:
             
             q = models.GeneratedItem.query(models.GeneratedItem.id == memcachedKey)
-            subscriptionItem = q.get()
-            if subscriptionItem is None:
+            pregenerated = q.get()
+            if pregenerated is None:
 
                 when = datetime.datetime.now()
 
@@ -108,13 +108,13 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
 
                 output = utils.render_template("sitemapsection.html", template_vals)
         
-                subscriptionItem = models.GeneratedItem(
+                pregenerated = models.GeneratedItem(
                                                             id = memcachedKey,
                                                             text = output,
                                                             updated = when )
-                subscriptionItem.put();
+                pregenerated.put();
             else:
-                output = subscriptionItem.text
+                output = pregenerated.text
 
             if memcacheEnabled:    
                 memcache.set(memcachedKey, output, expiry_seconds)
