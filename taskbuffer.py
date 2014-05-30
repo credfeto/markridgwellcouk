@@ -13,7 +13,7 @@ import sys
 class TaskBufferHandler(webapp2.RequestHandler):
     def get(self):
 
-        itemToPublish = models.PublishableItem.fetch(1).get()
+        itemToPublish = models.PublishableItem.query().fetch(1).get()
         if itemToPublish <> None:
 
             publish = models.GalleryItem.query(models.GalleryItem.id == itemToPublish.id ).get()
