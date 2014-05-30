@@ -71,7 +71,7 @@ def invalidateOutputCaches():
         memcache.delete('sitemap-section-e-output')
         memcache.delete('sitemap-section-f-output')
 
-    invalidateGeneratedItem()
+    invalidateGeneratedItems()
 
 def children_changed( current, toupdate ):
 
