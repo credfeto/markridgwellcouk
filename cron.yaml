@@ -74,3 +74,7 @@ cron:
 - description: Build RSS
   url: /rss.xml
   schedule: every 6 hours
+
+- description: Publish item to buffer
+  url: /tasks/buffer
+  schedule: every 1 hours
