@@ -26,10 +26,8 @@ class TaskBufferHandler(webapp2.RequestHandler):
 
                     url = 'http://www.markridgwell.co.uk' + publish.path
 
-                    #user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com';
-                    user_address = 'markr@markridgwell.co.uk'
-
-
+                    user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com';
+                    #user_address = 'markr@markridgwell.co.uk'
 
                     sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
                     subject = publish.title + " #photo"
