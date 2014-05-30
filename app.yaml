@@ -67,6 +67,11 @@ handlers:
   upload: browserconfig\.xml
   expiration: "100d"
 
+- url: /tasks/buffer
+  script: taskbuffer.app
+  secure: always
+  login: admin
+
 - url: /tasks/publish
   script: tasksync.app
   secure: optional

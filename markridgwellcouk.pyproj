@@ -25,6 +25,7 @@
     <Compile Include="rss.py" />
     <Compile Include="taskphotoofday.py" />
     <Compile Include="sitemap.py" />
+    <Compile Include="taskbuffer.py" />
     <Compile Include="tasksync.py" />
     <Compile Include="utils.py" />
     <Compile Include="sync.py" />
