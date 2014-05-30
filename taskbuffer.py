@@ -1,11 +1,5 @@
-import datetime
 import webapp2
-import json
-import hashlib
-import urllib2
-from collections import defaultdict 
 
-from google.appengine.api import mail
 from google.appengine.ext import blobstore
 from google.appengine.api import files
 from google.appengine.ext.webapp import blobstore_handlers
@@ -14,9 +8,7 @@ from google.appengine.api import mail
 
 import models
 import utils
-import sync
 import sys
-import pubsubhubub
 
 class TaskBufferHandler(webapp2.RequestHandler):
     def get(self):
@@ -46,5 +38,5 @@ class TaskBufferHandler(webapp2.RequestHandler):
         self.response.out.write("OK")
 
 app = webapp2.WSGIApplication([
-    ('/tasks/buffer', TaskSyncHandler)
+    ('/tasks/buffer', TaskBufferHandler)
 ])
