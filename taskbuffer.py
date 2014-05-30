@@ -31,7 +31,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
 
 
 
-                    sender_address = "Mark Ridgwell's Photos <gallery@markridgwell.co.uk>"
+                    sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
                     subject = publish.title + " #photo"
                     body = "@profiles mark ridgwell's photos credfeto @url " + url
 
