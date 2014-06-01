@@ -375,6 +375,25 @@ def extract_sibling( item, which ):
                                             )
     return firstSibling
 
+def delete_item( hash ):
+    q = models.GalleryItem.query(models.GalleryItem.id == hash)
+
+    dbItem = q.get()
+    if dbItem <> None:
+        dbItem.key.delete()
+        #sys.stdout.write('Deleted\n')
+        return True
+
+    return False
+
+def delete_published_item( hash ):
+
+    piq = models.PublishableItem.query(models.PublishableItem.id == hash)
+    pi = piq.get()
+    if pi <> None:
+        pi.key.delete()
+
+
 def synchronize_common(contents):
     decoded = json.loads(contents)
     version = decoded["version"]
@@ -471,18 +490,10 @@ def synchronize_common(contents):
         #sys.stdout.write('Item: ' + deletedItem + '\n')
         hash = utils.generate_url_hash(deletedItem)
 
-        q = models.GalleryItem.query(models.GalleryItem.id == hash)
-
-        dbItem = q.get()
-        if dbItem <> None:
+        if delete_item( hash ):
             itemsWritten = itemsWritten + 1
-            dbItem.key.delete()
-            #sys.stdout.write('Deleted\n')
 
-        piq = models.PublishableItem.query(models.PublishableItem.id == hash)
-        pi = piq.get()
-        if piq <> None:
-            piq.key.delete()
+        delete_published_item( hash )
 
     if itemsWritten > 0:
         invalidateOutputCaches()
