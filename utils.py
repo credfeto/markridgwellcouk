@@ -8,6 +8,9 @@ from google.appengine.ext.webapp import template
 
 import sys
 
+def is_public_publishable_path( path ):
+    return not path.startswith('/albums/private/')
+
 def should_track( headers ):
 
     track = headers.get('DNT', "0")

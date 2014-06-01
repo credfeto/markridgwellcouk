@@ -51,7 +51,7 @@ class RssHandler(webapp2.RequestHandler):
                 if recentItemsSearch:
                     latestDate = None
                     for item in recentItemsSearch:
-                        if not item.path.startswith('/albums/private/'):
+                        if utils.is_public_publishable_path( item.path ):
                             recentItems.append(item)
                             if latestDate is None:
                                 latestDate = item.updated

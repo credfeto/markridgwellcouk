@@ -453,7 +453,7 @@ def synchronize_common(contents):
             itemsWritten = itemsWritten + 1
             #sys.stdout.write('Created\n')
 
-            if type == 'photo' and not path.startswith('/albums/private/'):
+            if type == 'photo' and utils.is_public_publishable_path( path ):
                 publishItem = models.PublishableItem( id = dbItem.id )
                 publishItem.put()
              
