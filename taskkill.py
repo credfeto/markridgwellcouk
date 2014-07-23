@@ -23,9 +23,10 @@ class TaskKillHandler(webapp2.RequestHandler):
             
             #Remove the item 
             publish.key.delete()
-            break
 
-        self.response.out.write("OK")
+            self.response.out.write("Deleted")
+        else:
+            self.response.out.write("Not Found")
 
 app = webapp2.WSGIApplication([
     ('/tasks/kill', TaskKillHandler)
