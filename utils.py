@@ -231,3 +231,8 @@ def build_image_css( item, orderedResizes ):
     if len(resizecss) == 0:
         return None
     return { 'css' : resizecss, 'first' : first, 'last' : last }
+
+def path_to_tagId( path ):
+    filestub = path[path.rfind('/', 0, len(path)-2)+1:-1]
+
+    return filestub

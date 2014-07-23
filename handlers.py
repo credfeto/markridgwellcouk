@@ -60,16 +60,19 @@ class IndexHandler(webapp2.RequestHandler):
                     if child.thumbnail:                        
                         thumbnailUrl = utils.image_url( 
                                                        child.path, child.thumbnail )
-
-                    childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl }
+                    tagId = utils.path_to_tagId( child.path )
+                    childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl, "tagId" : tagId }
                     children.append(childItem)
 
             breadcrumbs = None
             if item.breadcrumbs:
                 breadcrumbs = []
-                for crumb in item.breadcrumbs:
-                    crumbItem = { 'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description }
-                    breadcrumbs.append(crumbItem)
+                lastCrumbTagId=utils.path_to_tagId( item.path )
+                for crumb in reversed(item.breadcrumbs):
+                    tagId = utils.path_to_tagId( crumb.path )
+                    crumbItem = { 'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description, "tagId" : lastCrumbTagId }
+                    breadcrumbs.insert(0, crumbItem)
+                    lastCrumbTagId = tagId
 
             resizecss = None;
             thumbnailImageUrl = None

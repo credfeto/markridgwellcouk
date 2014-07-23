@@ -52,7 +52,11 @@
 {% if breadcrumbs %}
 <div class="row">
     {% for crumb in breadcrumbs %}
+    {%if crumb.tagId %}
+    <span class="breadcrumb"><a href="{{crumb.path}}#{{crumb.tagId}}">{{crumb.title}}</a></span>
+    {%else%}
     <span class="breadcrumb"><a href="{{crumb.path}}">{{crumb.title}}</a></span>
+    {%endif%}
     {% endfor %}
 </div>
 {% endif %}
@@ -79,7 +83,7 @@
         {% if children %}
     
         {% for child in children %}
-        <a href="{{child.path}}">
+        <a href="{{child.path}}" id="{{child.tagId}}">
             <div class="folderItem">            
                 {% if child.type = 'photo' %}
                 {% if child.thumbnailUrl %}
