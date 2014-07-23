@@ -10,7 +10,7 @@ import models
 import utils
 import sys
 
-class TaskBufferHandler(webapp2.RequestHandler):
+class TaskKillHandler(webapp2.RequestHandler):
     def get(self):
 
         self.response.headers['Content-Type'] = "text/plain"
@@ -28,5 +28,5 @@ class TaskBufferHandler(webapp2.RequestHandler):
         self.response.out.write("OK")
 
 app = webapp2.WSGIApplication([
-    ('/tasks/buffer', TaskBufferHandler)
+    ('/tasks/kill', TaskKillHandler)
 ])
