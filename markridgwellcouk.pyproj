@@ -23,6 +23,7 @@
     <Compile Include="models.py" />
     <Compile Include="pubsubhubub.py" />
     <Compile Include="rss.py" />
+    <Compile Include="taskkill.py" />
     <Compile Include="taskphotoofday.py" />
     <Compile Include="sitemap.py" />
     <Compile Include="taskbuffer.py" />

@@ -72,6 +72,11 @@ handlers:
   secure: always
   login: admin
 
+- url: /tasks/kill
+  script: taskkill.app
+  secure: always
+  login: admin
+
 - url: /tasks/publish
   script: tasksync.app
   secure: optional
