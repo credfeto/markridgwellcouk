@@ -242,4 +242,4 @@ def add_response_headers( request, headers ):
     headers['P3P'] = 'max-age=31536000'
 
     if is_development() == False and request.scheme == 'https' and device_supports_ssl_tni(request.headers.get('User-Agent', None) ):
-        response.headers['Strict-Transport-Security'] = 'max-age=31536000'
+        headers['Strict-Transport-Security'] = 'max-age=31536000'
