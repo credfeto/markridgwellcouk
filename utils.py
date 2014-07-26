@@ -236,3 +236,10 @@ def path_to_tagId( path ):
     filestub = path[path.rfind('/', 0, len(path)-2)+1:-1]
 
     return filestub
+
+def add_response_headers( request, headers ):
+    headers['Vary'] = 'DNT'
+    headers['P3P'] = 'max-age=31536000'
+
+    if is_development() == False and request.scheme == 'https' and device_supports_ssl_tni(request.headers.get('User-Agent', None) ):
+        self.response.headers['Strict-Transport-Security'] = 'max-age=31536000'

@@ -43,12 +43,14 @@ class IndexHandler(webapp2.RequestHandler):
 
                 if item <> None:
                     shouldReportError = False
+                    utils.add_response_headers( self.request, self.response.headers )
                     self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
                     self.response.headers['Pragma'] = 'public'
                     self.redirect(utils.redirect_url(newSearchPath, self.request.query_string), permanent=True)
             
             if shouldReportError:
                 template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare': False }
+                utils.add_response_headers( self.request, self.response.headers )
                 self.response.out.write(utils.render_template("notfound.html", template_vals))
                 self.response.set_status(404) 
         else:
@@ -128,8 +130,7 @@ class IndexHandler(webapp2.RequestHandler):
 
             template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare }
             self.response.out.write(utils.render_template("index.html", template_vals))
-            self.response.headers['Strict-Transport-Security'] = 'max-age=31536000'
-            self.response.headers['P3P'] = 'max-age=31536000'
+            utils.add_response_headers( self.request, self.response.headers )
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
 

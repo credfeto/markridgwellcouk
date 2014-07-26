@@ -22,6 +22,7 @@ import pubsubhubub
 class TaskSyncHandler(webapp2.RequestHandler):
     def get(self):
 
+        utils.add_response_headers( self.request, self.response.headers )
         self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("OK")
 
@@ -30,6 +31,7 @@ class TaskSyncHandler(webapp2.RequestHandler):
                 
         itemsWritten = sync.synchronize_common(content)
 
+        utils.add_response_headers( self.request, self.response.headers )
         self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("Items Written: " + str(itemsWritten))
 
@@ -38,6 +40,7 @@ class TaskPublishHandler(webapp2.RequestHandler):
 
         pubsubhubub.update( 'http://markridgwell.superfeedr.com', 'http://www.markridgwell.co.uk/rss.xml')
 
+        utils.add_response_headers( self.request, self.response.headers )
         self.response.headers['Content-Type'] = "text/plain"
         self.response.out.write("OK")
 

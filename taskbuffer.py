@@ -13,6 +13,7 @@ import sys
 class TaskBufferHandler(webapp2.RequestHandler):
     def get(self):
 
+        utils.add_response_headers( self.request, self.response.headers )
         self.response.headers['Content-Type'] = "text/plain"
         
         itemsToPublish = models.PublishableItem.query().fetch(1)

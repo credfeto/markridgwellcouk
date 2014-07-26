@@ -76,7 +76,7 @@ class RssHandler(webapp2.RequestHandler):
         if memcacheEnabled:    
             memcache.set(memcachedKey, output, expiry_seconds)
 
-
+        utils.add_response_headers( self.request, self.response.headers )
         self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
         self.response.headers['Pragma'] = 'public'
         self.response.headers['Content-Type'] = 'application/rss+xml'
