@@ -26,7 +26,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                 if publish <> None:
 
                     # publish the item
-                    url = 'http://www.markridgwell.co.uk' + publish.path
+                    url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
                     user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com';                    
                     sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
                     subject = publish.title + " #photo"
