@@ -24,7 +24,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
-        windowsshare = utils.enable_windows_share_metadata( self.request.headers )
+        windowsshare = utils.enable_windows_share_metadata( self.request.headers.get('User-Agent', None) )
         searchPath = self.request.path.lower()
 
         hash = utils.generate_url_hash(searchPath)
