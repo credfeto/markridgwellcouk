@@ -66,15 +66,20 @@ class IndexHandler(webapp2.RequestHandler):
                     childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl, "tagId" : tagId }
                     children.append(childItem)
 
+            parentItemUrl = None
             breadcrumbs = None
             if item.breadcrumbs:
                 breadcrumbs = []
                 lastCrumbTagId=utils.path_to_tagId( item.path )
                 for crumb in reversed(item.breadcrumbs):
+                    if parentItemUrl is None:
+                        parentItemUrl = "https://www.markridgwell.co.uk" + crumb.path
                     tagId = utils.path_to_tagId( crumb.path )
                     crumbItem = { 'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description, "tagId" : lastCrumbTagId }
                     breadcrumbs.insert(0, crumbItem)
                     lastCrumbTagId = tagId
+            if parentItemUrl is None:
+                parentItemUrl = "https://www.markridgwell.co.uk/"
 
             resizecss = None;
             thumbnailImageUrl = None
@@ -128,7 +133,7 @@ class IndexHandler(webapp2.RequestHandler):
 
             showShare =  utils.should_share( self.request.headers.get( 'User-Agent', None ) )
 
-            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare }
+            template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, "parentItemUrl": parentItemUrl  }
             self.response.out.write(utils.render_template("index.html", template_vals))
             utils.add_response_headers( self.request, self.response.headers )
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400

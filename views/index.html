@@ -25,12 +25,12 @@
     {% endif %}
 {% endif %}
 {% if thumbnailUrl %}
-<meta property="og:image" content="{{thumbnailUrl}}" itemtype="http://schema.org/ImageObject" itemprop="thumbnailUrl" />
+<meta property="og:image" content="{{thumbnailUrl}}" />
 {% else %}
 <meta property="og:image" content="https://www.markridgwell.co.uk/large.jpg" />
 {% endif %}
 {% if fullImageUrl %}
-<meta property="og:image" content="{{fullImageUrl}}" itemtype="http://schema.org/thumbnailUrl" itemprop="contentURL" />
+<meta property="og:image" content="{{fullImageUrl}}" />
 <meta name="twitter:card" content="photo" />
 <meta name="twitter:image:src" content="{{fullImageUrl}}" />
 <meta name="twitter:image:width" content="{{fullImageWidth}}" />
@@ -109,17 +109,61 @@
         {% endfor %}
         {% endif %}
         {% if resizecss %}
-        <div itemscope itemtype="http://schema.org/ImageObject">
+        <div>
             {{resizecss|safe}}
-            <div class="image">&nbsp;<a itemprop="image" href="{{fullImageUrl}}">{{title}}</a></div>            
-            <span itemprop="name">{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>
+            <div class="image">&nbsp;<a href="{{fullImageUrl}}">{{title}}</a></div>            
+            <span>{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>
                                 
             {% if item.description %}
-            <span itemprop="description">{{item.description}}</span>
+            <span>{{item.description}}</span>
             {% endif %}            
         </div>
         {% endif %}
         {% endif %}
+        
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Photograph",            
+            "@author": {
+                  "@type": "Person",
+                  "image": "https://www.markridgwell.co.uk/static/images/mark-ridgwell.jpg",
+                  "name": "Mark Ridgwell",
+                  "sameAs": "https://www.markridgwell.co.uk/"
+                },
+            "@thumbnailUrl", "{{thumbnailUrl}}",
+            "@contentUrl": "{{fullImageUrl}}",
+            "@width": "{{fullImageWidth}}",
+            "@height": "{{fullImageHeight}}",
+            "@datePublished": "{{item.updated|date:"c"}}",
+            "@description": "{{item.description}}",
+            "@name": "{{title}}",
+            "@license": "https://www.markridgwell.co.uk/about",
+            "@url": "https://www.markridgwell.co.uk{{path}}",
+            "@sameAs": "https://www.markridgwell.co.uk{{path}}",
+            "@copyrightHolder": {
+                  "@type": "Person",
+                  "image": "https://www.markridgwell.co.uk/static/images/mark-ridgwell.jpg",
+                  "name": "Mark Ridgwell",
+                  "sameAs": "https://www.markridgwell.co.uk/"
+                },
+            "@contentLocation": {
+                    "@type": "Place",
+                    "geo": {
+                        "@type": "GeoCoordinates",
+                        "latitude": "{{item.location.lat}}",
+                        "longitude": {{item.location.lon}}"
+                      },
+                 },
+            "@exifData": "{% if item.metadata %}{% for mdprop in item.metadata %}{{mdprop.name}}:{{mdprop.value}}, {% endfor %}{% endif %}",
+            "@keywords": "{{keywords}}",
+            "@isPartOf": {
+                            "@type": "CreativeWork",
+                            "@url": "{{parentItemUrl}}",
+                        }
+
+        }            
+</script>
     </div>
 </div>
 
@@ -129,9 +173,9 @@
 <div class="row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <h3>Image Properties</h3>
-        <table class="table" itemprop="exif">
+        <table class="table">
             <tr><th>Name</th><th>Value</th></tr>
-            {% for mdprop in item.metadata %}<tr><td>{{mdprop.name}}</td><td>{% if mdprop.value == "Mark Ridgwell" %}<a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author" itemprop="author">Mark Ridgwell</a>{%else%}{{mdprop.value}}{%endif%}</td></tr>{% endfor %}
+            {% for mdprop in item.metadata %}<tr><td>{{mdprop.name}}</td><td>{% if mdprop.value == "Mark Ridgwell" %}<a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>{%else%}{{mdprop.value}}{%endif%}</td></tr>{% endfor %}
         </table>
     </div>
 </div>
