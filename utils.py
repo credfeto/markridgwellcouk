@@ -134,6 +134,9 @@ def device_supports_ssl_tni( userAgent ):
 
     return False
 
+def generate_host_hash(host):
+    return re.sub('[^a-zA-Z0-9-]+', '-', host).strip('-')
+
 def generate_url_hash(searchPath):
     return hashlib.sha512(searchPath).hexdigest()
 
