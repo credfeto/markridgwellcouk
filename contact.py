@@ -19,7 +19,7 @@ class ContactHandler(webapp2.RequestHandler):
 
         track = utils.should_track( self.request.headers )
 
-        template_vals = { 'track' : track, 'showShare' : False }
+        template_vals = { 'host' : self.request.host_url, 'track' : track, 'showShare' : False }
 
         self.response.out.write(utils.render_template("contact.html", template_vals))
 

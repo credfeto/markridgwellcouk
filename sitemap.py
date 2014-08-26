@@ -59,7 +59,7 @@ class SiteMapIndexHandler(webapp2.RequestHandler):
             items.append( { 'index' : 'e', 'lastMod' : when } )
             items.append( { 'index' : 'f', 'lastMod' : when } )
 
-            template_vals = {'indexes' : items, 'host' : self.request.host_url }
+            template_vals = {'host' : self.request.host_url, 'indexes' : items }
 
             output = utils.render_template("sitemapindex.html", template_vals)
         
@@ -105,7 +105,7 @@ class SiteMapSectionHandler(webapp2.RequestHandler):
                 for item in q:
                     items.append( { 'path' : item.path } )
 
-                template_vals = {'items' : items, 'host' : self.request.host_url }
+                template_vals = {'host' : self.request.host_url, 'items' : items }
 
                 output = utils.render_template("sitemapsection.html", template_vals)
         

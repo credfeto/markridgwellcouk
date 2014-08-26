@@ -61,7 +61,7 @@ class RssHandler(webapp2.RequestHandler):
                     if latestDate <> None:
                         when = latestDate
 
-                template_vals = {'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
+                template_vals = {'host' : self.request.host_url, 'items' : recentItems, 'pubdate' : when, 'builddate' : builddate }
 
                 output = utils.render_template("rss.html", template_vals)
 

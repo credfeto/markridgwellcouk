@@ -27,7 +27,7 @@
 {% if thumbnailUrl %}
 <meta property="og:image" content="{{thumbnailUrl}}" />
 {% else %}
-<meta property="og:image" content="https://www.markridgwell.co.uk/large.jpg" />
+<meta property="og:image" content="{{host}}/large.jpg" />
 {% endif %}
 {% if fullImageUrl %}
 <meta property="og:image" content="{{fullImageUrl}}" />
@@ -38,8 +38,8 @@
 {% else %}
 <meta name="twitter:summary" content="photo" />
 {% endif %}
-{% if previousSibling %}<link href="https://www.markridgwell.co.uk{{previousSibling.url}}" rel="prev" />{% endif %}
-{% if nextSibling %}<link href="https://www.markridgwell.co.uk{{nextSibling.url}}" rel="next" />{% endif %}
+{% if previousSibling %}<link href="{{host}}{{previousSibling.url}}" rel="prev" />{% endif %}
+{% if nextSibling %}<link href="{{host}}{{nextSibling.url}}" rel="next" />{% endif %}
 {% endblock %}
 {% block body %}
 <!-- Body block -->
@@ -127,9 +127,9 @@
             "@type": "Photograph",            
             "@author": {
                   "@type": "Person",
-                  "image": "https://www.markridgwell.co.uk/static/images/mark-ridgwell.jpg",
+                  "image": "{{host}}/static/images/mark-ridgwell.jpg",
                   "name": "Mark Ridgwell",
-                  "sameAs": "https://www.markridgwell.co.uk/"
+                  "sameAs": "{{host}}"
                 },
             "@thumbnailUrl", "{{thumbnailUrl}}",
             "@contentUrl": "{{fullImageUrl}}",
@@ -138,14 +138,14 @@
             "@datePublished": "{{item.updated|date:"c"}}",
             "@description": "{{item.description}}",
             "@name": "{{title}}",
-            "@license": "https://www.markridgwell.co.uk/about",
-            "@url": "https://www.markridgwell.co.uk{{path}}",
-            "@sameAs": "https://www.markridgwell.co.uk{{path}}",
+            "@license": "{{host}}about",
+            "@url": "{{host}}{{path}}",
+            "@sameAs": "{{host}}{{path}}",
             "@copyrightHolder": {
                   "@type": "Person",
-                  "image": "https://www.markridgwell.co.uk/static/images/mark-ridgwell.jpg",
+                  "image": "{{host}}/static/images/mark-ridgwell.jpg",
                   "name": "Mark Ridgwell",
-                  "sameAs": "https://www.markridgwell.co.uk/"
+                  "sameAs": "{{host}}"
                 },
             "@contentLocation": {
                     "@type": "Place",
@@ -203,7 +203,7 @@
         </span>        
     </div>
 </div>
-{% if showShare %}<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"https://www.markridgwell.co.uk{{path}}",
+{% if showShare %}<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"{{host}}{{path}}",
     "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
     "services":{"buffer":{"status":false},"disqus":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}</script>{% endif %}
 

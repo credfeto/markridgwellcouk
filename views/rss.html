@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Mark's Photos</title>
-        <link>http://www.markridgwell.co.uk/?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>
+        <link>{{host}}/?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>
         <description>Photos taken by Mark Ridgwell.</description>
         <language>en-us</language>
         <pubDate>{{pubdate|date:"D, d M Y H:i:s O"}}</pubDate>
         <lastBuildDate>{{builddate|date:"D, d M Y H:i:s O"}}</lastBuildDate>
         <ttl>60</ttl>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
-        <atom:link href="http://www.markridgwell.co.uk/rss.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="{{host}}/rss.xml" rel="self" type="application/rss+xml" />
         <atom:link rel="hub"  href="http://markridgwell.superfeedr.com/" />
         <generator>Markridgwell</generator>
         {% for photo in items %}<item>
             <title>{{photo.title}}</title>
-            <link>http://www.markridgwell.co.uk{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{% if photo.description %}
+            <link>{{host}}{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{% if photo.description %}
             <description>{{photo.description}}</description>{% endif %}
             <pubDate>{{photo.updated|date:"D, d M Y H:i:s O"}}</pubDate>
-            <guid>https://www.markridgwell.co.uk{{photo.path}}</guid>
+            <guid>{{host}}{{photo.path}}</guid>
         </item>{% endfor %}
     </channel>
 </rss>
