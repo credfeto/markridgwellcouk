@@ -9,6 +9,18 @@ from google.appengine.ext.webapp import template
 
 import sys
 
+def is_cron_task( headers ):
+
+    hdr = headers.get('X-AppEngine-Cron', 'false' )
+
+    if hdr is None:
+        return False
+
+    if hdr == "true":
+        return True
+
+    return False
+
 def is_public_publishable_path( path ):
     return not path.startswith('/albums/private/')
 
