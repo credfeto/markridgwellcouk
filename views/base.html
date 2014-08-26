@@ -16,11 +16,13 @@
     <meta name="twitter:creator" content="@credfeto" />
     <meta name="twitter:title" content="{% block title3 %}{% endblock %}" />
     <meta name="application-name" content="Mark Ridgwell's Photos"/>
+    {% if windowsshare %}
     <meta name="msapplication-TileColor" content="#ffffff"/>
     <meta name="msapplication-square70x70logo" content="{{host}}/tiny.png"/>
     <meta name="msapplication-square150x150logo" content="{{host}}/square.png"/>
     <meta name="msapplication-wide310x150logo" content="{{host}}/wide.jpg"/>
     <meta name="msapplication-square310x310logo" content="{{host}}/large.jpg"/>
+    {% endif %}
     <link rel="dns-prefetch" href="//markridgwell-data.s3.amazonaws.com"/>
     <link rel="dns-prefetch" href="//www.markridgwell.com"/>
     <link rel="dns-prefetch" href="//www.markridgwell.co.uk"/>

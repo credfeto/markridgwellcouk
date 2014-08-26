@@ -19,8 +19,9 @@ class AboutHandler(webapp2.RequestHandler):
     def get(self):
 
         track = utils.should_track( self.request.headers )
+        windowsshare = utils.enable_windows_share_metadata( self.request.headers )
 
-        template_vals = { 'host' : self.request.host_url, 'track' : track, 'year' : date.today().year, 'showShare' : False }
+        template_vals = { 'host' : self.request.host_url, 'track' : track, 'year' : date.today().year, 'showShare' : False, 'windowsshare': windowsshare }
         self.response.out.write(utils.render_template("about.html", template_vals))
 
 app = webapp2.WSGIApplication([

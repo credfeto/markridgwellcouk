@@ -17,7 +17,9 @@ import utils
 class NotFoundHandler(webapp2.RequestHandler):
     def get(self):
 
-        template_vals = { 'host' : self.request.host_url, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare' : False }
+        windowsshare = utils.enable_windows_share_metadata( self.request.headers )
+
+        template_vals = { 'host' : self.request.host_url, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare' : False, 'windowsshare': windowsshare }
         self.response.out.write(utils.render_template("notfound.html", template_vals))
         self.response.set_status(404) 
 

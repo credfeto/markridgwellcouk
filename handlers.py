@@ -24,6 +24,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
+        windowsshare = utils.enable_windows_share_metadata( self.request.headers )
         searchPath = self.request.path.lower()
 
         hash = utils.generate_url_hash(searchPath)
@@ -51,7 +52,7 @@ class IndexHandler(webapp2.RequestHandler):
                     self.redirect(utils.redirect_url(newSearchPath, self.request.query_string), permanent=True)
             
             if shouldReportError:
-                template_vals = { 'host' : self.request.host_url, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare': False }
+                template_vals = { 'host' : self.request.host_url, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare': False, 'windowsshare': windowsshare }
                 utils.add_response_headers( self.request, self.response.headers )
                 self.response.out.write(utils.render_template("notfound.html", template_vals))
                 self.response.set_status(404) 
@@ -139,7 +140,7 @@ class IndexHandler(webapp2.RequestHandler):
             if item.resizes and tracking.is_trackable( self.request.headers.get( 'User-Agent', None ) ):
                 views = tracking.record_view( item.id, item.path )
 
-            template_vals = { 'host' : host, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, "parentItemUrl": parentItemUrl  }
+            template_vals = { 'host' : host, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, 'windowsshare': windowsshare, "parentItemUrl": parentItemUrl  }
             self.response.out.write(utils.render_template("index.html", template_vals))
             utils.add_response_headers( self.request, self.response.headers )
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400

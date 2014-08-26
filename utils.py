@@ -24,6 +24,17 @@ def is_cron_task( headers ):
 def is_public_publishable_path( path ):
     return not path.startswith('/albums/private/')
 
+def enable_windows_share_metadata( userAgent ):
+    if userAgent is None:
+        return True
+
+    agent = userAgent.lower()
+
+    if 'facebookexternalhit' in agent:
+        return False
+
+    return True
+
 def should_track( headers ):
 
     track = headers.get('DNT', "0")
