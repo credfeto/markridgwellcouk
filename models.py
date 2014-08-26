@@ -25,6 +25,12 @@ class PublishableItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     updated = ndb.DateTimeProperty(required=True,auto_now=True)
         
+class ItemViewCount(ndb.Model):
+    id = ndb.StringProperty(required=True)
+    path = ndb.StringProperty(required=True)
+    viewCount = ndb.IntegerProperty(required=True)
+    updated = ndb.DateTimeProperty(required=True,auto_now=True)
+
 class UserPrefs(db.Model):
     userid = db.StringProperty()
     lastEmailAddress = db.EmailProperty()

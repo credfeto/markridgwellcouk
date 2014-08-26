@@ -12,11 +12,11 @@ from google.appengine.ext import db
 
 import models
 import utils
-
+import tracking
 
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
-
+            
         if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(self.request.headers.get('User-Agent', None) ):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
@@ -133,11 +133,18 @@ class IndexHandler(webapp2.RequestHandler):
 
             showShare =  utils.should_share( self.request.headers.get( 'User-Agent', None ) )
 
+            views = 0
+            if item.resizes and tracking.is_trackable( self.request.headers.get( 'User-Agent', None ) ):
+                views = tracking.record_view( item.id, item.path )
+
             template_vals = { 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, "parentItemUrl": parentItemUrl  }
             self.response.out.write(utils.render_template("index.html", template_vals))
             utils.add_response_headers( self.request, self.response.headers )
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
+            self.response.headers['X-PageViews'] = str(views)
+
+            
 
 app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),

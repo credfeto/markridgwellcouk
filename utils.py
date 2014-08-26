@@ -2,6 +2,7 @@ import os
 import re
 import unicodedata
 import hashlib
+import models
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -243,3 +244,4 @@ def add_response_headers( request, headers ):
 
     if is_development() == False and request.scheme == 'https' and device_supports_ssl_tni(request.headers.get('User-Agent', None) ):
         headers['Strict-Transport-Security'] = 'max-age=31536000'
+
