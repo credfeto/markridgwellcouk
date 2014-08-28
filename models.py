@@ -28,7 +28,8 @@ class PublishableItem(ndb.Model):
 class ItemViewCount(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
-    viewCount = ndb.IntegerProperty(required=True)
+    viewCount = ndb.IntegerProperty(required=True,default=0)
+    shareCount = ndb.IntegerProperty(required=True,default=0)
     updated = ndb.DateTimeProperty(required=True,auto_now=True)
 
 class UserPrefs(db.Model):

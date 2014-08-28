@@ -40,6 +40,30 @@ def is_trackable( userAgent ):
     return False
 
 
+def is_sharing_callback( userAgent ):
+    
+    agent = userAgent.lower()
+
+    if 'facebookexternalhit' in agent:
+        return True
+
+    if 'twitterbot' in agent:
+        return True
+
+    if 'bitlybot' in agent:
+        return True
+
+    if 'bufferbot' in agent:
+        return True
+
+    if 'pinterest' in agent:
+        return True
+
+    if 'linkedinbot' in agent:
+        return True
+
+    return False
+
 def record_view( id, path ):
     q = models.ItemViewCount.query(models.ItemViewCount.id == id)
     
@@ -49,7 +73,8 @@ def record_view( id, path ):
         dbItem = models.ItemViewCount(
                             id = id,
                             path = path,
-                            viewCount = 1)
+                            viewCount = 1,
+                            shareCount = 0)
 
         dbItem.put()
 
@@ -60,4 +85,27 @@ def record_view( id, path ):
         dbItem.put()
 
     return dbItem.viewCount
+    
+
+def record_share( id, path ):
+    q = models.ItemViewCount.query(models.ItemViewCount.id == id)
+    
+
+    dbItem = q.get()
+    if dbItem is None:
+        dbItem = models.ItemViewCount(
+                            id = id,
+                            path = path,
+                            viewCount = 0,
+                            shareCount = 1)
+
+        dbItem.put()
+
+    else:
+        dbItem.shareCount = dbItem.shareCount + 1
+        dbItem.updated = datetime.datetime.now()
+
+        dbItem.put()
+
+    return dbItem.shareCount
     

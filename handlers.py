@@ -19,12 +19,14 @@ class IndexHandler(webapp2.RequestHandler):
 
         host = self.request.host_url
 
-        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(self.request.headers.get('User-Agent', None) ):
+        userAgent = self.request.headers.get('User-Agent', None)
+
+        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(userAgent ):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
-        windowsshare = utils.enable_windows_share_metadata( self.request.headers.get('User-Agent', None) )
+        windowsshare = utils.enable_windows_share_metadata( userAgent )
         searchPath = self.request.path.lower()
 
         hash = utils.generate_url_hash(searchPath)
@@ -133,12 +135,17 @@ class IndexHandler(webapp2.RequestHandler):
             keywords = None
             if item.keywords:
                 keywords = ",".join(item.keywords)                
-
-            showShare =  utils.should_share( self.request.headers.get( 'User-Agent', None ) )
+            
+            showShare =  utils.should_share( userAgent )
 
             views = 0
-            if item.resizes and tracking.is_trackable( self.request.headers.get( 'User-Agent', None ) ):
-                views = tracking.record_view( item.id, item.path )
+            if item.resizes:
+               
+                if tracking.is_sharing_callback( userAgent ):
+                    views = tracking.record_share( item.id, item.path )
+                else:
+                    if tracking.is_trackable( userAgent ):
+                        views = tracking.record_view( item.id, item.path )
 
             template_vals = { 'host' : host, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, 'windowsshare': windowsshare, "parentItemUrl": parentItemUrl  }
             self.response.out.write(utils.render_template("index.html", template_vals))
