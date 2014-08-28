@@ -125,14 +125,14 @@
         <script type="application/ld+json">
         {
             "@context": "http://schema.org",
-            "@type": "Photograph",            
+            "@type": "IMageObject",            
             "author": {
                   "@type": "Person",
                   "image": "{{host}}/static/images/mark-ridgwell.jpg",
                   "name": "Mark Ridgwell",
                   "sameAs": "{{host}}"
                 },
-            "thumbnailUrl", "{{thumbnailUrl}}",
+            "thumbnailUrl": "{{thumbnailUrl}}",
             "contentUrl": "{{fullImageUrl}}",
             "width": "{{fullImageWidth}}",
             "height": "{{fullImageHeight}}",
@@ -153,8 +153,8 @@
                     "geo": {
                         "@type": "GeoCoordinates",
                         "latitude": "{{item.location.lat}}",
-                        "longitude": {{item.location.lon}}"
-                      },
+                        "longitude": "{{item.location.lon}}"
+                      }
                  },
             "exifData": "{% if item.metadata %}{% for mdprop in item.metadata %}{{mdprop.name}}:{{mdprop.value}}, {% endfor %}{% endif %}",
             "keywords": "{{keywords}}",
