@@ -126,29 +126,29 @@
         {
             "@context": "http://schema.org",
             "@type": "Photograph",            
-            "@author": {
+            "author": {
                   "@type": "Person",
                   "image": "{{host}}/static/images/mark-ridgwell.jpg",
                   "name": "Mark Ridgwell",
                   "sameAs": "{{host}}"
                 },
-            "@thumbnailUrl", "{{thumbnailUrl}}",
-            "@contentUrl": "{{fullImageUrl}}",
-            "@width": "{{fullImageWidth}}",
-            "@height": "{{fullImageHeight}}",
-            "@datePublished": "{{item.updated|date:"c"}}",
-            "@description": "{{item.description}}",
-            "@name": "{{title}}",
-            "@license": "{{host}}about",
-            "@url": "{{host}}{{path}}",
-            "@sameAs": "{{host}}{{path}}",
-            "@copyrightHolder": {
+            "thumbnailUrl", "{{thumbnailUrl}}",
+            "contentUrl": "{{fullImageUrl}}",
+            "width": "{{fullImageWidth}}",
+            "height": "{{fullImageHeight}}",
+            "datePublished": "{{item.updated|date:"c"}}",
+            "description": "{{item.description}}",
+            "name": "{{title}}",
+            "license": "{{host}}about",
+            "url": "{{host}}{{path}}",
+            "sameAs": "{{host}}{{path}}",
+            "copyrightHolder": {
                   "@type": "Person",
                   "image": "{{host}}/static/images/mark-ridgwell.jpg",
                   "name": "Mark Ridgwell",
                   "sameAs": "{{host}}"
                 },
-            "@contentLocation": {
+            "contentLocation": {
                     "@type": "Place",
                     "geo": {
                         "@type": "GeoCoordinates",
@@ -156,11 +156,11 @@
                         "longitude": {{item.location.lon}}"
                       },
                  },
-            "@exifData": "{% if item.metadata %}{% for mdprop in item.metadata %}{{mdprop.name}}:{{mdprop.value}}, {% endfor %}{% endif %}",
-            "@keywords": "{{keywords}}",
-            "@isPartOf": {
+            "exifData": "{% if item.metadata %}{% for mdprop in item.metadata %}{{mdprop.name}}:{{mdprop.value}}, {% endfor %}{% endif %}",
+            "keywords": "{{keywords}}",
+            "isPartOf": {
                             "@type": "CreativeWork",
-                            "@url": "{{parentItemUrl}}",
+                            "url": "{{parentItemUrl}}",
                         }
 
         }            
