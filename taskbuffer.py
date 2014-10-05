@@ -15,7 +15,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                            attachments=files)
 
     def strip_trailing_numbers(self, publish):
-        return publish.title.lstrip('0123456789 ')
+        return publish.title.rstrip('0123456789 ')
 
     def publish_photo(self, files, publish):
         # publish the item
