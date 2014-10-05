@@ -21,12 +21,14 @@ class TaskBufferHandler(webapp2.RequestHandler):
         # publish the item
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
         shortened_url = utils.shortern_url( url )
+        self.response.out.write("Short Url: " + shortened_url + "\r\n")
         user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
         sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
         subject = self.strip_trailing_numbers(publish) + " #photo " + shortened_url
         body = "@profiles mark ridgwell's photos credfeto " \
                "@url " + url
                ##"@now " \
+
 
         self.send_email(body, files, sender_address, subject, user_address)
         self.send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
