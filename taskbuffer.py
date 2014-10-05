@@ -26,7 +26,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                ##"@now " \
 
         self.send_email(body, files, sender_address, subject, user_address)
-        #self.send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
+        self.send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
 
     def get_resize(self, publish):
         ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
