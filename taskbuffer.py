@@ -20,7 +20,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
     def publish_photo(self, files, publish):
         # publish the item
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
-        shortened_url = url
+        shortened_url = utils.shortern_url( url )
         user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
         sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
         subject = self.strip_trailing_numbers(publish) + " #photo " + shortened_url

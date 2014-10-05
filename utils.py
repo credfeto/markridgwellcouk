@@ -9,6 +9,8 @@ from google.appengine.ext.webapp import template
 
 import sys
 
+import googl
+
 def is_cron_task( headers ):
 
     hdr = headers.get('X-AppEngine-Cron', 'false' )
@@ -271,3 +273,12 @@ def add_response_headers( request, headers ):
     if is_development() == False and request.scheme == 'https' and device_supports_ssl_tni(request.headers.get('User-Agent', None) ):
         headers['Strict-Transport-Security'] = 'max-age=31536000'
 
+def shortern_url( url ):
+
+    try:
+        api = googl.Googl("AIzaSyAR7DxhhrftPkmbUNrj5rHMl4qaKKkR5JQ")
+
+        return api.shorten( url)
+
+    except googl.GooglError:
+        return url
