@@ -7,6 +7,13 @@ import utils
 
 class TaskBufferHandler(webapp2.RequestHandler):
 
+    def send_email(self, body, files, sender_address, subject, user_address):
+        if files is None:
+            mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body)
+        else:
+            mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body,
+                           attachments=files)
+
     def publish_photo(self, files, publish):
         # publish the item
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
@@ -17,11 +24,9 @@ class TaskBufferHandler(webapp2.RequestHandler):
         body = "@profiles mark ridgwell's photos credfeto " \
                "@now " \
                "@url " + url
-        if files is None:
-            mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body)
-        else:
-            mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body,
-                           attachments=files)
+
+        self.send_email(body, files, sender_address, subject, user_address)
+        self.send_email(body, files, 'mark@markridgwell.com', subject, user_address)
 
     def get_resize(self, publish):
         ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
