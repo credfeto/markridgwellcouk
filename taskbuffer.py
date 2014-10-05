@@ -22,11 +22,11 @@ class TaskBufferHandler(webapp2.RequestHandler):
         sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
         subject = publish.title + " #photo " + shortened_url
         body = "@profiles mark ridgwell's photos credfeto " \
-               "@now " \
                "@url " + url
+               ##"@now " \
 
         self.send_email(body, files, sender_address, subject, user_address)
-        self.send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
+        #self.send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
 
     def get_resize(self, publish):
         ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
@@ -72,7 +72,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                     self.publish_photo(files, publish)
 
                     #Remove the item we just published so it doesn't go again
-                    # itemToPublish.key.delete()
+                    itemToPublish.key.delete()
                     break
 
         self.response.out.write("OK")
