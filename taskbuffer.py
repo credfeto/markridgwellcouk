@@ -27,15 +27,19 @@ class TaskBufferHandler(webapp2.RequestHandler):
                             image = resize
                             break
 
-                    imageUrl = utils.image_url(publish.path, image)
+                    image_url = utils.image_url(publish.path, image)
+                    self.response.out.write("Image: " + image_url +"\r\n" )
+
 
                     files = None
                     try:
-                        result = urllib2.urlopen(imageUrl)
+                        result = urllib2.urlopen(image_url)
                         if result.status_code == 200:
                             filename = publish.title + ".jpg"
                             file_data = result.content
-                            files = [filename, file_data]
+                            files = [(filename, file_data)]
+
+                            self.response.out.write("Adding Attachment: " + len(file_data) +"\r\n" )
                     except:
                         files = None
 
