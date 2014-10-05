@@ -32,25 +32,21 @@ class TaskBufferHandler(webapp2.RequestHandler):
 
 
                     files = None
-                    try:
-                        result = urlfetch.urlopen(image_url)
-                        self.response.out.write("Status: " + str(result.status_code) +"\r\n" )
-                        if result.status_code == 200:
-                            filename = publish.title + ".jpg"
-                            file_data = result.content
-                            files = [(filename, file_data)]
+                    result = urlfetch.urlopen(image_url)
+                    self.response.out.write("Status: " + str(result.status_code) +"\r\n" )
+                    if result.status_code == 200:
+                        filename = publish.title + ".jpg"
+                        file_data = result.content
+                        files = [(filename, file_data)]
 
-                            self.response.out.write("Adding Attachment: " + len(file_data) +"\r\n" )
-                    except urlfetch.URLError, e:
-                        self.response.out.write("Error: " + e.message +"\r\n" )
-                        files = None
+                        self.response.out.write("Adding Attachment: " + len(file_data) +"\r\n" )
 
                     # publish the item
                     url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
-                    shortenedUrl = url
-                    user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com';                    
+                    shortened_url = url
+                    user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
                     sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
-                    subject = publish.title + " #photo " + shortenedUrl
+                    subject = publish.title + " #photo " + shortened_url
                     body = "@profiles mark ridgwell's photos credfeto " \
                            "@now " \
                            "@url " + url
