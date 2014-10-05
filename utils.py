@@ -275,10 +275,10 @@ def add_response_headers( request, headers ):
 
 def shortern_url( url ):
 
-    try:
+    #try:
         api = googl.Googl("AIzaSyAR7DxhhrftPkmbUNrj5rHMl4qaKKkR5JQ")
 
-        return api.shorten( url)
+        return api.shorten(url)
 
-    except googl.GooglError:
-        return url
+    #except googl.GooglError:
+    #    return url
