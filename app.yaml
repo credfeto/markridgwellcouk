@@ -6,6 +6,10 @@ threadsafe: yes
 
 handlers:
 
+- url: /_ah/bounce
+  script: handle_bounced_email.app
+  login: admin
+
 - url: /static/(.*)
   static_files: static/\1
   upload: static/(.*)
@@ -146,6 +150,9 @@ pagespeed:
   domains_to_rewrite:
     - www.markridgwell.co.uk
     - www.markridgwell.com
+
+inbound_services:
+ - mail_bounce
 
 libraries:
 - name: webapp2
