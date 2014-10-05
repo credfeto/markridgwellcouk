@@ -1,7 +1,7 @@
-import urllib2
 
 import webapp2
 from google.appengine.api import mail
+from google.appengine.api import urlfetch
 import models
 import utils
 
@@ -33,7 +33,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
 
                     files = None
                     try:
-                        result = urllib2.urlopen(image_url)
+                        result = urlfetch.urlopen(image_url)
                         self.response.out.write("Status: " + str(result.status_code) +"\r\n" )
                         if result.status_code == 200:
                             filename = publish.title + ".jpg"
@@ -41,7 +41,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                             files = [(filename, file_data)]
 
                             self.response.out.write("Adding Attachment: " + len(file_data) +"\r\n" )
-                    except urllib2.URLError, e:
+                    except urlfetch.URLError, e:
                         self.response.out.write("Error: " + e.message +"\r\n" )
                         files = None
 
