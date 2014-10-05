@@ -25,7 +25,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
         user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
         sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
         subject = self.strip_trailing_numbers(publish) + " #photo " + shortened_url
-        body = "@profiles mark ridgwell's photos credfeto @url " + shortened_url
+        body = "@profiles mark ridgwell's photos credfeto @link " + shortened_url
                ##"@now " \
 
 
