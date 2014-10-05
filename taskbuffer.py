@@ -34,13 +34,15 @@ class TaskBufferHandler(webapp2.RequestHandler):
                     files = None
                     try:
                         result = urllib2.urlopen(image_url)
+                        self.response.out.write("Status: " + str(result.status_code) +"\r\n" )
                         if result.status_code == 200:
                             filename = publish.title + ".jpg"
                             file_data = result.content
                             files = [(filename, file_data)]
 
                             self.response.out.write("Adding Attachment: " + len(file_data) +"\r\n" )
-                    except:
+                    except urllib2.URLError, e:
+                        self.response.out.write("Error: " + e.message +"\r\n" )
                         files = None
 
                     # publish the item
