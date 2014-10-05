@@ -36,7 +36,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                             filename = publish.title + ".jpg"
                             file_data = result.content
                             files = [filename, file_data]
-                    except
+                    except:
                         files = None
 
                     # publish the item
