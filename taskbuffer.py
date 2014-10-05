@@ -23,7 +23,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
                     ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
                     image = ordered_resizes[-1]
                     for (i, resize ) in enumerate(ordered_resizes):
-                        if resize.width = 800:
+                        if resize.width <= 800:
                             image = resize
                             break
 
