@@ -43,7 +43,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
             file_data = result.content
             files = [(filename, file_data)]
 
-            self.response.out.write("Adding Attachment: " + len(file_data) + "\r\n")
+            self.response.out.write("Adding Attachment: " + str(len(file_data)) + "bytes.\r\n")
         return files
 
     def get(self):
