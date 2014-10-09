@@ -17,14 +17,47 @@ class TaskBufferHandler(webapp2.RequestHandler):
     def strip_trailing_numbers(self, publish):
         return publish.title.rstrip('0123456789 ')
 
+    def get_album_title(self, publish):
+
+        album_title = None
+        if publish.breadcrumbs is not None:
+            album = publish.breadcrumbs[-1]
+            if album is None:
+                album_title = album.Title
+                pos = album_title.find('-')
+                if pos <> -1:
+                    album_title = album_title[pos + 1:]
+                album_title = album_title.strip()
+
+        return album_title
+
+    def contains_either(self, photo_title, album_title):
+        if album_title in photo_title:
+            return True
+
+        if photo_title in album_title:
+            return True
+
+        return False
+
     def publish_photo(self, files, publish):
         # publish the item
+
+        album_title = self.get_album_title(publish)
+        title = self.strip_trailing_numbers(publish)
+        if album_title is not None:
+            if not self.contains_either(title.lower().trim(), album_title.lower().trim()):
+                title = title + " - " + album_title
+                if len(title) > 90:
+                    title = title[:90]
+
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
         shortened_url = utils.shortern_url( url )
+        self.response.out.write("Title: " + title + "\r\n")
         self.response.out.write("Short Url: " + shortened_url + "\r\n")
         user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
         sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
-        subject = self.strip_trailing_numbers(publish) + " #photo " + shortened_url
+        subject = title + " #photo " + shortened_url
         body = "@profiles mark ridgwell's photos credfeto\r\n@link " + shortened_url
                ##"@now " \
 
