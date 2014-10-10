@@ -1,4 +1,3 @@
-
 from google.appengine.ext import blobstore
 from google.appengine.api import files
 from google.appengine.ext.webapp import blobstore_handlers
@@ -9,8 +8,8 @@ import utils
 import sys
 import datetime
 
-def is_trackable( userAgent ):
-    
+
+def is_trackable(userAgent):
     agent = userAgent.lower()
 
     if 'googlebot' in agent:
@@ -40,8 +39,7 @@ def is_trackable( userAgent ):
     return False
 
 
-def is_sharing_callback( userAgent ):
-    
+def is_sharing_callback(userAgent):
     agent = userAgent.lower()
 
     if 'facebookexternalhit' in agent:
@@ -64,17 +62,17 @@ def is_sharing_callback( userAgent ):
 
     return False
 
-def record_view( id, path ):
+
+def record_view(id, path):
     q = models.ItemViewCount.query(models.ItemViewCount.id == id)
-    
 
     dbItem = q.get()
     if dbItem is None:
         dbItem = models.ItemViewCount(
-                            id = id,
-                            path = path,
-                            viewCount = 1,
-                            shareCount = 0)
+            id=id,
+            path=path,
+            viewCount=1,
+            shareCount=0)
 
         dbItem.put()
 
@@ -85,19 +83,18 @@ def record_view( id, path ):
         dbItem.put()
 
     return dbItem.viewCount
-    
 
-def record_share( id, path ):
+
+def record_share(id, path):
     q = models.ItemViewCount.query(models.ItemViewCount.id == id)
-    
 
     dbItem = q.get()
     if dbItem is None:
         dbItem = models.ItemViewCount(
-                            id = id,
-                            path = path,
-                            viewCount = 0,
-                            shareCount = 1)
+            id=id,
+            path=path,
+            viewCount=0,
+            shareCount=1)
 
         dbItem.put()
 

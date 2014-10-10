@@ -3,7 +3,7 @@ import sys
 import json
 import hashlib
 import urllib2
-from collections import defaultdict 
+from collections import defaultdict
 
 from google.appengine.api import mail
 from google.appengine.ext import blobstore
@@ -11,44 +11,45 @@ from google.appengine.api import files
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
 from google.appengine.ext import ndb
-from google.appengine.api import urlfetch 
+from google.appengine.api import urlfetch
 from google.appengine.api import memcache
 from google.appengine.api import capabilities
 
 import models
 import utils
 import pubsubhubub
+import logging
+
 
 def invalidateGeneratedItems():
-        invalidateGeneratedItem('rss-output')
-        invalidateGeneratedItem('sitemap-index-output')
-        invalidateGeneratedItem('sitemap-section-0-output')
-        invalidateGeneratedItem('sitemap-section-1-output')
-        invalidateGeneratedItem('sitemap-section-2-output')
-        invalidateGeneratedItem('sitemap-section-3-output')
-        invalidateGeneratedItem('sitemap-section-4-output')
-        invalidateGeneratedItem('sitemap-section-5-output')
-        invalidateGeneratedItem('sitemap-section-6-output')
-        invalidateGeneratedItem('sitemap-section-7-output')
-        invalidateGeneratedItem('sitemap-section-8-output')
-        invalidateGeneratedItem('sitemap-section-9-output')
-        invalidateGeneratedItem('sitemap-section-a-output')
-        invalidateGeneratedItem('sitemap-section-b-output')
-        invalidateGeneratedItem('sitemap-section-c-output')
-        invalidateGeneratedItem('sitemap-section-d-output')
-        invalidateGeneratedItem('sitemap-section-e-output')
-        invalidateGeneratedItem('sitemap-section-f-output')
+    invalidateGeneratedItem('rss-output')
+    invalidateGeneratedItem('sitemap-index-output')
+    invalidateGeneratedItem('sitemap-section-0-output')
+    invalidateGeneratedItem('sitemap-section-1-output')
+    invalidateGeneratedItem('sitemap-section-2-output')
+    invalidateGeneratedItem('sitemap-section-3-output')
+    invalidateGeneratedItem('sitemap-section-4-output')
+    invalidateGeneratedItem('sitemap-section-5-output')
+    invalidateGeneratedItem('sitemap-section-6-output')
+    invalidateGeneratedItem('sitemap-section-7-output')
+    invalidateGeneratedItem('sitemap-section-8-output')
+    invalidateGeneratedItem('sitemap-section-9-output')
+    invalidateGeneratedItem('sitemap-section-a-output')
+    invalidateGeneratedItem('sitemap-section-b-output')
+    invalidateGeneratedItem('sitemap-section-c-output')
+    invalidateGeneratedItem('sitemap-section-d-output')
+    invalidateGeneratedItem('sitemap-section-e-output')
+    invalidateGeneratedItem('sitemap-section-f-output')
 
-def invalidateGeneratedItem( key ):
 
-    q = models.GeneratedItem.query(models.GeneratedItem.id == key)    
+def invalidateGeneratedItem(key):
+    q = models.GeneratedItem.query(models.GeneratedItem.id == key)
     dbItem = q.get()
     if dbItem <> None:
         dbItem.key.delete()
 
 
 def invalidateOutputCaches():
-
     memcacheEnabled = capabilities.CapabilitySet('memcache').is_enabled()
 
     if memcacheEnabled:
@@ -73,9 +74,9 @@ def invalidateOutputCaches():
 
     invalidateGeneratedItems()
 
-def children_changed( current, toupdate ):
 
-    if len( current ) <> len(toupdate):
+def children_changed(current, toupdate):
+    if len(current) <> len(toupdate):
         return True
 
     for (i, currentChild ) in enumerate(current):
@@ -102,9 +103,9 @@ def children_changed( current, toupdate ):
 
     return False
 
-def breadcrumbs_changed( current, toupdate ):
 
-    if len( current ) <> len(toupdate):
+def breadcrumbs_changed(current, toupdate):
+    if len(current) <> len(toupdate):
         return True
 
     for (i, currentCrumb ) in enumerate(current):
@@ -121,8 +122,8 @@ def breadcrumbs_changed( current, toupdate ):
 
     return False
 
-def sibling_changed( current, toupdate ):
 
+def sibling_changed(current, toupdate):
     if current is None and toupdate is None:
         return False
 
@@ -153,9 +154,9 @@ def sibling_changed( current, toupdate ):
 
     return False
 
-def resizes_changed( current, toupdate ):
 
-    if len( current ) <> len(toupdate):
+def resizes_changed(current, toupdate):
+    if len(current) <> len(toupdate):
         return True
 
     for (i, currentSize ) in enumerate(current):
@@ -169,9 +170,9 @@ def resizes_changed( current, toupdate ):
 
     return False
 
-def metadata_changed( current, toupdate ):
 
-    if len( current ) <> len(toupdate):
+def metadata_changed(current, toupdate):
+    if len(current) <> len(toupdate):
         return True
 
     for (i, currentMetadata ) in enumerate(current):
@@ -185,9 +186,9 @@ def metadata_changed( current, toupdate ):
 
     return False
 
-def keywords_changed( current, toupdate ):
 
-    if len( current ) <> len(toupdate):
+def keywords_changed(current, toupdate):
+    if len(current) <> len(toupdate):
         return True
 
     for (i, currentKeyword ) in enumerate(current):
@@ -204,7 +205,7 @@ def synchronize():
     url = 'E:\\Gallery\\LiveImages\\site.js'
     url = 'E:\\GalleryMetadata\\site.js'
 
-    #sys.stdout.write('\n\n')
+    # sys.stdout.write('\n\n')
     #sys.stdout.write('Downloading from: ' + url + '\n');
 
     #result = urlfetch.fetch(url);
@@ -215,93 +216,98 @@ def synchronize():
     with open(url, "r") as myfile:
         contents = myfile.read()
         myfile.close()
-        synchronize_common( contents)
+        synchronize_common(contents)
+
 
 def synchronize_url():
     url = utils.site_url('/site.js')
     url = 'http://localhost/GalleryMetadata/site.js'
 
-    #sys.stdout.write('\n\n')
+    # sys.stdout.write('\n\n')
     #sys.stdout.write('Downloading from: ' + url + '\n');
 
     result = urlfetch.fetch(url);
     if result.status_code == 200:
-
         contents = result.content
-        synchronize_common( contents)
+        synchronize_common(contents)
 
-def extract_location( item ):
+
+def extract_location(item):
     location = None
     loc = item["Location"]
     if loc <> None:
         if "Latitude" in loc and "Longitude" in loc:
             lat = loc["Latitude"]
             lng = loc["Longitude"]
-            location = ndb.GeoPt( lat, lng )
+            location = ndb.GeoPt(lat, lng)
     return location
 
-def extract_children( item ):
+
+def extract_children(item):
     children = None
     childItems = item["Children"]
     if childItems <> None:
         children = []
         for child in childItems:
-                childPath = child["Path"]
-                childHash = utils.generate_url_hash(childPath)
-                childTitle = child["Title"]
-                childType = child["Type"]
-                childDescription = child["Description"]
-                            
-                foundThumbnailSize = None
-                childImageSizes = child["ImageSizes"]
-                if childImageSizes <> None:
-                    childImageWidth = 0
-                    childImageHeight = 0
-                                
-                    for childImageSize in childImageSizes:
-                        childImageSizeWidth = childImageSize["Width"]
-                        childImageSizeHeight = childImageSize["Height"]
+            childPath = child["Path"]
+            childHash = utils.generate_url_hash(childPath)
+            childTitle = child["Title"]
+            childType = child["Type"]
+            childDescription = child["Description"]
 
-                        if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
-                            childImageWidth = childImageSizeWidth
-                            childImageHeight = childImageSizeHeight
-                                    
-                    if childImageWidth <> 0 and childImageHeight <> 0:
-                        foundThumbnailSize = models.ResizedImage(
-                                                                        width = childImageWidth,
-                                                                        height = childImageHeight )
+            foundThumbnailSize = None
+            childImageSizes = child["ImageSizes"]
+            if childImageSizes <> None:
+                childImageWidth = 0
+                childImageHeight = 0
 
-                children.append( models.ChildItem(
-                                                id = childHash,
-                                                path = childPath,
-                                                title = childTitle,
-                                                type = childType,
-                                                description = childDescription,
-                                                thumbnail = foundThumbnailSize
-                                            ) )
+                for childImageSize in childImageSizes:
+                    childImageSizeWidth = childImageSize["Width"]
+                    childImageSizeHeight = childImageSize["Height"]
+
+                    if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and (
+                            childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                        childImageWidth = childImageSizeWidth
+                        childImageHeight = childImageSizeHeight
+
+                if childImageWidth <> 0 and childImageHeight <> 0:
+                    foundThumbnailSize = models.ResizedImage(
+                        width=childImageWidth,
+                        height=childImageHeight)
+
+            children.append(models.ChildItem(
+                id=childHash,
+                path=childPath,
+                title=childTitle,
+                type=childType,
+                description=childDescription,
+                thumbnail=foundThumbnailSize
+            ))
 
     return children
 
-def extract_breadcrumbs( item ):
+
+def extract_breadcrumbs(item):
     breadcrumbs = None
     breadcrumbItems = item["Breadcrumbs"]
     if breadcrumbItems <> None:
         breadcrumbs = []
         for crumb in breadcrumbItems:
-                crumbPath = crumb["Path"]
-                crumbHash = utils.generate_url_hash(crumbPath)
-                crumbTitle = crumb["Title"]
-                crumbDescription = crumb["Description"]
+            crumbPath = crumb["Path"]
+            crumbHash = utils.generate_url_hash(crumbPath)
+            crumbTitle = crumb["Title"]
+            crumbDescription = crumb["Description"]
 
-                breadcrumbs.append( models.BreadcrumbItem(
-                                                id = crumbHash,
-                                                path = crumbPath,
-                                                title = crumbTitle
-                                            ) )
+            breadcrumbs.append(models.BreadcrumbItem(
+                id=crumbHash,
+                path=crumbPath,
+                title=crumbTitle
+            ))
 
     return breadcrumbs
 
-def extract_metadata( item ):
+
+def extract_metadata(item):
     metadata = None
     metadataItems = item['Metadata']
     if metadataItems <> None:
@@ -310,84 +316,89 @@ def extract_metadata( item ):
             mdName = mdItem['Name']
             mdValue = mdItem['Value']
 
-            metadata.append( models.MetadataProperty(
-                                            name = mdName,
-                                            value = mdValue
-                                            ) )
+            metadata.append(models.MetadataProperty(
+                name=mdName,
+                value=mdValue
+            ))
 
     return metadata
 
-def extract_keywords( item ):
+
+def extract_keywords(item):
     return item['Keywords']
 
-def extract_image_sizes( item ):
+
+def extract_image_sizes(item):
     foundImageSizes = None
     imageSizes = item["ImageSizes"]
     if imageSizes <> None:
         foundImageSizes = []
-        for imageSize in imageSizes:                            
+        for imageSize in imageSizes:
             imageSizeWidth = imageSize["Width"]
             imageSizeHeight = imageSize["Height"]
-            #sys.stdout.write(" * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) + '\n' )
-            foundImageSizes.append( models.ResizedImage(
-                                                            width = imageSizeWidth,
-                                                            height = imageSizeHeight
-                                                        ) )
+            # sys.stdout.write(" * Size: " + str( imageSizeWidth) + "x" + str( imageSizeHeight) + '\n' )
+            foundImageSizes.append(models.ResizedImage(
+                width=imageSizeWidth,
+                height=imageSizeHeight
+            ))
 
     return foundImageSizes;
 
-def extract_sibling( item, which ):
+
+def extract_sibling(item, which):
     firstSibling = None
     fsibling = item[which]
     if fsibling <> None:
-                childPath = fsibling["Path"]
-                childHash = utils.generate_url_hash(childPath)
-                childTitle = fsibling["Title"]
-                childType = fsibling["Type"]
-                childDescription = fsibling["Description"]
-                            
-                foundThumbnailSize = None
-                childImageSizes = fsibling["ImageSizes"]
-                if childImageSizes <> None:
-                    childImageWidth = 0
-                    childImageHeight = 0
-                                
-                    for childImageSize in childImageSizes:
-                        childImageSizeWidth = childImageSize["Width"]
-                        childImageSizeHeight = childImageSize["Height"]
+        childPath = fsibling["Path"]
+        childHash = utils.generate_url_hash(childPath)
+        childTitle = fsibling["Title"]
+        childType = fsibling["Type"]
+        childDescription = fsibling["Description"]
 
-                        if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and ( childImageHeight == 0 or childImageSizeHeight < childImageHeight):
-                            childImageWidth = childImageSizeWidth
-                            childImageHeight = childImageSizeHeight
-                                    
-                    if childImageWidth <> 0 and childImageHeight <> 0:
-                        foundThumbnailSize = models.ResizedImage(
-                                                                        width = childImageWidth,
-                                                                        height = childImageHeight )
+        foundThumbnailSize = None
+        childImageSizes = fsibling["ImageSizes"]
+        if childImageSizes <> None:
+            childImageWidth = 0
+            childImageHeight = 0
 
-                firstSibling = models.ChildItem(
-                                                id = childHash,
-                                                path = childPath,
-                                                title = childTitle,
-                                                type = childType,
-                                                description = childDescription,
-                                                thumbnail = foundThumbnailSize
-                                            )
+            for childImageSize in childImageSizes:
+                childImageSizeWidth = childImageSize["Width"]
+                childImageSizeHeight = childImageSize["Height"]
+
+                if ( childImageWidth == 0 or childImageSizeWidth < childImageWidth) and (
+                        childImageHeight == 0 or childImageSizeHeight < childImageHeight):
+                    childImageWidth = childImageSizeWidth
+                    childImageHeight = childImageSizeHeight
+
+            if childImageWidth <> 0 and childImageHeight <> 0:
+                foundThumbnailSize = models.ResizedImage(
+                    width=childImageWidth,
+                    height=childImageHeight)
+
+        firstSibling = models.ChildItem(
+            id=childHash,
+            path=childPath,
+            title=childTitle,
+            type=childType,
+            description=childDescription,
+            thumbnail=foundThumbnailSize
+        )
     return firstSibling
 
-def delete_item( hash ):
+
+def delete_item(hash):
     q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
     dbItem = q.get()
     if dbItem <> None:
         dbItem.key.delete()
-        #sys.stdout.write('Deleted\n')
+        # sys.stdout.write('Deleted\n')
         return True
 
     return False
 
-def delete_published_item( hash ):
 
+def delete_published_item(hash):
     piq = models.PublishableItem.query(models.PublishableItem.id == hash)
     pi = piq.get()
     if pi <> None:
@@ -400,66 +411,72 @@ def synchronize_common(contents):
 
     itemsWritten = 0
 
-    #sys.stdout.write("Decoded Version: " + str(version) + '\n' )
+    logging.info("Decoded Version: " + str(version))
 
     for item in decoded["items"]:
-        
+
         path = item["Path"]
         title = item["Title"]
         type = item["Type"]
         description = item["Description"]
-        rating = None #item["Rating"]
-        
+        rating = None  # item["Rating"]
 
         hash = utils.generate_url_hash(path)
         indexSection = hash[:1]
 
-        location = extract_location( item )
-        children = extract_children( item )
-        breadcrumbs = extract_breadcrumbs( item )
-        metadata = extract_metadata( item )
-        keywords = extract_keywords( item )
-        foundImageSizes = extract_image_sizes( item )
-        firstSibling = extract_sibling( item, "First" )
-        previousSibling = extract_sibling( item, "Previous" )
-        nextSibling = extract_sibling( item, "Next" )
-        lastSibling = extract_sibling( item, "Last" )
+        location = extract_location(item)
+        children = extract_children(item)
+        breadcrumbs = extract_breadcumbs(item)
+        metadata = extract_metadata(item)
+        keywords = extract_keywords(item)
+        foundImageSizes = extract_image_sizes(item)
+        firstSibling = extract_sibling(item, "First")
+        previousSibling = extract_sibling(item, "Previous")
+        nextSibling = extract_sibling(item, "Next")
+        lastSibling = extract_sibling(item, "Last")
 
         q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
         dbItem = q.get()
         if dbItem is None:
             dbItem = models.GalleryItem(
-                                        id = hash,
-                                        path = path,
-                                        indexSection = indexSection,
-                                        title = title,
-                                        type = type,
-                                        description = description,
-                                        rating = rating,
-                                        location = location,
-                                        children = children,
-                                        breadcrumbs = breadcrumbs,
-                                        resizes = foundImageSizes,
-                                        metadata = metadata,
-                                        keywords = keywords,
-                                        firstSibling = firstSibling,
-                                        previousSibling = previousSibling,
-                                        nextSibling = nextSibling,
-                                        lastSibling = lastSibling
-                                        )
+                id=hash,
+                path=path,
+                indexSection=indexSection,
+                title=title,
+                type=type,
+                description=description,
+                rating=rating,
+                location=location,
+                children=children,
+                breadcrumbs=breadcrumbs,
+                resizes=foundImageSizes,
+                metadata=metadata,
+                keywords=keywords,
+                firstSibling=firstSibling,
+                previousSibling=previousSibling,
+                nextSibling=nextSibling,
+                lastSibling=lastSibling
+            )
             dbItem.put()
-                
-            itemsWritten = itemsWritten + 1
-            #sys.stdout.write('Created\n')
 
-            if type == 'photo' and utils.is_public_publishable_path( path ):
-                publishItem = models.PublishableItem( id = dbItem.id )
+            itemsWritten = itemsWritten + 1
+            logging.info('Created: ' + path)
+
+            if type == 'photo' and utils.is_public_publishable_path(path):
+                publishItem = models.PublishableItem(id=dbItem.id)
                 publishItem.put()
-             
+
         else:
 
-            if path <> dbItem.path or indexSection <> dbItem.indexSection or  dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed( dbItem.children, children ) or breadcrumbs_changed( dbItem.breadcrumbs, breadcrumbs ) or resizes_changed( dbItem.resizes, foundImageSizes ) or metadata_changed( dbItem.metadata, metadata ) or keywords_changed( dbItem.keywords, keywords ) or sibling_changed( dbItem.firstSibling, firstSibling )or sibling_changed( dbItem.previousSibling, previousSibling )or sibling_changed( dbItem.nextSibling, nextSibling )or sibling_changed( dbItem.lastSibling, lastSibling ):
+            if path <> dbItem.path or indexSection <> dbItem.indexSection or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed(
+                    dbItem.children, children) or breadcrumbs_changed(dbItem.breadcrumbs,
+                                                                      breadcrumbs) or resizes_changed(dbItem.resizes,
+                                                                                                      foundImageSizes) or metadata_changed(
+                    dbItem.metadata, metadata) or keywords_changed(dbItem.keywords, keywords) or sibling_changed(
+                    dbItem.firstSibling, firstSibling) or sibling_changed(dbItem.previousSibling,
+                                                                          previousSibling) or sibling_changed(
+                    dbItem.nextSibling, nextSibling) or sibling_changed(dbItem.lastSibling, lastSibling):
                 dbItem.path = path
                 dbItem.indexSection = indexSection
                 dbItem.title = title
@@ -479,21 +496,20 @@ def synchronize_common(contents):
                 dbItem.updated = datetime.datetime.now()
 
                 dbItem.put()
-                    
+
                 itemsWritten = itemsWritten + 1
-                #sys.stdout.write('Updated\n')
-            #else:
-                #sys.stdout.write('Unchanged\n')
-        #sys.stdout.write('\n')
-    
+                logging.info('updated: ' + path)
+            else:
+                logging.info('Unchanged: ' + path)
+
     for deletedItem in decoded["deletedItems"]:
-        #sys.stdout.write('Item: ' + deletedItem + '\n')
+        logging.info('Deleting: ' + deletedItem)
         hash = utils.generate_url_hash(deletedItem)
 
-        if delete_item( hash ):
+        if delete_item(hash):
             itemsWritten = itemsWritten + 1
 
-        delete_published_item( hash )
+        delete_published_item(hash)
 
     if itemsWritten > 0:
         invalidateOutputCaches()

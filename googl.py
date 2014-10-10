@@ -33,13 +33,13 @@ import urllib2
 
 # Searching for JSON library.
 try:
-    import json # Python >= 2.6
+    import json  # Python >= 2.6
 except ImportError:
     try:
-        import simplejson as json # Python <= 2.5
+        import simplejson as json  # Python <= 2.5
     except ImportError:
         try:
-            from django.utils import simplejson as json # GAE
+            from django.utils import simplejson as json  # GAE
         except ImportError:
             raise ImportError("JSON library not found.")
 
@@ -52,6 +52,7 @@ PROJ_TOP = "ANALYTICS_TOP_STRINGS"
 
 class GooglError(Exception):
     """Goo.gl API error class."""
+
     def __init__(self, code, message):
         self.code = code
         self.message = message
@@ -69,6 +70,7 @@ class Googl(object):
     referer: optional Referer header (for Referer API limits)
     userip: optional IP (for IP API limits)
     """
+
     def __init__(self, key, client_login=None, api="v1", userip=None, referer=None):
         self.client_login = client_login
         self.key = key
@@ -144,6 +146,7 @@ class Googl(object):
 def get_client_login(email, password):
     """Get client login by user creditants."""
     import gdata.service
+
     service = gdata.service.GDataService()
     service.ClientLogin(email, password, service="urlshortener")
     return service.current_token.get_token_string()

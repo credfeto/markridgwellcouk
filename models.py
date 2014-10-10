@@ -7,7 +7,7 @@ from google.appengine.ext import db
 from google.appengine.ext import ndb
 from google.appengine.ext import blobstore
 
-#overview
+# overview
 # https://developers.google.com/appengine/docs/python/ndb/
 
 # structured proerties
@@ -19,18 +19,21 @@ from google.appengine.ext import blobstore
 class GeneratedItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     text = ndb.TextProperty(required=True)
-    updated = ndb.DateTimeProperty(required=True,auto_now=True)
+    updated = ndb.DateTimeProperty(required=True, auto_now=True)
+
 
 class PublishableItem(ndb.Model):
     id = ndb.StringProperty(required=True)
-    updated = ndb.DateTimeProperty(required=True,auto_now=True)
-        
+    updated = ndb.DateTimeProperty(required=True, auto_now=True)
+
+
 class ItemViewCount(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
-    viewCount = ndb.IntegerProperty(required=True,default=0)
-    shareCount = ndb.IntegerProperty(required=True,default=0)
-    updated = ndb.DateTimeProperty(required=True,auto_now=True)
+    viewCount = ndb.IntegerProperty(required=True, default=0)
+    shareCount = ndb.IntegerProperty(required=True, default=0)
+    updated = ndb.DateTimeProperty(required=True, auto_now=True)
+
 
 class UserPrefs(db.Model):
     userid = db.StringProperty()
@@ -40,9 +43,11 @@ class UserPrefs(db.Model):
     firstLoggedIn = db.DateTimeProperty()
     lastAccessed = db.DateTimeProperty()
 
+
 class ResizedImage(ndb.Model):
     width = ndb.IntegerProperty(required=True)
     height = ndb.IntegerProperty(required=True)
+
 
 class BreadcrumbItem(ndb.Model):
     id = ndb.StringProperty(required=True)
@@ -59,9 +64,11 @@ class ChildItem(ndb.Model):
     description = ndb.TextProperty(required=True)
     thumbnail = ndb.StructuredProperty(ResizedImage, repeated=False, required=False)
 
+
 class MetadataProperty(ndb.Model):
     name = ndb.StringProperty(required=True)
     value = ndb.StringProperty(required=True)
+
 
 class GalleryItem(ndb.Model):
     id = ndb.StringProperty(required=True)

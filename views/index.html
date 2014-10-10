@@ -6,41 +6,43 @@
 {% block title4 %}{{title}}{% endblock %}
 {% block head %}
 <!-- Head block -->
-<meta name="Gallery.Id" content="{{hash}}" />
-<meta name="Gallery.Path" content="{{path}}" />
+<meta name="Gallery.Id" content="{{hash}}"/>
+<meta name="Gallery.Path" content="{{path}}"/>
 {% if item %}
-    {% if item.location %}
-        <meta property="og:latitude" content="{{item.location.lat}}" />
-        <meta property="og:longitude" content="{{item.location.lon}}" />
-        <meta name="geo.position" content="{{item.location.lat}};{{item.location.lon}}" />
-        <meta name="ICBM" content="{{item.location.lat}}, {{item.location.lon}}" />
-    {% endif %}
-    {% if item.description %}
-        <meta name="description" content="{{item.description}}" />
-        <meta property="og:description" content="{{item.description}}" />
-        <meta name="twitter:description" content="photo" />
-    {% endif %}
-    {% if keywords %}
-        <meta name="keywords" content="{{keywords}}" />
-        <meta name="article:tag" content="{{keywords}}" />
-    {% endif %}
+{% if item.location %}
+<meta property="og:latitude" content="{{item.location.lat}}"/>
+<meta property="og:longitude" content="{{item.location.lon}}"/>
+<meta name="geo.position" content="{{item.location.lat}};{{item.location.lon}}"/>
+<meta name="ICBM" content="{{item.location.lat}}, {{item.location.lon}}"/>
+{% endif %}
+{% if item.description %}
+<meta name="description" content="{{item.description}}"/>
+<meta property="og:description" content="{{item.description}}"/>
+<meta name="twitter:description" content="photo"/>
+{% endif %}
+{% if keywords %}
+<meta name="keywords" content="{{keywords}}"/>
+<meta name="article:tag" content="{{keywords}}"/>
+{% endif %}
 {% endif %}
 {% if thumbnailUrl %}
-<meta property="og:image" content="{{thumbnailUrl}}" />
+<meta property="og:image" content="{{thumbnailUrl}}"/>
 {% else %}
-<meta property="og:image" content="{{host}}/large.jpg" />
+<meta property="og:image" content="{{host}}/large.jpg"/>
 {% endif %}
 {% if fullImageUrl %}
-<meta property="og:image" content="{{fullImageUrl}}" />
-<meta name="twitter:card" content="photo" />
-<meta name="twitter:image:src" content="{{fullImageUrl}}" />
-<meta name="twitter:image:width" content="{{fullImageWidth}}" />
-<meta name="twitter:image:height" content="{{fullImageHeight}}" />
+<meta property="og:image" content="{{fullImageUrl}}"/>
+<meta name="twitter:card" content="photo"/>
+<meta name="twitter:image:src" content="{{fullImageUrl}}"/>
+<meta name="twitter:image:width" content="{{fullImageWidth}}"/>
+<meta name="twitter:image:height" content="{{fullImageHeight}}"/>
 {% else %}
-<meta name="twitter:summary" content="photo" />
+<meta name="twitter:summary" content="photo"/>
 {% endif %}
-{% if previousSibling %}<link href="{{host}}{{previousSibling.url}}" rel="prev" />{% endif %}
-{% if nextSibling %}<link href="{{host}}{{nextSibling.url}}" rel="next" />{% endif %}
+{% if previousSibling %}
+<link href="{{host}}{{previousSibling.url}}" rel="prev"/>{% endif %}
+{% if nextSibling %}
+<link href="{{host}}{{nextSibling.url}}" rel="next"/>{% endif %}
 {% endblock %}
 {% block body %}
 <!-- Body block -->
@@ -50,27 +52,30 @@
     {% if item.description %}<p>{{item.description}}</p>{% endif %}
     {% endif %}
 
-{% if breadcrumbs %}
-<div class="row">
-    {% for crumb in breadcrumbs %}
-    {%if crumb.tagId %}
-    <span class="breadcrumb"><a href="{{crumb.path}}#{{crumb.tagId}}">{{crumb.title}}</a></span>
-    {%else%}
-    <span class="breadcrumb"><a href="{{crumb.path}}">{{crumb.title}}</a></span>
-    {%endif%}
-    {% endfor %}
-</div>
-{% endif %}
+    {% if breadcrumbs %}
+    <div class="row">
+        {% for crumb in breadcrumbs %}
+        {%if crumb.tagId %}
+        <span class="breadcrumb"><a href="{{crumb.path}}#{{crumb.tagId}}">{{crumb.title}}</a></span>
+        {%else%}
+        <span class="breadcrumb"><a href="{{crumb.path}}">{{crumb.title}}</a></span>
+        {%endif%}
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 
 
-{% if showShare %}<div class="side-bar" role="navigation" data-social-share-privacy='true'></div>{% endif %}
+{% if showShare %}
+<div class="side-bar" role="navigation" data-social-share-privacy='true'></div>{% endif %}
 
 <div class="sibling-navigation row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <span class="sibling-lhs">
-            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
-            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
+            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span
+                class="sibling-item">First</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span
+                class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
             {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
@@ -78,33 +83,34 @@
         </span>
     </div>
 </div>
-<div class="row">    
+<div class="row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         {% if item %}
         {% if children %}
-    
+
         {% for child in children %}
         <a href="{{child.path}}" id="{{child.tagId}}">
-            <div class="folderItem">            
+            <div class="folderItem">
                 {% if child.type = 'photo' %}
                 {% if child.thumbnailUrl %}
                 <div class="photo">
                     <div class="box">
-                        <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}" height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
+                        <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}"
+                             height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
                     </div>
                     <span class="title">{{child.title}}</span>
                 </div>
                 {% endif %}
-                {% else %}            
+                {% else %}
                 <div class="folder">
                     <div class="front"></div>
                     <div class="folder-content1"></div>
                     <div class="folder-content2"></div>
                     <div class="folder-content3"></div>
-                    <div class="back"></div>           
+                    <div class="back"></div>
                 </div>
-                <span class="title">{{child.title}}</span>    
-                {% endif %}            
+                <span class="title">{{child.title}}</span>
+                {% endif %}
             </div>
         </a>
         {% endfor %}
@@ -112,16 +118,17 @@
         {% if resizecss %}
         <div>
             {{resizecss|safe}}
-            <div class="image">&nbsp;<a href="{{fullImageUrl}}">{{title}}</a></div>            
-            <span>{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>
-                                
+            <div class="image">&nbsp;<a href="{{fullImageUrl}}">{{title}}</a></div>
+            <span>{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark
+            Ridgwell</a>
+
             {% if item.description %}
             <span>{{item.description}}</span>
-            {% endif %}            
+            {% endif %}
         </div>
         {% endif %}
         {% endif %}
-        
+
         <script type="application/ld+json">
         {
             "@context": "http://schema.org",
@@ -164,7 +171,8 @@
                         }
 
         }            
-</script>
+
+        </script>
     </div>
 </div>
 
@@ -175,8 +183,19 @@
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <h3>Image Properties</h3>
         <table class="table">
-            <tr><th>Name</th><th>Value</th></tr>
-            {% for mdprop in item.metadata %}<tr><td>{{mdprop.name}}</td><td>{% if mdprop.value == "Mark Ridgwell" %}<a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>{%else%}{{mdprop.value}}{%endif%}</td></tr>{% endfor %}
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+            </tr>
+            {% for mdprop in item.metadata %}
+            <tr>
+                <td>{{mdprop.name}}</td>
+                <td>{% if mdprop.value == "Mark Ridgwell" %}<a rel="author"
+                                                               href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark
+                    Ridgwell</a>{%else%}{{mdprop.value}}{%endif%}
+                </td>
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>
@@ -186,7 +205,8 @@
 <div class="row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <h3>Map</h3>
-        <img src="https://maps.google.com/maps/api/staticmap?size=512x256&zoom=12&maptype=roadmap&sensor=false&markers=color:blue%7Clabel:P%7C{{item.location.lat}},{{item.location.lon}}" width="512" height="256" alt ="Map showing location of {{title}}"/>
+        <img src="https://maps.google.com/maps/api/staticmap?size=512x256&zoom=12&maptype=roadmap&sensor=false&markers=color:blue%7Clabel:P%7C{{item.location.lat}},{{item.location.lon}}"
+             width="512" height="256" alt="Map showing location of {{title}}"/>
     </div>
 </div>
 {% endif %}
@@ -195,17 +215,21 @@
 <div class="sibling-navigation row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <span class="sibling-lhs">
-            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span class="sibling-item">First</span></a>{% endif %}
-            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span class="sibling-item">Previous</span></a>{% endif %}
+            {% if firstSibling %}<a href="{{firstSibling.url}}" title="{{firstSibling.title}}"><span
+                class="sibling-item">First</span></a>{% endif %}
+            {% if previousSibling %}<a href="{{previousSibling.url}}" title="{{previousSibling.title}}"><span
+                class="sibling-item">Previous</span></a>{% endif %}
         </span>
         <span class="sibling-rhs">
             {% if nextSibling %}<a href="{{nextSibling.url}}" title="{{nextSibling.title}}"><span class="sibling-item">Next</span></a>{% endif %}
             {% if lastSibling %}<a href="{{lastSibling.url}}" title="{{lastSibling.title}}"><span class="sibling-item">Last</span></a>{% endif %}
-        </span>        
+        </span>
     </div>
 </div>
-{% if showShare %}<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"{{host}}{{path}}",
+{% if showShare %}
+<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"{{host}}{{path}}",
     "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
-    "services":{"buffer":{"status":false},"disqus":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}</script>{% endif %}
+    "services":{"buffer":{"status":false},"disqus":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}
+</script>{% endif %}
 
 {% endblock %}
