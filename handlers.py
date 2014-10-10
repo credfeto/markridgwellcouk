@@ -14,6 +14,7 @@ import models
 import utils
 import tracking
 import itemnaming
+import logging
 
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
@@ -36,6 +37,10 @@ class IndexHandler(webapp2.RequestHandler):
         q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
         track = utils.should_track(self.request.headers)
+        if track:
+            logging.info('Tracking: Disabled')
+        else:
+            logging.info('Tracking: Enabled')
 
         item = q.get()
         if item is None:
@@ -155,7 +160,6 @@ class IndexHandler(webapp2.RequestHandler):
             title = item.title
             if children is None:
                 title = itemnaming.photo_title(item, 10000)
-
 
             template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
