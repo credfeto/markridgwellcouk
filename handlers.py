@@ -13,7 +13,7 @@ from google.appengine.ext import db
 import models
 import utils
 import tracking
-
+import itemnaming
 
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
@@ -152,14 +152,19 @@ class IndexHandler(webapp2.RequestHandler):
                     if tracking.is_trackable(userAgent):
                         views = tracking.record_view(item.id, item.path)
 
+            title = item.title
+            if children is None:
+                title = itemnaming.photo_title(item, 10000)
+
+
             template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
-                             'title': item.title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
+                             'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
                              'resizecss': resizecss, 'staticurl': self.request.relative_url('/static'),
                              'thumbnailUrl': thumbnailImageUrl, 'fullImageUrl': imageUrl, 'fullImageWidth': imageWidth,
                              'fullImageHeight': imageHeight, 'firstSibling': firstSibling,
                              'previousSibling': previousSibling, 'nextSibling': nextSibling, 'lastSibling': lastSibling,
                              'keywords': keywords, 'showShare': showShare, 'windowsshare': windowsshare,
-                             "parentItemUrl": parentItemUrl}
+                             "parentItemUrl": parentItemUrl,}
             self.response.out.write(utils.render_template("index.html", template_vals))
             utils.add_response_headers(self.request, self.response.headers)
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400

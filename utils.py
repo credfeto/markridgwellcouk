@@ -301,3 +301,17 @@ def shortern_url(url):
 
     #except googl.GooglError:
     #    return url
+
+
+def contains_either(photo_title, album_title):
+    if album_title in photo_title:
+        return True
+
+    if photo_title in album_title:
+        return True
+
+    return False
+
+
+def strip_trailing_numbers(item):
+    return item.rstrip('0123456789 ')
