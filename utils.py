@@ -10,7 +10,7 @@ from google.appengine.ext.webapp import template
 import sys
 
 import googl
-
+import logging
 
 def is_cron_task(headers):
     hdr = headers.get('X-AppEngine-Cron', 'false')
