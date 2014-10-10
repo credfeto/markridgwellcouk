@@ -1,7 +1,7 @@
 import datetime
 import webapp2
 import json
-from collections import defaultdict 
+from collections import defaultdict
 
 from google.appengine.api import mail
 from google.appengine.ext import blobstore
@@ -14,6 +14,7 @@ import models
 import utils
 import tracking
 
+
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
@@ -21,24 +22,25 @@ class IndexHandler(webapp2.RequestHandler):
 
         userAgent = self.request.headers.get('User-Agent', None)
 
-        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(userAgent ):
+        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(
+                userAgent):
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
-        windowsshare = utils.enable_windows_share_metadata( userAgent )
+        windowsshare = utils.enable_windows_share_metadata(userAgent)
         searchPath = self.request.path.lower()
 
         hash = utils.generate_url_hash(searchPath)
 
         q = models.GalleryItem.query(models.GalleryItem.id == hash)
 
-        track = utils.should_track( self.request.headers )
+        track = utils.should_track(self.request.headers)
 
         item = q.get()
         if item is None:
             newSearchPath = utils.convert_old_url(searchPath)
-            
+
             shouldReportError = True
             if newSearchPath <> searchPath:
                 hash = utils.generate_url_hash(newSearchPath)
@@ -48,39 +50,43 @@ class IndexHandler(webapp2.RequestHandler):
 
                 if item <> None:
                     shouldReportError = False
-                    utils.add_response_headers( self.request, self.response.headers )
+                    utils.add_response_headers(self.request, self.response.headers)
                     self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
                     self.response.headers['Pragma'] = 'public'
                     self.redirect(utils.redirect_url(newSearchPath, self.request.query_string), permanent=True)
-            
+
             if shouldReportError:
-                template_vals = { 'host' : self.request.host_url, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'showShare': False, 'windowsshare': windowsshare }
-                utils.add_response_headers( self.request, self.response.headers )
+                template_vals = {'host': self.request.host_url, 'path': searchPath, 'track': track, 'hash': hash,
+                                 'users': users, 'showShare': False, 'windowsshare': windowsshare}
+                utils.add_response_headers(self.request, self.response.headers)
                 self.response.out.write(utils.render_template("notfound.html", template_vals))
-                self.response.set_status(404) 
+                self.response.set_status(404)
         else:
             children = None
             if item.children:
                 children = []
                 for child in item.children:
                     thumbnailUrl = None
-                    if child.thumbnail:                        
-                        thumbnailUrl = utils.image_url( 
-                                                       child.path, child.thumbnail )
-                    tagId = utils.path_to_tagId( child.path )
-                    childItem = { 'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type, 'description': child.description, 'thumbnail': child.thumbnail, 'thumbnailUrl' : thumbnailUrl, "tagId" : tagId }
+                    if child.thumbnail:
+                        thumbnailUrl = utils.image_url(
+                            child.path, child.thumbnail)
+                    tagId = utils.path_to_tagId(child.path)
+                    childItem = {'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type,
+                                 'description': child.description, 'thumbnail': child.thumbnail,
+                                 'thumbnailUrl': thumbnailUrl, "tagId": tagId}
                     children.append(childItem)
 
             parentItemUrl = None
             breadcrumbs = None
             if item.breadcrumbs:
                 breadcrumbs = []
-                lastCrumbTagId=utils.path_to_tagId( item.path )
+                lastCrumbTagId = utils.path_to_tagId(item.path)
                 for crumb in reversed(item.breadcrumbs):
                     if parentItemUrl is None:
                         parentItemUrl = host + crumb.path
-                    tagId = utils.path_to_tagId( crumb.path )
-                    crumbItem = { 'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description, "tagId" : lastCrumbTagId }
+                    tagId = utils.path_to_tagId(crumb.path)
+                    crumbItem = {'id': crumb.id, 'path': crumb.path, 'title': crumb.title,
+                                 'description': crumb.description, "tagId": lastCrumbTagId}
                     breadcrumbs.insert(0, crumbItem)
                     lastCrumbTagId = tagId
             if parentItemUrl is None:
@@ -93,9 +99,9 @@ class IndexHandler(webapp2.RequestHandler):
             imageHeight = None
             if item.resizes:
 
-                orderedResizes = sorted( item.resizes, key=lambda r: r.width )
+                orderedResizes = sorted(item.resizes, key=lambda r: r.width)
 
-                css = utils.build_image_css( item, orderedResizes )
+                css = utils.build_image_css(item, orderedResizes)
                 if css is None:
                     first = None
                     last = None
@@ -108,12 +114,11 @@ class IndexHandler(webapp2.RequestHandler):
                 if first is None:
                     resizecss = ''
                 else:
-                    thumbnailImageUrl = utils.image_url( item.path, first )
+                    thumbnailImageUrl = utils.image_url(item.path, first)
 
-                    imageUrl = utils.image_url( item.path, last )
+                    imageUrl = utils.image_url(item.path, last)
                     imageWidth = last.width
                     imageHeight = last.height;
-
 
             firstSibling = None
             previousSibling = None
@@ -121,40 +126,46 @@ class IndexHandler(webapp2.RequestHandler):
             lastSibling = None
 
             if item.firstSibling <> None:
-                firstSibling = { 'title' : item.firstSibling.title, 'url' : item.firstSibling.path }
+                firstSibling = {'title': item.firstSibling.title, 'url': item.firstSibling.path}
 
             if item.previousSibling <> None:
-                previousSibling = { 'title' : item.previousSibling.title, 'url' : item.previousSibling.path }
+                previousSibling = {'title': item.previousSibling.title, 'url': item.previousSibling.path}
 
             if item.nextSibling <> None:
-                nextSibling = { 'title' : item.nextSibling.title, 'url' : item.nextSibling.path }
+                nextSibling = {'title': item.nextSibling.title, 'url': item.nextSibling.path}
 
             if item.lastSibling <> None:
-                lastSibling = { 'title' : item.lastSibling.title, 'url' : item.lastSibling.path }
+                lastSibling = {'title': item.lastSibling.title, 'url': item.lastSibling.path}
 
             keywords = None
             if item.keywords:
-                keywords = ",".join(item.keywords)                
-            
-            showShare =  utils.should_share( userAgent )
+                keywords = ",".join(item.keywords)
+
+            showShare = utils.should_share(userAgent)
 
             views = 0
             if item.resizes:
-               
-                if tracking.is_sharing_callback( userAgent ):
-                    views = tracking.record_share( item.id, item.path )
-                else:
-                    if tracking.is_trackable( userAgent ):
-                        views = tracking.record_view( item.id, item.path )
 
-            template_vals = { 'host' : host, 'path': searchPath, 'track': track, 'hash' : hash, 'users' : users, 'title' : item.title, 'item' : item, 'children' : children, 'breadcrumbs' : breadcrumbs, 'resizecss' : resizecss, 'staticurl' : self.request.relative_url('/static'), 'thumbnailUrl' : thumbnailImageUrl, 'fullImageUrl' : imageUrl, 'fullImageWidth' : imageWidth, 'fullImageHeight' : imageHeight, 'firstSibling' : firstSibling, 'previousSibling' : previousSibling, 'nextSibling' : nextSibling, 'lastSibling' : lastSibling, 'keywords' : keywords, 'showShare' : showShare, 'windowsshare': windowsshare, "parentItemUrl": parentItemUrl  }
+                if tracking.is_sharing_callback(userAgent):
+                    views = tracking.record_share(item.id, item.path)
+                else:
+                    if tracking.is_trackable(userAgent):
+                        views = tracking.record_view(item.id, item.path)
+
+            template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
+                             'title': item.title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
+                             'resizecss': resizecss, 'staticurl': self.request.relative_url('/static'),
+                             'thumbnailUrl': thumbnailImageUrl, 'fullImageUrl': imageUrl, 'fullImageWidth': imageWidth,
+                             'fullImageHeight': imageHeight, 'firstSibling': firstSibling,
+                             'previousSibling': previousSibling, 'nextSibling': nextSibling, 'lastSibling': lastSibling,
+                             'keywords': keywords, 'showShare': showShare, 'windowsshare': windowsshare,
+                             "parentItemUrl": parentItemUrl}
             self.response.out.write(utils.render_template("index.html", template_vals))
-            utils.add_response_headers( self.request, self.response.headers )
+            utils.add_response_headers(self.request, self.response.headers)
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.response.headers['X-PageViews'] = str(views)
 
-            
 
 app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
@@ -165,7 +176,7 @@ app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/', IndexHandler),
-    ('/[\w\-]*/', IndexHandler),    
+    ('/[\w\-]*/', IndexHandler),
     ('/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
@@ -175,7 +186,7 @@ app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
     ('/[\w\-]*/[\w\-]*/~[0-9]+', IndexHandler),
-    ('/[\w\-]*/~[0-9]+', IndexHandler),    
+    ('/[\w\-]*/~[0-9]+', IndexHandler),
     ('/~[0-9]+', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
@@ -185,5 +196,5 @@ app = webapp2.WSGIApplication([
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*', IndexHandler),
     ('/[\w\-]*/[\w\-]*', IndexHandler),
-    ('/[\w\-]*', IndexHandler),    
+    ('/[\w\-]*', IndexHandler),
 ])
