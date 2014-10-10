@@ -3,7 +3,7 @@ from google.appengine.api import mail
 from google.appengine.api import urlfetch
 import models
 import utils
-
+import itemnaming
 
 class TaskBufferHandler(webapp2.RequestHandler):
     def send_email(self, body, files, sender_address, subject, user_address):
@@ -13,42 +13,13 @@ class TaskBufferHandler(webapp2.RequestHandler):
             mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body,
                            attachments=files)
 
-    def strip_trailing_numbers(self, publish):
-        return publish.title.rstrip('0123456789 ')
 
-    def get_album_title(self, publish):
-
-        album_title = None
-        if publish.breadcrumbs is not None:
-            album = publish.breadcrumbs[-1]
-            if album is None:
-                album_title = album.Title
-                pos = album_title.find('-')
-                if pos <> -1:
-                    album_title = album_title[pos + 1:]
-                album_title = album_title.strip()
-
-        return album_title
-
-    def contains_either(self, photo_title, album_title):
-        if album_title in photo_title:
-            return True
-
-        if photo_title in album_title:
-            return True
-
-        return False
 
     def publish_photo(self, files, publish):
         # publish the item
 
-        album_title = self.get_album_title(publish)
-        title = self.strip_trailing_numbers(publish)
-        if album_title is not None:
-            if not self.contains_either(title.lower().trim(), album_title.lower().trim()):
-                title = title + " - " + album_title
-                if len(title) > 90:
-                    title = title[:90]
+        title_max_length = 90
+        title = self.photo_title(publish, title_max_length)
 
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
         shortened_url = utils.shortern_url(url)
@@ -67,7 +38,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
     def get_resize(self, publish):
         ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
         image = ordered_resizes[-1]
-        for (i, resize ) in enumerate(ordered_resizes):
+        for (i, resize) in enumerate(ordered_resizes):
             if resize.width <= 800:
                 image = resize
 

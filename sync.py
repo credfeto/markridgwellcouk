@@ -426,7 +426,7 @@ def synchronize_common(contents):
 
         location = extract_location(item)
         children = extract_children(item)
-        breadcrumbs = extract_breadcumbs(item)
+        breadcrumbs = extract_breadcrumbs(item)
         metadata = extract_metadata(item)
         keywords = extract_keywords(item)
         foundImageSizes = extract_image_sizes(item)
