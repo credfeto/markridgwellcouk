@@ -23,7 +23,7 @@ def contains_album(photo, album):
 
     album_parts = album.split('-')
     for part in album_parts:
-        if utils.contains_either( photo, part):
+        if part.strip() in photo:
             return True
 
     return False
