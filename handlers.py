@@ -38,9 +38,9 @@ class IndexHandler(webapp2.RequestHandler):
 
         track = utils.should_track(self.request.headers)
         if track:
-            logging.info('Tracking: Disabled')
-        else:
             logging.info('Tracking: Enabled')
+        else:
+            logging.info('Tracking: Disabled')
 
         item = q.get()
         if item is None:
