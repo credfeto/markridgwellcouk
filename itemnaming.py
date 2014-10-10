@@ -17,11 +17,23 @@ def get_album_title(publish):
     return None
 
 
+def contains_album(photo, album):
+    if utils.contains_either(photo, album):
+        return True
+
+    album_parts = album.split('-')
+    for part in album_parts:
+        if utils.contains_either( photo, part):
+            return True
+
+    return False
+
 def photo_title(publish, title_max_length):
     album_title = get_album_title(publish)
     title = utils.strip_trailing_numbers(publish.title)
     if album_title is not None:
-        if not utils.contains_either(title.lower().strip(), album_title.lower().strip()):
+
+        if not contains_album(title.lower().strip(), album_title.lower().strip()):
             title = title + " - " + album_title
             if len(title) > title_max_length:
                 title = title[:title_max_length]
