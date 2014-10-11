@@ -19,7 +19,7 @@ class TaskBufferHandler(webapp2.RequestHandler):
         # publish the item
 
         title_max_length = 90
-        title = self.photo_title(publish, title_max_length)
+        title = itemnaming.photo_title(publish, title_max_length)
 
         url = 'http://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
         shortened_url = utils.shortern_url(url)
