@@ -1,0 +1,4 @@
+
+blacklist:
+- subnet: 79.143.87.239/24
+  description: keeps hitting site with a crappy crawler
