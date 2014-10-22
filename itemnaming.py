@@ -4,15 +4,17 @@ import utils
 def get_album_title(publish):
 
     if publish.breadcrumbs is not None:
-        album = publish.breadcrumbs[-1]
-        if album is not None:
-            album_title = album.title
-            pos = album_title.find('-')
-            if pos != -1:
-                album_title = album_title[pos + 1:]
-            album_title = album_title.strip()
+        total_crumbs = len(publish.breadcrumbs)
+        if total_crumbs > 1:
+            album = publish.breadcrumbs[-1]
+            if album is not None:
+                album_title = album.title
+                pos = album_title.find('-')
+                if pos != -1:
+                    album_title = album_title[pos + 1:]
+                album_title = album_title.strip()
 
-            return album_title
+                return album_title
 
     return None
 
