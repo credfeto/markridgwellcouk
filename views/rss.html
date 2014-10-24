@@ -16,11 +16,7 @@
         {% for photo in items %}
         <item>
             <title>{{photo.title}}</title>
-            <link>
-            {{host}}{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{%
-            if photo.description %}
-            <description>{{photo.description}}</description>
-            {% endif %}
+            <link>{{host}}{{photo.path}}?utm_content=rss&amp;utm_source=mtr&amp;utm_medium=rss&amp;utm_campaign=rss</link>{%if photo.description %}<description>{{photo.description}}</description>{% endif %}
             <pubDate>{{photo.updated|date:"D, d M Y H:i:s O"}}</pubDate>
             <guid>{{host}}{{photo.path}}</guid>
         </item>
