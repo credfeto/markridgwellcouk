@@ -315,3 +315,13 @@ def contains_either(photo_title, album_title):
 
 def strip_trailing_numbers(item):
     return item.rstrip('0123456789 ')
+
+
+def is_publishable(item):
+
+    if item.keywords:
+        for keyword in item.keywords:
+            if keyword.lower() == 'nsfw':
+                return False
+
+    return True

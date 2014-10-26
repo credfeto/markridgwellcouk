@@ -463,7 +463,7 @@ def synchronize_common(contents):
             itemsWritten = itemsWritten + 1
             logging.info('Created: ' + path)
 
-            if type == 'photo' and utils.is_public_publishable_path(path):
+            if type == 'photo' and utils.is_public_publishable_path(path) and utils.is_publishable(dbItem):
                 publishItem = models.PublishableItem(id=dbItem.id)
                 publishItem.put()
 
