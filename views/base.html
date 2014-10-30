@@ -65,18 +65,15 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li
-                {% ifequal path "/albums/" %}class="active"{% endifequal %}><a href="/albums/">Albums</a></li>
+                <li {% ifequal path "/albums/" %}class="active"{% endifequal %}><a href="/albums/">Albums</a></li>
                 <!--
                     <li {% ifequal path "/places/" %}class="active"{% endifequal %}><a href="/places/">Places</a></li>
                     <li {% ifequal path "/events/" %}class="active"{% endifequal %}><a href="/events/">Events</a></li>
                 -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li
-                {% ifequal path "/contact/" %}class="active"{% endifequal %}><a href="/contact/">Contact</a></li>
-                <li
-                {% ifequal path "/about/" %}class="active"{% endifequal %}><a href="/about/">About</a></li>
+                <li {% ifequal path "/contact/" %}class="active"{% endifequal %}><a href="/contact/">Contact</a></li>
+                <li {% ifequal path "/about/" %}class="active"{% endifequal %}><a href="/about/">About</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
