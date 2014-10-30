@@ -25,7 +25,7 @@
 	height: 90px;
 }
 
-.folder div{
+.folder div {
     width:150px;
     height:85px;
     
@@ -95,9 +95,13 @@
     box-shadow:0 -1px 1px rgba(0,0,0,0.15);
 }
 
+.folder .folder-sprite { background-image: url('/static/images/sprite.png'); background-position: no-repeat; background-position: top left; margin: 0px; position: static;}
+.folder .folder-sprite.folder1 { background-position: 0px 0px; width: 75px; height: 54px;  }
+.folder .folder-sprite.folder2 { background-position: 0px -54px; width: 75px; height: 56px;  }
+.folder .folder-sprite.folder3 { background-position: 0px -110px; width: 75px; height: 50px;  }
+
 .folder .folder-content1 {
-    background: rgb(210, 82, 21);
-    background-image: url('/static/images/folder1.png');
+    background-color: rgb(210, 82, 21);
     border: solid #000 1px;
     width:75px;
     height:60px;
@@ -112,8 +116,7 @@
 }
 
 .folder .folder-content2 {
-    background: rgb(21, 210, 22);
-    background-image: url('/static/images/folder2.png');
+    background-color: rgb(21, 210, 22);
     border: solid #000 1px;
     width:75px;
     height:60px;
@@ -128,8 +131,7 @@
 }
 
 .folder .folder-content3 {
-    background: rgb(211, 215, 142);
-    background-image: url('/static/images/folder3.png');
+    background-color: rgb(211, 215, 142);
     border: solid #000 1px;
     width:75px;
     height:60px;
