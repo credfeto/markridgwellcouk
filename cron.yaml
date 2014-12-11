@@ -77,4 +77,4 @@ cron:
 
 - description: Publish item to buffer
   url: /tasks/buffer
-  schedule: every 1 hours
+  schedule: every 369 minutes
