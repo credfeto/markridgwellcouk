@@ -286,8 +286,9 @@ def add_response_headers(request, headers):
     headers['Vary'] = 'DNT'
     headers['P3P'] = 'max-age=31536000'
 
-    if is_development() == False and request.scheme == 'https' and device_supports_ssl_tni(
-            request.headers.get('User-Agent', None)):
+    userAgent = request.headers.get('User-Agent', None)
+
+    if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(userAgent):
         headers['Strict-Transport-Security'] = 'max-age=31536000'
 
 
