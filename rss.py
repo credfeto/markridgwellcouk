@@ -24,6 +24,13 @@ import sys
 class RssHandler(webapp2.RequestHandler):
     def get(self):
 
+        userAgent = self.request.headers.get('User-Agent', None)
+
+        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(userAgent):
+            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+            self.response.headers['Pragma'] = 'public'
+            self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
+
         # Long expiry - so don't need to generate unless an upload has taken place
         expiry_seconds = 60 * 60 * 24 * 7
         memcachedKey = 'rss-output'
