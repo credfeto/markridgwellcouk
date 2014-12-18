@@ -122,7 +122,13 @@ def convert_old_url(originalPath):
         if tildePos <> -1:
             base = base[:tildePos + 1]
 
-    root = base.strip();
+    root = base.strip()
+
+    # remove image paths and convert them to a normal url
+    if root.startswith('/image/'):
+        lastSlashPos = root.rfind('/')
+        root = root[6:lastSlashPos]
+
 
     replacedWrongSlash = root.replace("\\", "/")
     replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)

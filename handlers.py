@@ -174,8 +174,42 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.headers['Pragma'] = 'public'
             self.response.headers['X-PageViews'] = str(views)
 
+class LegacyImageIndexHandler(webapp2.RequestHandler):
+    def get(self):
+
+        host = self.request.host_url
+
+        userAgent = self.request.headers.get('User-Agent', None)
+
+        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(userAgent):
+            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+            self.response.headers['Pragma'] = 'public'
+            self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
+
+        windowsshare = utils.enable_windows_share_metadata(userAgent)
+        searchPath = self.request.path.lower()
+
+        newSearchPath = utils.convert_old_url(searchPath)
+
+        logging.info('Redirect to: ' + newSearchPath)
+
+        utils.add_response_headers(self.request, self.response.headers)
+        self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+        self.response.headers['Pragma'] = 'public'
+        self.redirect(utils.redirect_url(newSearchPath, self.request.query_string), permanent=True)
+
 
 app = webapp2.WSGIApplication([
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[\w\-]*/[0-9]+_image\.jpg', LegacyImageIndexHandler),
+    ('/[0-9]+_image\.jpg', LegacyImageIndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
     ('/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/[\w\-]*/', IndexHandler),
