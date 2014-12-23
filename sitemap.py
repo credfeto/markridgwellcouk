@@ -24,8 +24,6 @@ import sitemapbuilder
 class SiteMapIndexHandler(webapp2.RequestHandler):
     def get(self):
 
-        userAgent = self.request.headers.get('User-Agent', None)
-
         # Long expiry - so don't need to generate unless an upload has taken place
         expiry_seconds = 60 * 60 * 24 * 7
 
@@ -48,10 +46,10 @@ class SiteMapIndexHandler(webapp2.RequestHandler):
 class SiteMapSectionHandler(webapp2.RequestHandler):
     def get(self):
 
-        userAgent = self.request.headers.get('User-Agent', None)
-
         # Long expiry - so don't need to generate unless an upload has taken place
         expiry_seconds = 60 * 60 * 24 * 7
+
+        key = self.request.path[-1:].lower()
 
         if utils.is_cron_task(self.request.headers):
             sitemapbuilder.build_sitemap_section('https://www.markridgwell.co.uk', key, expiry_seconds)
