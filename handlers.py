@@ -16,6 +16,11 @@ import tracking
 import itemnaming
 import logging
 
+import sys
+sys.path.insert(0, 'lib')
+
+import markdown
+
 class IndexHandler(webapp2.RequestHandler):
     def get(self):
 
@@ -160,6 +165,10 @@ class IndexHandler(webapp2.RequestHandler):
             if children is None:
                 title = itemnaming.photo_title(item, 10000)
 
+            description = None
+            if item.description:
+                description = markdown(item.description)
+
             template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
                              'resizecss': resizecss, 'staticurl': self.request.relative_url('/static'),
@@ -167,8 +176,13 @@ class IndexHandler(webapp2.RequestHandler):
                              'fullImageHeight': imageHeight, 'firstSibling': firstSibling,
                              'previousSibling': previousSibling, 'nextSibling': nextSibling, 'lastSibling': lastSibling,
                              'keywords': keywords, 'showShare': showShare, 'windowsshare': windowsshare,
-                             "parentItemUrl": parentItemUrl,}
-            self.response.out.write(utils.render_template("index.html", template_vals))
+                             'parentItemUrl': parentItemUrl,
+                             'description': description}
+            if children is None:
+                self.response.out.write(utils.render_template("index.html", template_vals))
+            else:
+                self.response.out.write(utils.render_template("photo.html", template_vals))
+
             utils.add_response_headers(self.request, self.response.headers)
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
