@@ -168,7 +168,7 @@ class IndexHandler(webapp2.RequestHandler):
             description = ""
             if item.description:
                 md = markdown.Markdown()
-                description = md.Convert(item.description)
+                description = md.convert(item.description)
 
             template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
