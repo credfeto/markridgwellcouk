@@ -42,5 +42,6 @@ app = webapp2.WSGIApplication([
     ('/_ah/xmpp/subscription/subscribed/', XMPPHandlerSubscribed),
     ('/_ah/xmpp/subscription/unsubscribe/', XMPPHandlerUnsubscribe),
     ('/_ah/xmpp/subscription/unsubscribed/', XMPPHandlerUnsubscribed),
+    ('/_ah/xmpp/message/error/', XMPPHandlerError),
     ('/_ah/xmpp/error/', XMPPHandlerError),
 ])
