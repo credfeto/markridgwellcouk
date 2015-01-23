@@ -16,6 +16,9 @@ from google.appengine.ext import blobstore
 # Queries
 # https://developers.google.com/appengine/docs/python/ndb/queries
 
+class Subscriber(ndb.Model):
+    id = ndb.StringProperty(required=True)
+
 class GeneratedItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     text = ndb.TextProperty(required=True)
