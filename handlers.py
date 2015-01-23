@@ -165,7 +165,7 @@ class IndexHandler(webapp2.RequestHandler):
             if children is None:
                 title = itemnaming.photo_title(item, 10000)
 
-            description = None
+            description = ""
             if item.description:
                 description = markdown(item.description)
 
