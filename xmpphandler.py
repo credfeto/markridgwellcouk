@@ -14,6 +14,8 @@ class XMPPHandlerChat(webapp2.RequestHandler):
                 message.reply("Greetings!")
             if message.body[0:10].lower() == 'unpublish:':
                 message.reply(commonactions.delete_item_from_publish_queue(message.body[11:]))
+            if message.body.lower().strip() == 'publish':
+                message.reply(commonactions.publish_next())
         else:
             message.reply("huh?")
 
