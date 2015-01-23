@@ -37,6 +37,7 @@ class TaskKillHandler(webapp2.RequestHandler):
         user_address = 'markr@markridgwell.com'
         #chat_message_sent = False
         msg = "Deletion status: " + status
+        xmpp.send_invite(user_address)
         xmpp.send_message(user_address, msg)
         #status_code = xmpp.send_message(user_address, msg)
         #chat_message_sent = (status_code == xmpp.NO_ERROR)
