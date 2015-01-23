@@ -6,6 +6,9 @@ threadsafe: yes
 
 handlers:
 
+- url: /_ah/xmpp/.*
+  script: xmpphandler.app
+
 - url: /_ah/bounce
   script: handle_bounced_email.app
   login: admin
@@ -153,6 +156,7 @@ pagespeed:
 
 inbound_services:
  - mail_bounce
+ - xmpp_message
 
 libraries:
 - name: webapp2
