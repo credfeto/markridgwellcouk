@@ -87,34 +87,15 @@
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         {% if item %}
 
+        <div>
+            {{resizecss|safe}}
+            <div class="image">&nbsp;<a href="{{fullImageUrl}}">{{title}}</a></div>
+            <span>{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>
 
-        {% for child in children %}
-        <a href="{{child.path}}" id="{{child.tagId}}">
-            <div class="folderItem">
-                {% if child.type = 'photo' %}
-                {% if child.thumbnailUrl %}
-                <div class="photo">
-                    <div class="box">
-                        <img src="{{child.thumbnailUrl}}" width="{{child.thumbnail.width}}"
-                             height="{{child.thumbnail.height}}" alt="{{child.title}}" title="{{child.title}}"/>
-                    </div>
-                    <span class="title">{{child.title}}</span>
-                </div>
-                {% endif %}
-                {% else %}
-                <div class="folder">
-                    <div class="front"></div>
-                    <div class="folder-content1"><div class="folder-sprite folder1"></div></div>
-                    <div class="folder-content2"><div class="folder-sprite folder2"></div></div>
-                    <div class="folder-content3"><div class="folder-sprite folder3"></div></div>
-                    <div class="back"></div>
-                </div>
-                <span class="title">{{child.title}}</span>
-                {% endif %}
-            </div>
-        </a>
-        {% endfor %}
-
+            {% if description %}
+            <span>{{description|safe}}</span>
+            {% endif %}
+        </div>
         {% endif %}
 
         <script type="application/ld+json">
