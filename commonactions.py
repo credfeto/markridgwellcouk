@@ -55,7 +55,7 @@ def get_resize(publish):
 
     return image
 
-def fetch_image_to_attach(self, image, publish):
+def fetch_image_to_attach(image, publish):
     image_url = utils.image_url(publish.path, image)
     #response.out.write("Image: " + image_url + "\r\n")
     files = None
