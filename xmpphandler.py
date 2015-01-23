@@ -3,12 +3,19 @@ from google.appengine.api import xmpp
 
 import roster
 import logging
+import commonactions
 
 class XMPPHandlerChat(webapp2.RequestHandler):
     def post(self):
         message = xmpp.Message(self.request.POST)
-        if message.body[0:5].lower() == 'hello':
-            message.reply("Greetings!")
+        sender = self.request.get('from').split('/')[0]
+        if sender == 'markr@markridgwell.com':
+            if message.body[0:5].lower() == 'hello':
+                message.reply("Greetings!")
+            if message.body[0:10].lower() == 'unpublish:':
+                message.reply(commonactions.delete_item_from_publish_queue(message.body[11:]))
+        else:
+            message.reply("huh?")
 
 class XMPPHandlerSubscribe(webapp2.RequestHandler):
     def post(self):
