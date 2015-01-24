@@ -25,7 +25,7 @@ def is_cron_task(headers):
 
 
 def is_public_publishable_path(path):
-    return not path.startswith('/albums/private/')
+    return path.startswith('/albums/') and not path.startswith('/albums/private/')
 
 
 def enable_windows_share_metadata(userAgent):
@@ -215,6 +215,11 @@ def build_image_css(item, orderedResizes):
     newLine = ''  # '\n'
     imageMargin = 150
     resizecss = ''
+
+    base_image_path = item.path
+    if item.originalAlbumPath:
+        base_image_path = item.originalAlbumPath
+
     for (i, resize ) in enumerate(orderedResizes):
         if first is None:
             first = resize  # Set the default image size
@@ -229,7 +234,7 @@ def build_image_css(item, orderedResizes):
             resizecss = resizecss + 'background-color:transparent;' + newLine
             resizecss = resizecss + 'background-repeat:no-repeat;' + newLine
             resizecss = resizecss + 'background-position:top left;' + newLine
-            resizecss = resizecss + 'background-image:url(\'' + image_url(item.path, resize) + '\');' + newLine
+            resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + newLine
 
             doubleSize = find_double_size(orderedResizes, resize.width);
             if doubleSize <> None:
@@ -237,7 +242,7 @@ def build_image_css(item, orderedResizes):
                 resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
                 resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
                 resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5) {' + newLine
-                resizecss = resizecss + 'background-image:url(\'' + image_url(item.path, doubleSize) + '\');' + newLine
+                resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, doubleSize) + '\');' + newLine
                 resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(
                     doubleSize.height / 2) + 'px;' + newLine
                 resizecss = resizecss + '}' + newLine
@@ -260,7 +265,7 @@ def build_image_css(item, orderedResizes):
         resizecss = resizecss + 'min-height:' + str(resize.height) + 'px;' + newLine
         resizecss = resizecss + 'tmax-width:' + str(resize.width) + 'px;' + newLine
         resizecss = resizecss + 'tmax-height:' + str(resize.height) + 'px;' + newLine
-        resizecss = resizecss + 'background-image:url(\'' + image_url(item.path, resize) + '\');' + newLine
+        resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + newLine
 
         doubleSize = find_double_size(orderedResizes, resize.width);
         if doubleSize <> None:
@@ -268,7 +273,7 @@ def build_image_css(item, orderedResizes):
             resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
             resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
             resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5){' + newLine
-            resizecss = resizecss + 'background-image:url(\'' + image_url(item.path, doubleSize) + '\');' + newLine
+            resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, doubleSize) + '\');' + newLine
             resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(
                 doubleSize.height / 2) + 'px;' + newLine
             resizecss = resizecss + '}' + newLine

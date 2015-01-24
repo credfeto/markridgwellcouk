@@ -77,8 +77,12 @@ class IndexHandler(webapp2.RequestHandler):
                 for child in item.children:
                     thumbnailUrl = None
                     if child.thumbnail:
+                        base_child_image_path = child.path
+                        if child.originalAlbumPath:
+                            base_child_image_path = child.originalAlbumPath
+
                         thumbnailUrl = utils.image_url(
-                            child.path, child.thumbnail)
+                            base_child_image_path, child.thumbnail)
                     tagId = utils.path_to_tagId(child.path)
                     childItem = {'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type,
                                  'description': child.description, 'thumbnail': child.thumbnail,
@@ -161,9 +165,13 @@ class IndexHandler(webapp2.RequestHandler):
                     if tracking.is_trackable(userAgent):
                         views = tracking.record_view(item.id, item.path)
 
+            originalAlbumPath = ''
             title = item.title
             if children is None:
                 title = itemnaming.photo_title(item, 10000)
+
+                if item.originalAlbumPath:
+                    originalAlbumPath = item.originalAlbumPath
 
             description = ""
             if item.description:
@@ -178,7 +186,7 @@ class IndexHandler(webapp2.RequestHandler):
                              'previousSibling': previousSibling, 'nextSibling': nextSibling, 'lastSibling': lastSibling,
                              'keywords': keywords, 'showShare': showShare, 'windowsshare': windowsshare,
                              'parentItemUrl': parentItemUrl,
-                             'description': description}
+                             'description': description, 'originalAlbumPath': originalAlbumPath}
             if children is None:
                 self.response.out.write(utils.render_template("photo.html", template_vals))
             else:

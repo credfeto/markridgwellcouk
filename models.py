@@ -62,6 +62,7 @@ class BreadcrumbItem(ndb.Model):
 class ChildItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
+    originalAlbumPath = ndb.StringProperty(required=True)
     title = ndb.TextProperty(required=True)
     type = ndb.StringProperty(required=True)
     description = ndb.TextProperty(required=True)
@@ -76,6 +77,7 @@ class MetadataProperty(ndb.Model):
 class GalleryItem(ndb.Model):
     id = ndb.StringProperty(required=True)
     path = ndb.StringProperty(required=True)
+    originalAlbumPath = ndb.StringProperty(required=True)
     indexSection = ndb.StringProperty(required=False)
     title = ndb.TextProperty(required=True)
     type = ndb.StringProperty(required=True)

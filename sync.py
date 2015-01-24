@@ -94,6 +94,12 @@ def children_changed(current, toupdate):
         if currentChild.description <> newChild.description:
             return True
 
+        if currentChild.path <> newChild.path:
+            return True
+
+        if currentChild.originalAlbumPath <> newChild.originalAlbumPath:
+            return True
+
         if currentChild.type == 'photo':
             if currentChild.thumbnail.width <> newChild.thumbnail.width:
                 return True
@@ -250,6 +256,9 @@ def extract_children(item):
         children = []
         for child in childItems:
             childPath = child["Path"]
+            childOriginalAlbumPath = child["OriginalAlbumPath"]
+            if childOriginalAlbumPath is None:
+                childOriginalAlbumPath = ''
             childHash = utils.generate_url_hash(childPath)
             childTitle = child["Title"]
             childType = child["Type"]
@@ -278,6 +287,7 @@ def extract_children(item):
             children.append(models.ChildItem(
                 id=childHash,
                 path=childPath,
+                originalAlbumPath=childOriginalAlbumPath,
                 title=childTitle,
                 type=childType,
                 description=childDescription,
@@ -416,6 +426,9 @@ def synchronize_common(contents):
     for item in decoded["items"]:
 
         path = item["Path"]
+        originalAlbumPath = item["OriginalAlbumPath"]
+        if originalAlbumPath is None:
+            originalAlbumPath = ''
         title = item["Title"]
         type = item["Type"]
         description = item["Description"]
@@ -442,6 +455,7 @@ def synchronize_common(contents):
             dbItem = models.GalleryItem(
                 id=hash,
                 path=path,
+                originalAlbumPath=originalAlbumPath,
                 indexSection=indexSection,
                 title=title,
                 type=type,
@@ -469,15 +483,15 @@ def synchronize_common(contents):
 
         else:
 
-            if path <> dbItem.path or indexSection <> dbItem.indexSection or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed(
-                    dbItem.children, children) or breadcrumbs_changed(dbItem.breadcrumbs,
-                                                                      breadcrumbs) or resizes_changed(dbItem.resizes,
+            if path <> dbItem.path or originalAlbumPath <> dbItem.originalAlbumPath or indexSection <> dbItem.indexSection or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed(
+                    dbItem.children, children) or breadcrumbs_changed(dbItem.breadcrumbs, breadcrumbs) or resizes_changed(dbItem.resizes,
                                                                                                       foundImageSizes) or metadata_changed(
                     dbItem.metadata, metadata) or keywords_changed(dbItem.keywords, keywords) or sibling_changed(
                     dbItem.firstSibling, firstSibling) or sibling_changed(dbItem.previousSibling,
                                                                           previousSibling) or sibling_changed(
                     dbItem.nextSibling, nextSibling) or sibling_changed(dbItem.lastSibling, lastSibling):
                 dbItem.path = path
+                dbItem.originalAlbumPath = originalAlbumPath
                 dbItem.indexSection = indexSection
                 dbItem.title = title
                 dbItem.type = type

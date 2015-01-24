@@ -49,7 +49,7 @@
 <div class="jumbotron">
     <h1>{{title}}</h1>
     {% if item %}
-    {% if item.description %}<p>{{item.description}}</p>{% endif %}
+    {% if item.description %}<p>{{item.description|safe}}</p>{% endif %}
     {% endif %}
 
     {% if breadcrumbs %}
@@ -91,6 +91,10 @@
             {{resizecss|safe}}
             <div class="image">&nbsp;<a href="{{fullImageUrl}}">{{title}}</a></div>
             <span>{{title}}</span> by <a rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author">Mark Ridgwell</a>
+
+            {% if originalAlbumPath %}
+            <br/><span>See this photo in the context of the <a href="{{host}}{{originalAlbumPath}}">album</a> it was taken in.</span>
+            {% endif %}
 
             {% if description %}
             <span>{{description|safe}}</span>

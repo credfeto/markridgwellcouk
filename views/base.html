@@ -42,7 +42,11 @@
     <link type="text/plain" rel="author" href="{{host}}/humans.txt"/>
     <link rel="author" href="https://plus.google.com/+MarkRidgwell/?rel=author"/>
     <link rel="publisher" href="https://plus.google.com/+MarkRidgwellCoUk/?rel=publisher"/>
+    {% if originalAlbumPath %}
+    <link href="https://www.markridgwell.co.uk{{originalAlbumPath}}" rel="canonical"/>
+    {% else %}
     <link href="https://www.markridgwell.co.uk{{path}}" rel="canonical"/>
+    {% endif %}
     <meta property="og:url" content="https://www.markridgwell.co.uk{{path}}"/>
     <meta name="Referrer" content="origin"/>
     <!--[if IE]>
