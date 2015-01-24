@@ -39,6 +39,33 @@ class XMPPHandlerUnsubscribed(webapp2.RequestHandler):
         sender = self.request.get('from').split('/')[0]
         roster.remove_contact(sender)
 
+class XMPPHandlerPresenseAvailable(webapp2.RequestHandler):
+    def post(self):
+        # In the handler for _ah/xmpp/presence/available
+        # Split the bare XMPP address (e.g., user@gmail.com)
+        # from the resource (e.g., gmail.CD6EBC4A), and then send the
+        # application's presence to the user.
+        sender = self.request.get('from').split('/')[0]
+        xmpp.send_presence(sender, status=self.request.get('status'), presence_show=self.request.get('show'))
+
+class XMPPHandlerPresenseUnavailable(webapp2.RequestHandler):
+    def post(self):
+        # In the handler for _ah/xmpp/presence/available
+        # Split the bare XMPP address (e.g., user@gmail.com)
+        # from the resource (e.g., gmail.CD6EBC4A), and then send the
+        # application's presence to the user.
+        sender = self.request.get('from').split('/')[0]
+        xmpp.send_presence(sender, status=self.request.get('status'), presence_show=self.request.get('show'))
+
+class XMPPHandlerPresenseProbe(webapp2.RequestHandler):
+    def post(self):
+        # In the handler for _ah/xmpp/presence/available
+        # Split the bare XMPP address (e.g., user@gmail.com)
+        # from the resource (e.g., gmail.CD6EBC4A), and then send the
+        # application's presence to the user.
+        sender = self.request.get('from').split('/')[0]
+        xmpp.send_presence(sender, status=self.request.get('status'), presence_show=self.request.get('show'))
+
 class XMPPHandlerError(webapp2.RequestHandler):
     def post(self):
         error_sender = self.request.get('from')
@@ -51,6 +78,9 @@ app = webapp2.WSGIApplication([
     ('/_ah/xmpp/subscription/subscribed/', XMPPHandlerSubscribed),
     ('/_ah/xmpp/subscription/unsubscribe/', XMPPHandlerUnsubscribe),
     ('/_ah/xmpp/subscription/unsubscribed/', XMPPHandlerUnsubscribed),
+    ('/_ah/xmpp/presence/available/', XMPPHandlerPresenseAvailable),
+    ('/_ah/xmpp/presence/unavailable/', XMPPHandlerPresenseUnavailable),
+    ('/_ah/xmpp/presence/probe/', XMPPHandlerPresenseProbe),
     ('/_ah/xmpp/message/error/', XMPPHandlerError),
     ('/_ah/xmpp/error/', XMPPHandlerError),
 ])
