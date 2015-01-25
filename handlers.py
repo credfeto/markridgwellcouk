@@ -57,7 +57,7 @@ class IndexHandler(webapp2.RequestHandler):
                 q = models.GalleryItem.query(models.GalleryItem.id == hash)
                 item = q.get()
 
-                if item <> None:
+                if item is not None:
                     shouldReportError = False
                     utils.add_response_headers(self.request, self.response.headers)
                     self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
@@ -138,21 +138,21 @@ class IndexHandler(webapp2.RequestHandler):
             nextSibling = None
             lastSibling = None
 
-            if item.firstSibling <> None:
+            if item.firstSibling is not None:
                 firstSibling = {'title': item.firstSibling.title, 'url': item.firstSibling.path}
 
-            if item.previousSibling <> None:
+            if item.previousSibling is not None:
                 previousSibling = {'title': item.previousSibling.title, 'url': item.previousSibling.path}
 
-            if item.nextSibling <> None:
+            if item.nextSibling is not None:
                 nextSibling = {'title': item.nextSibling.title, 'url': item.nextSibling.path}
 
-            if item.lastSibling <> None:
+            if item.lastSibling is not None:
                 lastSibling = {'title': item.lastSibling.title, 'url': item.lastSibling.path}
 
-            keywords = None
+            keywordsText = None
             if item.keywords:
-                keywords = ",".join(item.keywords)
+                keywordsText = ",".join(item.keywords)
 
             showShare = utils.should_share(userAgent)
 
@@ -178,6 +178,22 @@ class IndexHandler(webapp2.RequestHandler):
                 md = markdown.Markdown()
                 description = md.convert(item.description)
 
+            keywords = []
+            if item.keywords:
+                item_to_select = ''
+                if item.path.startswith('/albums/'):
+                    if item.breadcrumbs:
+                        item_to_select = utils.path_to_tagId(item.breadcrumbs[-1].path) + '-' + utils.path_to_tagId(item.path)
+                else:
+                    item_to_select = utils.path_to_tagId(item.path)
+
+                for keyword in item.keywords:
+                    keywordUrl = utils.generate_keyword_url( host, keyword, item_to_select)
+
+                    keywords.append(
+                        {'name':keyword, 'url':keywordUrl}
+                    )
+
             template_vals = {'host': host, 'path': searchPath, 'track': track, 'hash': hash, 'users': users,
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
                              'resizecss': resizecss, 'staticurl': self.request.relative_url('/static'),
@@ -186,7 +202,7 @@ class IndexHandler(webapp2.RequestHandler):
                              'previousSibling': previousSibling, 'nextSibling': nextSibling, 'lastSibling': lastSibling,
                              'keywords': keywords, 'showShare': showShare, 'windowsshare': windowsshare,
                              'parentItemUrl': parentItemUrl,
-                             'description': description, 'originalAlbumPath': originalAlbumPath}
+                             'description': description, 'originalAlbumPath': originalAlbumPath, 'keywords': keywords, 'keywordsText': keywordsText}
             if children is None:
                 self.response.out.write(utils.render_template("photo.html", template_vals))
             else:

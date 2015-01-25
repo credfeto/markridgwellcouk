@@ -111,6 +111,17 @@ def image_url(path, image):
     return site_url('/' + base + '/' + filestub + '-' + str(image.width) + 'x' + str(image.height) + '.jpg')
 
 
+def make_url(root):
+    replacedWrongSlash = root.replace("\\", "/")
+    replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
+    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens)
+    replacedHyphensNextToSlash = re.sub(r"(\-*/\-*)", "/", replacedBadChars)
+    replacedEndingHyphens = replacedHyphensNextToSlash.rstrip('-')
+    if replacedEndingHyphens.endswith('/') == False:
+        replacedEndingHyphens = replacedEndingHyphens + '/'
+    return replacedEndingHyphens
+
+
 def convert_old_url(originalPath):
     base = originalPath
 
@@ -129,17 +140,7 @@ def convert_old_url(originalPath):
         lastSlashPos = root.rfind('/')
         root = root[6:lastSlashPos]
 
-
-    replacedWrongSlash = root.replace("\\", "/")
-    replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
-    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens)
-    replacedHyphensNextToSlash = re.sub(r"(\-*/\-*)", "/", replacedBadChars)
-    replacedEndingHyphens = replacedHyphensNextToSlash.rstrip('-')
-
-    if replacedEndingHyphens.endswith('/') == False:
-        replacedEndingHyphens = replacedEndingHyphens + '/'
-
-    return replacedEndingHyphens
+    return make_url(root)
 
 
 def is_development():
@@ -337,3 +338,24 @@ def is_publishable(item):
                 return False
 
     return True
+
+
+def generate_keyword_url(host, keyword, item_to_select):
+
+    replacedWrongSlash = keyword.lower().replace("\\", "/")
+    replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
+    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens)
+    replacedHyphensNextToSlash = re.sub(r"(\-*/\-*)", "/", replacedBadChars)
+    replacedEndingHyphens = replacedHyphensNextToSlash.rstrip('-')
+    replacedEndingHyphens = replacedEndingHyphens.lstrip('-')
+    if replacedEndingHyphens.endswith('/') == False:
+        replacedEndingHyphens = replacedEndingHyphens + '/'
+
+    urlsafe_keyword = replacedEndingHyphens
+
+    url =   host + "/keywords/" + urlsafe_keyword[0:1] + "/" + urlsafe_keyword
+
+    if item_to_select:
+        return url + '#' + item_to_select
+    else:
+        return url
