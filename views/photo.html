@@ -99,6 +99,14 @@
             {% if description %}
             <span>{{description|safe}}</span>
             {% endif %}
+
+            {% if keywords %}
+            <ul>
+                {% for keyword in keywords %}
+                    <li><a href="{{keyword.url}}">{{keyword.name}}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
         {% endif %}
 
@@ -137,7 +145,7 @@
                       }
                  },
             "exifData": "{% if item.metadata %}{% for mdprop in item.metadata %}{{mdprop.name}}:{{mdprop.value}}, {% endfor %}{% endif %}",
-            "keywords": "{{keywords}}",
+            "keywords": "{{keywordsText}}",
             "isPartOf": {
                             "@type": "CreativeWork",
                             "url": "{{parentItemUrl}}"
