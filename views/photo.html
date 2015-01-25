@@ -99,14 +99,6 @@
             {% if description %}
             <span>{{description|safe}}</span>
             {% endif %}
-
-            {% if keywords %}
-            <ul>
-                {% for keyword in keywords %}
-                    <li><a href="{{keyword.url}}">{{keyword.name}}</a></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
         </div>
         {% endif %}
 
@@ -180,6 +172,15 @@
         </table>
     </div>
 </div>
+{% endif %}
+
+{% if keywords %}
+<h3>Keywords</h3>
+<ul>
+    {% for keyword in keywords %}
+        <li><a href="{{keyword.url}}">{{keyword.name}}</a></li>
+    {% endfor %}
+</ul>
 {% endif %}
 
 {% if item.location %}
