@@ -26,10 +26,10 @@ class ContactHandler(webapp2.RequestHandler):
 
         utils.add_response_headers(self.request, self.response.headers)
         track = utils.should_track(self.request.headers)
-        windowsshare = utils.enable_windows_share_metadata(self.request.headers.get('User-Agent', None))
+        windows_share = utils.enable_windows_share_metadata(self.request.headers.get('User-Agent', None))
 
         template_vals = {'host': self.request.host_url, 'track': track, 'showShare': False,
-                         'windowsshare': windowsshare}
+                         'windowSshare': windows_share}
 
         self.response.out.write(utils.render_template("contact.html", template_vals))
 
