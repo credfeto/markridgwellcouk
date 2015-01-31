@@ -192,21 +192,23 @@ class IndexHandler(webapp2.RequestHandler):
                     item_to_select = utils.path_to_tagId(item.path)
 
                 for keyword in item.keywords:
-                    keywordUrl = utils.generate_keyword_url( host, keyword, item_to_select)
+                    keyword_url = utils.generate_keyword_url(host, keyword, item_to_select)
 
                     keywords.append(
-                        {'name':keyword, 'url':keywordUrl}
+                        {'name': keyword, 'url': keyword_url}
                     )
 
             template_vals = {'host': host, 'path': search_path, 'track': track, 'hash': hash, 'users': users,
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
                              'resizecss': resize_css, 'staticurl': self.request.relative_url('/static'),
-                             'thumbnail_url': thumbnail_image_url, 'fullImageUrl': full_image_url, 'fullImageWidth': image_width,
-                             'fullImageHeight': image_height, 'firstSibling': first_sibling,
-                             'previousSibling': previous_sibling, 'next_sibling': next_sibling, 'lastSibling': last_sibling,
+                             'thumbnail_url': thumbnail_image_url, 'fullImageUrl': full_image_url,
+                             'fullImageWidth': image_width, 'fullImageHeight': image_height,
+                             'firstSibling': first_sibling, 'previousSibling': previous_sibling,
+                             'nextSibling': next_sibling, 'lastSibling': last_sibling,
                              'keywords': keywords, 'showShare': show_share, 'windowsShare': windows_share,
-                             'parentItemUrl': parent_item_url,
-                             'description': description, 'original_album_path': original_album_path, 'keywords': keywords, 'keywords_text': keywords_text}
+                             'parentItemUrl': parent_item_url, 'description': description,
+                             'original_album_path': original_album_path, 'keywords': keywords,
+                             'keywords_text': keywords_text}
             if children is None:
                 self.response.out.write(utils.render_template("photo.html", template_vals))
             else:
