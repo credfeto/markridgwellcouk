@@ -27,10 +27,10 @@ class AboutHandler(webapp2.RequestHandler):
 
         utils.add_response_headers(self.request, self.response.headers)
         track = utils.should_track(self.request.headers)
-        windowsshare = utils.enable_windows_share_metadata(self.request.headers.get('User-Agent', None))
+        windows_share = utils.enable_windows_share_metadata(self.request.headers.get('User-Agent', None))
 
         template_vals = {'host': self.request.host_url, 'track': track, 'year': date.today().year, 'showShare': False,
-                         'windowsshare': windowsshare}
+                         'windowsShare': windows_share}
         self.response.out.write(utils.render_template("about.html", template_vals))
 
 

@@ -66,7 +66,7 @@ class IndexHandler(webapp2.RequestHandler):
 
             if should_report_error:
                 template_vals = {'host': self.request.host_url, 'path': search_path, 'track': track, 'hash': hash,
-                                 'users': users, 'show_share': False, 'windows_share': windows_share}
+                                 'users': users, 'showShare': False, 'windowsShare': windows_share}
                 utils.add_response_headers(self.request, self.response.headers)
                 self.response.out.write(utils.render_template("notfound.html", template_vals))
                 self.response.set_status(404)
@@ -86,7 +86,7 @@ class IndexHandler(webapp2.RequestHandler):
                     tag_id = utils.path_to_tagId(child.path)
                     childItem = {'id': child.id, 'path': child.path, 'title': child.title, 'type': child.type,
                                  'description': child.description, 'thumbnail': child.thumbnail,
-                                 'thumbnail_url': thumbnail_url, "tagId": tag_id}
+                                 'thumbnailUrl': thumbnail_url, "tagId": tag_id}
                     children.append(childItem)
 
             parent_item_url = None
@@ -98,8 +98,7 @@ class IndexHandler(webapp2.RequestHandler):
                     if parent_item_url is None:
                         parent_item_url = host + crumb.path
                     tag_id = utils.path_to_tagId(crumb.path)
-                    crumb_item = {'id': crumb.id, 'path': crumb.path, 'title': crumb.title,
-                                 'description': crumb.description, "tagId": last_crumb_tag_id}
+                    crumb_item = {'id': crumb.id, 'path': crumb.path, 'title': crumb.title, 'description': crumb.description, "tagId": last_crumb_tag_id}
                     breadcrumbs.insert(0, crumb_item)
                     last_crumb_tag_id = tag_id
             if parent_item_url is None:
@@ -203,9 +202,9 @@ class IndexHandler(webapp2.RequestHandler):
                              'title': title, 'item': item, 'children': children, 'breadcrumbs': breadcrumbs,
                              'resizecss': resize_css, 'staticurl': self.request.relative_url('/static'),
                              'thumbnail_url': thumbnail_image_url, 'fullImageUrl': full_image_url, 'fullImageWidth': image_width,
-                             'fullImageHeight': image_height, 'first_sibling': first_sibling,
-                             'previous_sibling': previous_sibling, 'next_sibling': next_sibling, 'last_sibling': last_sibling,
-                             'keywords': keywords, 'show_share': show_share, 'windows_share': windows_share,
+                             'fullImageHeight': image_height, 'firstSibling': first_sibling,
+                             'previousSibling': previous_sibling, 'next_sibling': next_sibling, 'lastSibling': last_sibling,
+                             'keywords': keywords, 'showShare': show_share, 'windowsShare': windows_share,
                              'parentItemUrl': parent_item_url,
                              'description': description, 'original_album_path': original_album_path, 'keywords': keywords, 'keywords_text': keywords_text}
             if children is None:
