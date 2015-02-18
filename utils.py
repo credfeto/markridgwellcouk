@@ -92,7 +92,7 @@ def redirect_url(path, query_string):
 
 
 def pathify_hash(hash):
-    indexes = [2, 4, 8, 12, 20];
+    indexes = [2, 4, 8, 12, 20]
     indexes.sort(reverse=True)
 
     base = hash;
@@ -103,7 +103,7 @@ def pathify_hash(hash):
 
 
 def image_url(path, image):
-    hash = generate_image_url_hash(path);
+    hash = generate_image_url_hash(path)
     base = pathify_hash(hash)
 
     filestub = path[path.rfind('/', 0, len(path) - 2) + 1:-1]
