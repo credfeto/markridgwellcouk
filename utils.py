@@ -46,12 +46,18 @@ def enable_windows_share_metadata(userAgent):
     if 'appdotnet' in agent:
         return False
 
+    if 'google-http-java-client' in agent:
+        return False
+
     return True
 
 def should_track(headers):
     track = headers.get('DNT', "0")
 
     if track is None:
+        user_agent = headers.get('User-Agent', None)
+        if user_agent is not None:
+            return not should_share(user_agent)
         return True
 
     if track == "1":
@@ -69,6 +75,27 @@ def should_share(userAgent):
     if 'googlebot' in agent:
         return False
 
+    if 'googlebot-news' in agent:
+        return False
+
+    if 'googlebot-image' in agent:
+        return False
+
+    if 'googlebot-video' in agent:
+        return False
+
+    if 'googlebot-mobile' in agent:
+        return False
+
+    if 'mediapartners-google' in agent:
+        return False
+
+    if 'mediapartners (googlebot)' in agent:
+        return False
+
+    if 'adsbot-google' in agent:
+        return False
+
     if 'msnbot' in agent:
         return False
 
@@ -82,6 +109,45 @@ def should_share(userAgent):
         return False
 
     if 'appdotnet' in agent:
+        return False
+
+    if 'baiduspider' in agent:
+        return False
+
+    if 'yandexbot' in agent:
+        return False
+
+    if 'teoma' in agent:
+        return False
+
+    if 'exabot' in agent:
+        return False
+
+    if 'tweetmemebot' in agent:
+        return False
+
+    if 'bingpreview' in agent:
+        return False
+
+    if 'tweetedtimes' in agent:
+        return False
+
+    if 'mj12bot' in agent:
+        return False
+
+    if 'showyoubot' in agent:
+        return False
+
+    if 'bufferbot' in agent:
+        return False
+
+    if 'google-http-java-client' in agent:
+        return False
+
+    if 'mail.ru_bot' in agent:
+        return False
+
+    if 'feedfetcher-google' in agent:
         return False
 
     return True

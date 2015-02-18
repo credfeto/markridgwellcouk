@@ -90,6 +90,9 @@ class RssHandler(webapp2.RequestHandler):
 
 class RssRedirectHandler(webapp2.RequestHandler):
     def get(self):
+        utils.add_response_headers(self.request, self.response.headers)
+        self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+        self.response.headers['Pragma'] = 'public'
         self.redirect('https://www.markridgwell.co.uk/rss.xml', permanent=True)
 
 
