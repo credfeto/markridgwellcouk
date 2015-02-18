@@ -28,15 +28,18 @@ class IndexHandler(webapp2.RequestHandler):
 
         user_agent = self.request.headers.get('User-Agent', None)
 
-        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(user_agent):
-            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
-            self.response.headers['Pragma'] = 'public'
-            self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
+        if utils.is_development() == False:
+            if self.request.scheme == 'http' and utils.device_supports_ssl_tni(user_agent):
+                self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+                self.response.headers['Pragma'] = 'public'
+                self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
-        if utils.is_development() == False and host != 'www.markridgwell.co.uk':
-            self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
-            self.response.headers['Pragma'] = 'public'
-            self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
+            if host != 'http://www.markridgwell.co.uk' and host != 'https://www.markridgwell.co.uk':
+                self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
+                self.response.headers['Pragma'] = 'public'
+                self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
+                return
+
 
 
         windows_share = utils.enable_windows_share_metadata(user_agent)
