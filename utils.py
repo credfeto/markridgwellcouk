@@ -37,8 +37,16 @@ def enable_windows_share_metadata(userAgent):
     if 'facebookexternalhit' in agent:
         return False
 
-    return True
+    if 'twitter' in agent:
+        return False
 
+    if 'google (+' in agent:
+        return False
+
+    if 'appdotnet' in agent:
+        return False
+
+    return True
 
 def should_track(headers):
     track = headers.get('DNT', "0")
@@ -71,6 +79,9 @@ def should_share(userAgent):
         return False
 
     if 'facebookexternalhit' in agent:
+        return False
+
+    if 'appdotnet' in agent:
         return False
 
     return True
