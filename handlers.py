@@ -33,7 +33,7 @@ class IndexHandler(webapp2.RequestHandler):
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
 
-        if utils.is_development() == false and host != 'www.markridgwell.co.uk':
+        if utils.is_development() == False and host != 'www.markridgwell.co.uk':
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
