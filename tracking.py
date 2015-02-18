@@ -60,6 +60,24 @@ def is_sharing_callback(userAgent):
     if 'linkedinbot' in agent:
         return True
 
+    if 'feedfetcher-google' in agent:
+        return False
+
+    if 'showyoubot' in agent:
+        return False
+
+    if 'tweetmemebot' in agent:
+        return False
+
+    if 'bufferbot' in agent:
+        return False
+
+    if 'google-http-java-client' in agent:
+        return False
+
+    if 'tweetedtimes' in agent:
+        return False
+
     return False
 
 
