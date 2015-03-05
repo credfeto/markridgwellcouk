@@ -97,6 +97,9 @@ def publish_next():
                 image = get_resize(publish)
 
                 files = fetch_image_to_attach(image, publish)
+                if files is None:
+                    msg = 'Could not retrieve image when publishing ' + publish.path + ' image : ' + utils.image_url(publish.path, image)
+                    xmpp.send_message('markr@markridgwell.com', msg)
 
                 url = publish_photo(files, publish)
 
