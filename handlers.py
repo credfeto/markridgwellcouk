@@ -186,10 +186,13 @@ class IndexHandler(webapp2.RequestHandler):
                 if item.originalAlbumPath:
                     original_album_path = item.originalAlbumPath
 
-            description = ""
+            description = ''
             if item.description:
                 md = markdown.Markdown()
-                description = md.convert(item.description)
+                raw_description = item.description + 'Steve Forward performing his [One Floyd](http://www.onefloyd.com) solo Pink Floyd tribute at the GPCA Harlow.'
+
+
+                description = md.convert(raw_description)
 
             keywords = []
             if item.keywords:
