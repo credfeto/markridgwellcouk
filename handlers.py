@@ -189,9 +189,7 @@ class IndexHandler(webapp2.RequestHandler):
             description = ''
             if item.description:
                 md = markdown.Markdown()
-                raw_description = item.description + 'Steve Forward performing his [One Floyd](http://www.onefloyd.com) solo Pink Floyd tribute at the GPCA Harlow.'
-
-
+                raw_description = item.description
                 description = md.convert(raw_description)
 
             keywords = []
