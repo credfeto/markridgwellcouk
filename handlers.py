@@ -19,6 +19,7 @@ import logging
 import sys
 sys.path.insert(0, 'lib')
 
+import random
 import markdown
 
 class IndexHandler(webapp2.RequestHandler):
