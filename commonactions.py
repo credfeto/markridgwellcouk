@@ -113,7 +113,7 @@ def publish_next():
                 url = publish_photo(files, publish)
 
                 # Remove the item we just published so it doesn't go again
-                #itemToPublish.key.delete()
+                itemToPublish.key.delete()
                 return "Published: " + url
 
     return "Nothing published"
