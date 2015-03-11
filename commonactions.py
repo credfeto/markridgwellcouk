@@ -15,6 +15,8 @@ import utils
 import sys
 from google.appengine.api import xmpp
 
+from google.appengine.api import images
+
 def send_email(body, files, sender_address, subject, user_address):
     if files is None:
         mail.send_mail(sender=sender_address, to=user_address, subject=subject, body=body)
@@ -64,6 +66,13 @@ def fetch_image_to_attach(image, publish):
     if result.status_code == 200:
         filename = publish.title + ".jpg"
         file_data = result.content
+
+        try:
+            img = images.Image(image_data=file_data)
+
+        except images.Error:
+            return None
+
         files = [(filename, file_data)]
 
         #response.out.write("Adding Attachment: " + str(len(file_data)) + "bytes.\r\n")
@@ -104,7 +113,7 @@ def publish_next():
                 url = publish_photo(files, publish)
 
                 # Remove the item we just published so it doesn't go again
-                itemToPublish.key.delete()
+                #itemToPublish.key.delete()
                 return "Published: " + url
 
     return "Nothing published"
