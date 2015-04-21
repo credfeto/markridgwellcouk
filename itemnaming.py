@@ -30,6 +30,24 @@ def contains_album(photo, album):
 
     return False
 
+def contains_keyword(keyword, search_photo_title, search_album_title):
+    return utils.contains_either(keyword, search_photo_title) or utils.contains_either(keyword, search_album_title)
+
+def publish_hashtags(publish):
+
+    hash_tags = ['#photo']
+
+    title = publish.title.lower().strip()
+    album_title = get_album_title(publish).lower().strip()
+
+    if contains_keyword('harlow', title, album_title):
+        hash_tags.append('#ProudOfHarlow')
+
+    if contains_keyword('onefloyd', title, album_title):
+        hash_tags.append('#OneFloyd')
+
+    return hash_tags
+
 def photo_title(publish, title_max_length):
     album_title = get_album_title(publish)
     title = utils.strip_trailing_numbers(publish.title)

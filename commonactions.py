@@ -27,7 +27,16 @@ def send_email(body, files, sender_address, subject, user_address):
 def publish_photo(files, publish):
     # publish the item
 
-    title_max_length = 90
+    hash_tags = itemnaming.publish_hashtags(publish)
+    tag_separator = " "
+
+    all_tags = tag_separator.join(hash_tags).strip()
+
+    title_max_length = 100 - len(all_tags)
+
+    if len(all_tags) > 0:
+        all_tags = all_tags + ' '
+
     title = itemnaming.photo_title(publish, title_max_length)
 
     url = 'https://www.markridgwell.co.uk' + publish.path + '?utm_source=mtr&utm_medium=buffer&utm_campaign=publish'
@@ -38,7 +47,8 @@ def publish_photo(files, publish):
 
     user_address = 'buffer-62c71f8f12deed183390@to.bufferapp.com'
     sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
-    subject = title + " #photo " + shortened_url
+
+    subject = title + " " + all_tags + shortened_url
     body = "@profiles mark ridgwell's photos credfeto\r\n@link " + shortened_url
     # #"@now " \
 
