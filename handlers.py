@@ -223,7 +223,10 @@ class IndexHandler(webapp2.RequestHandler):
             if children is None:
                 self.response.out.write(utils.render_template("photo.html", template_vals))
             else:
-                self.response.out.write(utils.render_template("index.html", template_vals))
+                if search_path == '/':
+                    self.response.out.write(utils.render_template("home.html", template_vals))
+                else:
+                    self.response.out.write(utils.render_template("index.html", template_vals))
 
             utils.add_response_headers(self.request, self.response.headers)
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
