@@ -35,7 +35,7 @@ def publish_photo(files, publish):
     title_max_length = 100 - len(all_tags)
 
     if len(all_tags) > 0:
-        all_tags = all_tags + ' '
+        all_tags += ' '
 
     title = itemnaming.photo_title(publish, title_max_length)
 
@@ -52,9 +52,8 @@ def publish_photo(files, publish):
     body = "@profiles mark ridgwell's photos credfeto\r\n@link " + shortened_url
     # #"@now " \
 
-
     send_email(body, files, sender_address, subject, user_address)
-    #send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
+    send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
 
     return utils.shortern_url('https://www.markridgwell.co.uk' + publish.path)
 
