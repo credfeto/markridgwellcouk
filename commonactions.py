@@ -49,15 +49,12 @@ def publish_photo(files, publish):
     sender_address = "Mark Ridgwell's Photos <bufferpublisher@markridgwellcouk.appspotmail.com>"
 
     subject = title + " " + all_tags + shortened_url
-    body_suffix = "\r\n@link " + shortened_url
+    link_url = "@link " + shortened_url
+    body_suffix = "\r\n@subprofile Photos\r\n" + link_url
     body = "@profiles mark ridgwell's photos credfeto" + body_suffix
     # #"@now " \
 
-    send_email('@s fb' + body_suffix, files, sender_address, subject, user_address)
-    send_email('@s adn' + body_suffix, files, sender_address, subject, user_address)
-    send_email('@s twitter' + body_suffix, files, sender_address, subject, user_address)
-    send_email('@s google' + body_suffix, files, sender_address, subject, user_address)
-    send_email('@s pinterest' + '\r\n@subprofile Photos' +body_suffix, files, sender_address, subject, user_address)
+    send_email(body_suffix, files, sender_address, subject, user_address)
     send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
 
     return utils.shortern_url('https://www.markridgwell.co.uk' + publish.path)
