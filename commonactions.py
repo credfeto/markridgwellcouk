@@ -55,7 +55,7 @@ def publish_photo(files, publish):
     # #"@now " \
 
     send_email(body_suffix, files, sender_address, subject, user_address)
-    send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
+    #send_email(body, files, sender_address, subject, 'markr@markridgwell.com')
 
     return utils.shortern_url('https://www.markridgwell.co.uk' + publish.path)
 
