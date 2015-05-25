@@ -50,6 +50,10 @@ def publish_hashtags(publish):
         hash_tags.append('#ProudOfHarlow')
         hash_tags.append('#Heart4Harlow')
 
+    if contains_keyword('Rock School', title, album_title):
+        hash_tags.append('#ProudOfHarlow')
+        hash_tags.append('#RockSchoolHarlow')
+
     return hash_tags
 
 def photo_title(publish, title_max_length):
