@@ -46,6 +46,10 @@ def publish_hashtags(publish):
     if contains_keyword('onefloyd', title, album_title):
         hash_tags.append('#OneFloyd')
 
+    if contains_keyword('heart4harlow', title, album_title):
+        hash_tags.append('#ProudOfHarlow')
+        hash_tags.append('#Heart4Harlow')
+
     return hash_tags
 
 def photo_title(publish, title_max_length):
