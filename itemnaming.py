@@ -49,6 +49,10 @@ def publish_hashtags(publish):
     if contains_keyword('one floyd', title, album_title):
         hash_tags.append('#OneFloyd')
 
+    if contains_keyword('linkfest', title, album_title):
+        hash_tags.append('#LinkfestHarlow')
+        hash_tags.append('#ProudOfHarlow')
+
     if contains_keyword('heart4harlow', title, album_title):
         hash_tags.append('#ProudOfHarlow')
         hash_tags.append('#Heart4Harlow')
