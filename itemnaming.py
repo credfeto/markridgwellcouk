@@ -31,7 +31,19 @@ def contains_album(photo, album):
     return False
 
 def contains_keyword(keyword, search_photo_title, search_album_title):
-    return utils.contains_either(keyword, search_photo_title) or utils.contains_either(keyword, search_album_title)
+    if keyword in search_photo_title:
+        return True
+
+    if keyword in search_album_title:
+        return True
+
+    return False
+
+def append_tag(container, item):
+    if item not in container:
+        container.append(item)
+
+    return container
 
 def publish_hashtags(publish):
 
@@ -41,25 +53,25 @@ def publish_hashtags(publish):
     album_title = get_album_title(publish).lower().strip()
 
     if contains_keyword('harlow', title, album_title):
-        hash_tags.append('#ProudOfHarlow')
+        hash_tags = append_tag(hash_tags, '#ProudOfHarlow')
 
     if contains_keyword('onefloyd', title, album_title):
-        hash_tags.append('#OneFloyd')
+        hash_tags = append_tag(hash_tags, '#OneFloyd')
 
     if contains_keyword('one floyd', title, album_title):
-        hash_tags.append('#OneFloyd')
+        hash_tags = append_tag(hash_tags, '#OneFloyd')
 
     if contains_keyword('linkfest', title, album_title):
-        hash_tags.append('#LinkfestHarlow')
-        hash_tags.append('#ProudOfHarlow')
+        hash_tags = append_tag(hash_tags, '#LinkfestHarlow')
+        hash_tags = append_tag(hash_tags, '#ProudOfHarlow')
 
     if contains_keyword('heart4harlow', title, album_title):
-        hash_tags.append('#ProudOfHarlow')
-        hash_tags.append('#Heart4Harlow')
+        hash_tags = append_tag(hash_tags, '#ProudOfHarlow')
+        hash_tags = append_tag(hash_tags, '#Heart4Harlow')
 
     if contains_keyword('rock school', title, album_title):
-        hash_tags.append('#ProudOfHarlow')
-        hash_tags.append('#RockSchoolHarlow')
+        hash_tags = append_tag(hash_tags, '#ProudOfHarlow')
+        hash_tags = append_tag(hash_tags, '#RockSchoolHarlow')
 
     return hash_tags
 
