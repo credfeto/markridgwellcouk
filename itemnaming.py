@@ -30,6 +30,7 @@ def contains_album(photo, album):
 
     return False
 
+
 def contains_keyword(keyword, search_photo_title, search_album_title):
     if keyword in search_photo_title:
         return True
@@ -39,11 +40,13 @@ def contains_keyword(keyword, search_photo_title, search_album_title):
 
     return False
 
+
 def append_tag(container, item):
     if item not in container:
         container.append(item)
 
     return container
+
 
 def publish_hashtags(publish):
 
@@ -74,6 +77,7 @@ def publish_hashtags(publish):
         hash_tags = append_tag(hash_tags, '#RockSchoolHarlow')
 
     return hash_tags
+
 
 def photo_title(publish, title_max_length):
     album_title = get_album_title(publish)
