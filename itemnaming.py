@@ -42,8 +42,14 @@ def contains_keyword(keyword, search_photo_title, search_album_title):
 
 
 def append_tag(container, item):
-    if item not in container:
-        container.append(item)
+
+    lower_item = item.lower()
+
+    for text in container:
+        if text.lower() == lower_item:
+            return container
+
+    container.append(item)
 
     return container
 
