@@ -426,6 +426,7 @@ def synchronize_common(contents):
     for item in decoded["items"]:
 
         path = item["Path"]
+        logging.info("Path: " + path)
         originalAlbumPath = item["OriginalAlbumPath"]
         if originalAlbumPath is None:
             originalAlbumPath = ''
