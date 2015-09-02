@@ -251,10 +251,10 @@ def extract_location(item):
 
 def extract_children(item):
     children = None
-    childItems = item["Children"]
-    if childItems <> None:
+    child_items = item["Children"]
+    if child_items <> None:
         children = []
-        for child in childItems:
+        for child in child_items:
             childPath = child["Path"]
             childOriginalAlbumPath = child["OriginalAlbumPath"]
             if childOriginalAlbumPath is None:
@@ -293,6 +293,10 @@ def extract_children(item):
                 description=childDescription,
                 thumbnail=foundThumbnailSize
             ))
+
+            ## Limit number of children to something thats managable
+            if children.count() > 1000:
+                break
 
     return children
 
