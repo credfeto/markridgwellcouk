@@ -407,19 +407,17 @@ def delete_item(hash):
 
     return False
 
-
 def delete_published_item(hash):
     piq = models.PublishableItem.query(models.PublishableItem.id == hash)
     pi = piq.get()
     if pi <> None:
         pi.key.delete()
 
-
 def synchronize_common(contents):
     decoded = json.loads(contents)
     version = decoded["version"]
 
-    itemsWritten = 0
+    items_written = 0
 
     logging.info("Decoded Version: " + str(version))
 
@@ -427,9 +425,9 @@ def synchronize_common(contents):
 
         path = item["Path"]
         logging.info("Path: " + path)
-        originalAlbumPath = item["OriginalAlbumPath"]
-        if originalAlbumPath is None:
-            originalAlbumPath = ''
+        original_album_path = item["OriginalAlbumPath"]
+        if original_album_path is None:
+            original_album_path = ''
         title = item["Title"]
         type = item["Type"]
         description = item["Description"]
@@ -456,7 +454,7 @@ def synchronize_common(contents):
             dbItem = models.GalleryItem(
                 id=hash,
                 path=path,
-                originalAlbumPath=originalAlbumPath,
+                originalAlbumPath=original_album_path,
                 indexSection=indexSection,
                 title=title,
                 type=type,
@@ -475,7 +473,7 @@ def synchronize_common(contents):
             )
             dbItem.put()
 
-            itemsWritten = itemsWritten + 1
+            items_written = items_written + 1
             logging.info('Created: ' + path)
 
             if type == 'photo' and utils.is_public_publishable_path(path) and utils.is_publishable(dbItem):
@@ -484,7 +482,7 @@ def synchronize_common(contents):
 
         else:
 
-            if path <> dbItem.path or originalAlbumPath <> dbItem.originalAlbumPath or indexSection <> dbItem.indexSection or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed(
+            if path <> dbItem.path or original_album_path <> dbItem.originalAlbumPath or indexSection <> dbItem.indexSection or dbItem.title <> title or dbItem.type <> type or dbItem.description <> description or dbItem.location <> location or children_changed(
                     dbItem.children, children) or breadcrumbs_changed(dbItem.breadcrumbs, breadcrumbs) or resizes_changed(dbItem.resizes,
                                                                                                       foundImageSizes) or metadata_changed(
                     dbItem.metadata, metadata) or keywords_changed(dbItem.keywords, keywords) or sibling_changed(
@@ -492,7 +490,7 @@ def synchronize_common(contents):
                                                                           previousSibling) or sibling_changed(
                     dbItem.nextSibling, nextSibling) or sibling_changed(dbItem.lastSibling, lastSibling):
                 dbItem.path = path
-                dbItem.originalAlbumPath = originalAlbumPath
+                dbItem.originalAlbumPath = original_album_path
                 dbItem.indexSection = indexSection
                 dbItem.title = title
                 dbItem.type = type
@@ -512,7 +510,7 @@ def synchronize_common(contents):
 
                 dbItem.put()
 
-                itemsWritten = itemsWritten + 1
+                items_written = items_written + 1
                 logging.info('updated: ' + path)
             else:
                 logging.info('Unchanged: ' + path)
@@ -522,12 +520,12 @@ def synchronize_common(contents):
         hash = utils.generate_url_hash(deletedItem)
 
         if delete_item(hash):
-            itemsWritten = itemsWritten + 1
+            items_written = items_written + 1
 
         delete_published_item(hash)
 
-    if itemsWritten > 0:
+    if items_written > 0:
         invalidateOutputCaches()
         pubsubhubub.queue_update()
 
-    return itemsWritten
+    return items_written
