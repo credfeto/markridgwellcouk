@@ -132,6 +132,7 @@ handlers:
 - url: /.*
   script: handlers.app
   secure: optional
+  http_headers:
 
 - url: /.*
   script: notfound.app
@@ -148,11 +149,6 @@ skip_files:
 
 builtins:
 - remote_api: off
-
-pagespeed:
-  domains_to_rewrite:
-    - www.markridgwell.co.uk
-    - www.markridgwell.com
 
 inbound_services:
  - mail_bounce

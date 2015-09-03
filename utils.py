@@ -374,6 +374,10 @@ def path_to_tagId(path):
 def add_response_headers(request, headers):
     headers['Vary'] = 'DNT'
     headers['P3P'] = 'max-age=31536000'
+    headers['Access-Control-Allow-Origin'] = "'self'"
+    headers['Access-Control-Allow-Methods'] = "GET, HEAD, OPTIONS"
+    headers['Content-Security-Policy'] = "frame-ancestors 'self'"
+    headers['X-Frame-Options'] = "SAMEORIGIN"
 
     userAgent = request.headers.get('User-Agent', None)
 
