@@ -218,8 +218,7 @@ class IndexHandler(webapp2.RequestHandler):
                              'nextSibling': next_sibling, 'lastSibling': last_sibling,
                              'keywords': keywords, 'showShare': show_share, 'windowsShare': windows_share,
                              'parentItemUrl': parent_item_url, 'description': description,
-                             'original_album_path': original_album_path, 'keywords': keywords,
-                             'keywords_text': keywords_text}
+                             'original_album_path': original_album_path, 'keywords_text': keywords_text}
             if children is None:
                 self.response.out.write(utils.render_template("photo.html", template_vals))
             else:

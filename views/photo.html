@@ -172,14 +172,6 @@
 </div>
 {% endif %}
 
-{% if keywords %}
-<h3>Keywords</h3>
-<ul>
-    {% for keyword in keywords %}
-        <li><a href="{{keyword.url}}">{{keyword.name}}</a></li>
-    {% endfor %}
-</ul>
-{% endif %}
 
 {% if item.location %}
 <div class="row">
