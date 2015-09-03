@@ -295,7 +295,7 @@ def extract_children(item):
             ))
 
             ## Limit number of children to something thats managable
-            if children.count() > 1000:
+            if children.count() > 10000:
                 break
 
     return children
