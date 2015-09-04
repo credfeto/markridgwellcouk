@@ -294,10 +294,6 @@ def extract_children(item):
                 thumbnail=foundThumbnailSize
             ))
 
-            ## Limit number of children to something thats managable
-            if children.count() > 10000:
-                break
-
     return children
 
 
