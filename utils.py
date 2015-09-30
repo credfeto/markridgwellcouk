@@ -254,12 +254,22 @@ def generate_host_hash(host):
     return re.sub('[^a-zA-Z0-9-]+', '-', host).strip('-')
 
 
-def generate_url_hash(searchPath):
-    return hashlib.sha512(searchPath).hexdigest()
+def decode_unicode_chars(text):
+    return text.decode('utf-8', errors="replace")
 
 
-def generate_image_url_hash(searchPath):
-    return hashlib.sha512(searchPath[8:]).hexdigest()
+def generate_url_hash(search_path):
+
+    decoded = decode_unicode_chars(search_path)
+
+    return hashlib.sha512(decoded).hexdigest()
+
+
+def generate_image_url_hash(search_path):
+
+    decoded = decode_unicode_chars(search_path)
+
+    return hashlib.sha512(decoded[8:]).hexdigest()
 
 
 def slugify(s):
@@ -278,91 +288,91 @@ def render_template(template_name, template_vals=None):
     return template.render(template_path, template_vals)
 
 
-def find_double_size(orderedResizes, width):
-    doubleWidth = width * 2
-    for (i, resize ) in enumerate(orderedResizes):
-        if resize.width == doubleWidth:
+def find_double_size(ordered_resizes, width):
+    double_width = width * 2
+    for (i, resize ) in enumerate(ordered_resizes):
+        if resize.width == double_width:
             return resize
 
     return None
 
 
-def build_image_css(item, orderedResizes):
+def build_image_css(item, ordered_resizes):
     first = None
     last = None
-    newLine = ''  # '\n'
-    imageMargin = 150
-    resizecss = ''
+    new_line = ''  # '\n'
+    image_margin = 150
+    resize_css = ''
 
     base_image_path = item.path
     if item.originalAlbumPath:
         base_image_path = item.originalAlbumPath
 
-    for (i, resize ) in enumerate(orderedResizes):
+    for (i, resize) in enumerate(ordered_resizes):
         if first is None:
             first = resize  # Set the default image size
-            resizecss = resizecss + newLine
-            resizecss = resizecss + '.image{' + newLine
-            resizecss = resizecss + 'width:' + str(resize.width) + 'px;' + newLine
-            resizecss = resizecss + 'height:' + str(resize.height) + 'px;' + newLine
-            resizecss = resizecss + 'min-width:' + str(resize.width) + 'px;' + newLine
-            resizecss = resizecss + 'min-height:' + str(resize.height) + 'px;' + newLine
-            resizecss = resizecss + 'max-width:' + str(resize.width) + 'px;' + newLine
-            resizecss = resizecss + 'max-height:' + str(resize.height) + 'px;' + newLine
-            resizecss = resizecss + 'background-color:transparent;' + newLine
-            resizecss = resizecss + 'background-repeat:no-repeat;' + newLine
-            resizecss = resizecss + 'background-position:top left;' + newLine
-            resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + newLine
+            resize_css = resize_css + new_line
+            resize_css = resize_css + '.image{' + new_line
+            resize_css = resize_css + 'width:' + str(resize.width) + 'px;' + new_line
+            resize_css = resize_css + 'height:' + str(resize.height) + 'px;' + new_line
+            resize_css = resize_css + 'min-width:' + str(resize.width) + 'px;' + new_line
+            resize_css = resize_css + 'min-height:' + str(resize.height) + 'px;' + new_line
+            resize_css = resize_css + 'max-width:' + str(resize.width) + 'px;' + new_line
+            resize_css = resize_css + 'max-height:' + str(resize.height) + 'px;' + new_line
+            resize_css = resize_css + 'background-color:transparent;' + new_line
+            resize_css = resize_css + 'background-repeat:no-repeat;' + new_line
+            resize_css = resize_css + 'background-position:top left;' + new_line
+            resize_css = resize_css + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + new_line
 
-            doubleSize = find_double_size(orderedResizes, resize.width);
-            if doubleSize <> None:
-                resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
-                resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
-                resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
-                resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5) {' + newLine
-                resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, doubleSize) + '\');' + newLine
-                resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(
-                    doubleSize.height / 2) + 'px;' + newLine
-                resizecss = resizecss + '}' + newLine
+            double_size = find_double_size(ordered_resizes, resize.width);
+            if double_size <> None:
+                resize_css = resize_css + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
+                resize_css = resize_css + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
+                resize_css = resize_css + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
+                resize_css = resize_css + 'only screen and (min-device-pixel-ratio: 1.5) {' + new_line
+                resize_css = resize_css + 'background-image:url(\'' + image_url(base_image_path, double_size) + '\');' + new_line
+                resize_css = resize_css + 'background-size:' + str(double_size.width / 2) + 'px ' + str(
+                    double_size.height / 2) + 'px;' + new_line
+                resize_css = resize_css + '}' + new_line
 
-            resizecss = resizecss + '}' + newLine
-            resizecss = resizecss + newLine
+            resize_css = resize_css + '}' + new_line
+            resize_css = resize_css + new_line
 
         last = resize
-        resizecss = resizecss + newLine
+        resize_css = resize_css + new_line
         if i < (len(item.resizes) - 1):
-            resizecss = resizecss + '@media (min-width:' + str(
-                resize.width + imageMargin) + 'px) and (max-width:' + str(
-                orderedResizes[i + 1].width + imageMargin - 1) + 'px){' + newLine
+            resize_css = resize_css + '@media (min-width:' + str(
+                resize.width + image_margin) + 'px) and (max-width:' + str(
+                ordered_resizes[i + 1].width + image_margin - 1) + 'px){' + new_line
         else:
-            resizecss = resizecss + '@media(min-width:' + str(resize.width + imageMargin) + 'px) {' + newLine
-        resizecss = resizecss + '.image {' + newLine
-        resizecss = resizecss + 'width:' + str(resize.width) + 'px;' + newLine
-        resizecss = resizecss + 'height:' + str(resize.height) + 'px;' + newLine
-        resizecss = resizecss + 'min-width:' + str(resize.width) + 'px;' + newLine
-        resizecss = resizecss + 'min-height:' + str(resize.height) + 'px;' + newLine
-        resizecss = resizecss + 'tmax-width:' + str(resize.width) + 'px;' + newLine
-        resizecss = resizecss + 'tmax-height:' + str(resize.height) + 'px;' + newLine
-        resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + newLine
+            resize_css = resize_css + '@media(min-width:' + str(resize.width + image_margin) + 'px) {' + new_line
+        resize_css = resize_css + '.image {' + new_line
+        resize_css = resize_css + 'width:' + str(resize.width) + 'px;' + new_line
+        resize_css = resize_css + 'height:' + str(resize.height) + 'px;' + new_line
+        resize_css = resize_css + 'min-width:' + str(resize.width) + 'px;' + new_line
+        resize_css = resize_css + 'min-height:' + str(resize.height) + 'px;' + new_line
+        resize_css = resize_css + 'tmax-width:' + str(resize.width) + 'px;' + new_line
+        resize_css = resize_css + 'tmax-height:' + str(resize.height) + 'px;' + new_line
+        resize_css = resize_css + 'background-image:url(\'' + image_url(base_image_path, resize) + '\');' + new_line
 
-        doubleSize = find_double_size(orderedResizes, resize.width);
-        if doubleSize <> None:
-            resizecss = resizecss + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
-            resizecss = resizecss + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
-            resizecss = resizecss + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
-            resizecss = resizecss + 'only screen and (min-device-pixel-ratio: 1.5){' + newLine
-            resizecss = resizecss + 'background-image:url(\'' + image_url(base_image_path, doubleSize) + '\');' + newLine
-            resizecss = resizecss + 'background-size:' + str(doubleSize.width / 2) + 'px ' + str(
-                doubleSize.height / 2) + 'px;' + newLine
-            resizecss = resizecss + '}' + newLine
+        double_size = find_double_size(ordered_resizes, resize.width);
+        if double_size <> None:
+            resize_css = resize_css + '@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),'
+            resize_css = resize_css + 'only screen and (-moz-min-device-pixel-ratio: 1.5),'
+            resize_css = resize_css + 'only screen and (-o-min-device-pixel-ratio: 3/2),'
+            resize_css = resize_css + 'only screen and (min-device-pixel-ratio: 1.5){' + new_line
+            resize_css = resize_css + 'background-image:url(\'' + image_url(base_image_path, double_size) + '\');' + new_line
+            resize_css = resize_css + 'background-size:' + str(double_size.width / 2) + 'px ' + str(
+                double_size.height / 2) + 'px;' + new_line
+            resize_css = resize_css + '}' + new_line
 
-        resizecss = resizecss + '}'
-        resizecss = resizecss + '}' + newLine
-        resizecss = resizecss + newLine
+        resize_css = resize_css + '}'
+        resize_css = resize_css + '}' + new_line
+        resize_css = resize_css + new_line
 
-    if len(resizecss) == 0:
+    if len(resize_css) == 0:
         return None
-    return {'css': resizecss, 'first': first, 'last': last}
+    return {'css': resize_css, 'first': first, 'last': last}
 
 
 def path_to_tagId(path):
@@ -379,9 +389,9 @@ def add_response_headers(request, headers):
     headers['Content-Security-Policy'] = "frame-ancestors 'self'"
     headers['X-Frame-Options'] = "SAMEORIGIN"
 
-    userAgent = request.headers.get('User-Agent', None)
+    user_agent = request.headers.get('User-Agent', None)
 
-    if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(userAgent):
+    if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(user_agent):
         headers['Strict-Transport-Security'] = 'max-age=31536000'
 
 
@@ -423,18 +433,18 @@ def is_publishable(item):
 
 def generate_keyword_url(host, keyword, item_to_select):
 
-    replacedWrongSlash = keyword.lower().replace("\\", "/")
-    replacedDuplicateHyphens = re.sub(r"[^a-z0-9\-/]", "-", replacedWrongSlash)
-    replacedBadChars = re.sub(r"(\-{2,})", "-", replacedDuplicateHyphens)
-    replacedHyphensNextToSlash = re.sub(r"(\-*/\-*)", "/", replacedBadChars)
-    replacedEndingHyphens = replacedHyphensNextToSlash.rstrip('-')
-    replacedEndingHyphens = replacedEndingHyphens.lstrip('-')
-    if replacedEndingHyphens.endswith('/') == False:
-        replacedEndingHyphens = replacedEndingHyphens + '/'
+    replaced_wrong_slash = keyword.lower().replace("\\", "/")
+    replaced_duplicate_hyphens = re.sub(r"[^a-z0-9\-/]", "-", replaced_wrong_slash)
+    replaced_bad_chars = re.sub(r"(\-{2,})", "-", replaced_duplicate_hyphens)
+    replaced_hyphens_next_to_slash = re.sub(r"(\-*/\-*)", "/", replaced_bad_chars)
+    replaced_ending_hyphens = replaced_hyphens_next_to_slash.rstrip('-')
+    replaced_ending_hyphens = replaced_ending_hyphens.lstrip('-')
+    if replaced_ending_hyphens.endswith('/') == False:
+        replaced_ending_hyphens = replaced_ending_hyphens + '/'
 
-    urlsafe_keyword = replacedEndingHyphens
+    urlsafe_keyword = replaced_ending_hyphens
 
-    url =   host + "/keywords/" + urlsafe_keyword[0:1] + "/" + urlsafe_keyword
+    url = host + "/keywords/" + urlsafe_keyword[0:1] + "/" + urlsafe_keyword
 
     if item_to_select:
         return url + '#' + item_to_select
