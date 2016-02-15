@@ -255,7 +255,10 @@ def generate_host_hash(host):
 
 
 def decode_unicode_chars(text):
-    return text.decode('utf-8', errors="replace")
+    try:
+        return unicodedata.normalize('NFKD', text).encode('ascii', 'ignore')
+    except:
+        return text
 
 
 def generate_url_hash(search_path):
@@ -388,11 +391,13 @@ def add_response_headers(request, headers):
     headers['Access-Control-Allow-Methods'] = "GET, HEAD, OPTIONS"
     headers['Content-Security-Policy'] = "frame-ancestors 'self'"
     headers['X-Frame-Options'] = "SAMEORIGIN"
+    headers['X-XSS-Protection'] = "1; mode=block"
+    headers['X-Content-Type-Options'] = "nosniff"
 
     user_agent = request.headers.get('User-Agent', None)
 
     if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(user_agent):
-        headers['Strict-Transport-Security'] = 'max-age=31536000'
+        headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubdomain'
 
 
 def shortern_url(url):
