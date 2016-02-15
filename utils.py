@@ -397,7 +397,7 @@ def add_response_headers(request, headers):
     user_agent = request.headers.get('User-Agent', None)
 
     if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(user_agent):
-        headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubdomain'
+        headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubdomains; preload'
 
 
 def shortern_url(url):
