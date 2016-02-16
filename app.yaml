@@ -17,62 +17,170 @@ handlers:
   static_files: static/\1
   upload: static/(.*)
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /favicon\.ico
   mime_type: image/vnd.microsoft.icon
   static_files: favicon.ico
   upload: favicon\.ico
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /favicon\.png
   static_files: favicon.png
   upload: favicon\.png
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /mywot0240ebf0c66812002ba5\.html
   static_files: mywot0240ebf0c66812002ba5.html
   upload: mywot0240ebf0c66812002ba5\.html
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /robots\.txt
   static_files: robots.txt
   upload: robots\.txt
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /humans\.txt
   static_files: humans.txt
   upload: humans\.txt
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /crossdomain\.xml
   static_files: crossdomain.xml
   upload: crossdomain\.xml
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /large\.jpg
   static_files: large.jpg
   upload: large\.jpg
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /square\.jpg
   static_files: square.jpg
   upload: square\.jpg
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /tiny\.jpg
   static_files: tiny.jpg
   upload: tiny\.jpg
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /wide\.jpg
   static_files: wide.jpg
   upload: wide\.jpg
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /browserconfig\.xml
   static_files: browserconfig.xml
   upload: browserconfig\.xml
   expiration: "100d"
+  http_headers:
+    Vary: DNT
+    P3P: max-age=31536000
+    Access-Control-Allow-Origin: 'self'
+    Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+    Content-Security-Policy: frame-ancestors 'self'
+    X-Frame-Options: SAMEORIGIN
+    X-XSS-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
 
 - url: /tasks/buffer
   script: taskbuffer.app
