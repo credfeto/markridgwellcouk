@@ -16,6 +16,7 @@ import sys
 from google.appengine.api import xmpp
 
 from google.appengine.api import images
+import logging
 
 def send_email(body, files, sender_address, subject, user_address):
     if files is None:
@@ -62,9 +63,9 @@ def publish_photo(files, publish):
 def get_resize(publish):
     ordered_resizes = sorted(publish.resizes, key=lambda r: r.width)
     image = ordered_resizes[-1]
-    for (i, resize) in enumerate(ordered_resizes):
-        if resize.width <= 800:
-            image = resize
+    # for (i, resize) in enumerate(ordered_resizes):
+    #     if resize.width <= 800:
+    #         image = resize
 
     return image
 
@@ -108,7 +109,14 @@ def delete_item_from_publish_queue(id):
             return 'Item Not Found'
 
 def publish_next():
-    items_to_publish = models.PublishableItem.query().fetch(1)
+    lookup = utils.generate_random_id();
+
+    logging.info('Id: ' + lookup)
+
+    items_to_publish = models.PublishableItem.query(models.PublishableItem.id >= lookup).fetch(1)
+    if items_to_publish is None:
+        items_to_publish = models.PublishableItem.query(models.PublishableItem.id <= lookup).fetch(1)
+
     if items_to_publish is not None:
         for itemToPublish in items_to_publish:
 

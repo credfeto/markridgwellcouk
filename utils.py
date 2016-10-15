@@ -3,6 +3,7 @@ import re
 import unicodedata
 import hashlib
 import models
+import datetime
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -260,6 +261,13 @@ def decode_unicode_chars(text):
     except:
         return text
 
+def generate_random_id():
+
+    now = datetime.datetime.now()
+
+    formatted = "IDHash:" + now.isoformat('T')
+
+    return hashlib.sha512(formatted).hexdigest()
 
 def generate_url_hash(search_path):
 
