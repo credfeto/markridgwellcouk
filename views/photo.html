@@ -64,9 +64,6 @@
 </div>
 
 
-{% if showShare %}
-<div class="side-bar" role="navigation" data-social-share-privacy='true'></div>{% endif %}
-
 <div class="sibling-navigation row">
     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
         <span class="sibling-lhs">
@@ -198,10 +195,5 @@
         </span>
     </div>
 </div>
-{% if showShare %}
-<script type="application/x-social-share-privacy-settings">{"path_prefix":"{{staticurl}}/socialshareprivacy/","layout":"box","uri":"{{host}}{{path}}",
-    "order": ['facebook', 'twitter', 'gplus', 'linkedin', 'stumbleupon'],
-    "services":{"buffer":{"status":false},"disqus":{"status":false},"fbshare":{"status":false},"flattr":{"status":false},"hackernews":{"status":false},"linkedin":{"status":false},"reddit":{"status":false},"xing":{"status":false}}}
-</script>{% endif %}
 
 {% endblock %}
