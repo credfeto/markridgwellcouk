@@ -40,6 +40,9 @@ def is_trackable(userAgent):
 
 
 def is_sharing_callback(userAgent):
+    if userAgent is None:
+        return False
+
     agent = userAgent.lower()
 
     if 'facebookexternalhit' in agent:
