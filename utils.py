@@ -158,6 +158,7 @@ def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 
 
+def redirect_to_ssl
 def redirect_url(path, query_string):
     if is_development() == False:
         path = 'https://www.markridgwell.co.uk' + path
@@ -398,9 +399,10 @@ def add_response_headers(request, headers):
     headers['Access-Control-Allow-Origin'] = "'self'"
     headers['Access-Control-Allow-Methods'] = "GET, HEAD, OPTIONS"
     headers['Content-Security-Policy'] = "frame-ancestors 'self'"
-    headers['X-Frame-Options'] = "SAMEORIGIN"
+    headers['X-Frame-Options'] = "DENY"
     headers['X-XSS-Protection'] = "1; mode=block"
     headers['X-Content-Type-Options'] = "nosniff"
+    headers['Referrer-Policy'] = "no-referrer"
 
     user_agent = request.headers.get('User-Agent', None)
 
