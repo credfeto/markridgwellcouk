@@ -23,9 +23,12 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
+
 
 - url: /favicon\.ico
   mime_type: image/vnd.microsoft.icon
@@ -38,9 +41,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /favicon\.png
   static_files: favicon.png
@@ -52,9 +57,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /mywot0240ebf0c66812002ba5\.html
   static_files: mywot0240ebf0c66812002ba5.html
@@ -66,9 +73,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /robots\.txt
   static_files: robots.txt
@@ -80,9 +89,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /humans\.txt
   static_files: humans.txt
@@ -94,9 +105,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /crossdomain\.xml
   static_files: crossdomain.xml
@@ -108,9 +121,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /large\.jpg
   static_files: large.jpg
@@ -122,9 +137,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /square\.jpg
   static_files: square.jpg
@@ -136,9 +153,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /tiny\.jpg
   static_files: tiny.jpg
@@ -150,9 +169,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /wide\.jpg
   static_files: wide.jpg
@@ -164,9 +185,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /browserconfig\.xml
   static_files: browserconfig.xml
@@ -178,9 +201,11 @@ handlers:
     Access-Control-Allow-Origin: 'self'
     Access-Control-Allow-Methods: GET, HEAD, OPTIONS
     Content-Security-Policy: frame-ancestors 'self'
-    X-Frame-Options: SAMEORIGIN
+    X-Frame-Options: DENY
     X-XSS-Protection: 1; mode=block
     X-Content-Type-Options: nosniff
+    Referrer-Policy: no-referrer
+    strict-transport-security: max-age=31536000; includeSubdomains; preload
 
 - url: /tasks/buffer
   script: taskbuffer.app

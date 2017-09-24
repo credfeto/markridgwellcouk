@@ -8,7 +8,6 @@ from google.appengine.ext import blobstore
 from google.appengine.api import files
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.api import users
-from google.appengine.ext import db
 
 import models
 import utils
@@ -19,7 +18,6 @@ import logging
 import sys
 sys.path.insert(0, 'lib')
 
-import random
 import markdown
 
 class IndexHandler(webapp2.RequestHandler):
