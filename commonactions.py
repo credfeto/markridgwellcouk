@@ -1,22 +1,20 @@
+import logging
+import sys
+from google.appengine.api import files
+from google.appengine.api import images
+from google.appengine.api import mail
 from google.appengine.api import mail
 from google.appengine.api import urlfetch
-import models
-import utils
-import itemnaming
-
 from google.appengine.ext import blobstore
-from google.appengine.api import files
-from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext import ndb
-from google.appengine.api import mail
+from google.appengine.ext.webapp import blobstore_handlers
 
+import itemnaming
+import models
 import models
 import utils
-import sys
-from google.appengine.api import xmpp
+import utils
 
-from google.appengine.api import images
-import logging
 
 def send_email(body, files, sender_address, subject, user_address):
     if files is None:
@@ -109,7 +107,7 @@ def delete_item_from_publish_queue(id):
             return 'Item Not Found'
 
 def publish_next():
-    lookup = utils.generate_random_id();
+    lookup = utils.generate_random_id()
 
     logging.info('Id: ' + lookup)
 
@@ -125,9 +123,6 @@ def publish_next():
                 image = get_resize(publish)
 
                 files = fetch_image_to_attach(image, publish)
-                if files is None:
-                    msg = 'Could not retrieve image when publishing ' + publish.path + ' image : ' + utils.image_url(publish.path, image)
-                    xmpp.send_message('markr@markridgwell.com', msg)
 
                 url = publish_photo(files, publish)
 
