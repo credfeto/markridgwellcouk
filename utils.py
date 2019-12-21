@@ -225,31 +225,6 @@ def is_development():
 
     return env.startswith('Development/')
 
-
-def device_supports_ssl_tni(userAgent):
-    # agent = userAgent.lower()
-    #
-    # if 'chrome' in agent:
-    #     return True
-    #
-    # if 'firefox' in agent:
-    #     return True
-    #
-    # if 'opera' in agent:
-    #     return True
-    #
-    # if 'googlebot' in agent:
-    #     return True
-    #
-    # if 'msnbot' in agent:
-    #     return True
-    #
-    # if 'bingbot' in agent:
-    #     return True
-    #
-    # return False
-    return True
-
 def generate_host_hash(host):
     return re.sub('[^a-zA-Z0-9-]+', '-', host).strip('-')
 
@@ -404,7 +379,7 @@ def add_response_headers(request, headers):
 
     user_agent = request.headers.get('User-Agent', None)
 
-    if not is_development() and request.scheme == 'https' and device_supports_ssl_tni(user_agent):
+    if not is_development() and request.scheme == 'https':
         headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubdomains; preload'
 
 
