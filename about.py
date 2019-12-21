@@ -20,7 +20,7 @@ class AboutHandler(webapp2.RequestHandler):
 
         userAgent = self.request.headers.get('User-Agent', None)
 
-        if utils.is_development() == False and self.request.scheme == 'http' and utils.device_supports_ssl_tni(userAgent):
+        if utils.is_development() == False and self.request.scheme == 'http':
             self.response.headers['Cache-Control'] = 'public,max-age=%d' % 86400
             self.response.headers['Pragma'] = 'public'
             self.redirect(utils.redirect_url(self.request.path, self.request.query_string), permanent=True)
