@@ -14,4 +14,4 @@ jobs:
         version: '270.0.0'
         service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
     - name: Deploy
-      run: gcloud app deploy app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} -y
+      run: gcloud app deploy app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} --quiet
