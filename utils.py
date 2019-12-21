@@ -157,8 +157,6 @@ def should_share(userAgent):
 def site_url(path):
     return 'https://markridgwell-data.s3.amazonaws.com' + path
 
-
-def redirect_to_ssl
 def redirect_url(path, query_string):
     if is_development() == False:
         path = 'https://www.markridgwell.co.uk' + path
