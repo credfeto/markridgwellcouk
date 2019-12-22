@@ -384,15 +384,7 @@ def add_response_headers(request, headers):
 
 
 def shortern_url(url):
-    # try:
-    api = googl.Googl("AIzaSyAR7DxhhrftPkmbUNrj5rHMl4qaKKkR5JQ")
-
-    shortened = api.shorten(url)
-
-    return shortened["id"]
-
-    #except googl.GooglError:
-    #    return url
+    return url
 
 
 def contains_either(photo_title, album_title):
