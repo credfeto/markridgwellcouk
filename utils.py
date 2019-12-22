@@ -382,10 +382,8 @@ def add_response_headers(request, headers):
     if not is_development() and request.scheme == 'https':
         headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubdomains; preload'
 
-
 def shortern_url(url):
     return url
-
 
 def contains_either(photo_title, album_title):
     if album_title in photo_title:

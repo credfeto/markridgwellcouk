@@ -107,27 +107,27 @@ def delete_item_from_publish_queue(id):
             return 'Item Not Found'
 
 def publish_next():
-    lookup = utils.generate_random_id()
-
-    logging.info('Id: ' + lookup)
-
-    items_to_publish = models.PublishableItem.query(models.PublishableItem.id >= lookup).fetch(1)
-    if items_to_publish is None:
-        items_to_publish = models.PublishableItem.query(models.PublishableItem.id <= lookup).fetch(1)
-
-    if items_to_publish is not None:
-        for itemToPublish in items_to_publish:
-
-            publish = models.GalleryItem.query(models.GalleryItem.id == itemToPublish.id).get()
-            if publish is not None:
-                image = get_resize(publish)
-
-                files = fetch_image_to_attach(image, publish)
-
-                url = publish_photo(files, publish)
-
-                # Remove the item we just published so it doesn't go again
-                itemToPublish.key.delete()
-                return "Published: " + url
+    # lookup = utils.generate_random_id()
+    #
+    # logging.info('Id: ' + lookup)
+    #
+    # items_to_publish = models.PublishableItem.query(models.PublishableItem.id >= lookup).fetch(1)
+    # if items_to_publish is None:
+    #     items_to_publish = models.PublishableItem.query(models.PublishableItem.id <= lookup).fetch(1)
+    #
+    # if items_to_publish is not None:
+    #     for itemToPublish in items_to_publish:
+    #
+    #         publish = models.GalleryItem.query(models.GalleryItem.id == itemToPublish.id).get()
+    #         if publish is not None:
+    #             image = get_resize(publish)
+    #
+    #             files = fetch_image_to_attach(image, publish)
+    #
+    #             url = publish_photo(files, publish)
+    #
+    #             # Remove the item we just published so it doesn't go again
+    #             itemToPublish.key.delete()
+    #             return "Published: " + url
 
     return "Nothing published"
