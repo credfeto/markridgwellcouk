@@ -1,8 +1,0 @@
-
-User-agent: *
-Sitemap: https://www.markridgwell.co.uk/sitemap
-Sitemap: https://www.markridgwell.co.uk/rss.xml
-Disallow: /avatar.jpg
-Disallow: /contact
-Disallow: /Albums/Private/
-Disallow: /SaveRating/

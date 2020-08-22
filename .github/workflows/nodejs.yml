@@ -1,6 +1,9 @@
 name: Build and deploy
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
 
 jobs:
   build:
@@ -12,6 +15,24 @@ jobs:
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '270.0.0'
-        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} #service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: npm install
+      run: npm install
+      env:
+        CI: false
+    - name: npm build
+      run: |
+            npm run build
+            echo '***************************************************************************************************'
+            echo '***************************************************************************************************'
+            echo '***************************************************************************************************'
+            ls -lR dst
+      env:
+        CI: false
     - name: Deploy
-      run: gcloud app deploy app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} --quiet
+      run: |
+             ls -lR dst
+             gcloud app deploy dst/app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} --version v2020
