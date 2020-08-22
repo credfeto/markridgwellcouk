@@ -1,6 +1,6 @@
+dst/static
+tmp
+.sass-cache
+node_modules
 .idea
-*.pyc
-*.user
-*.DotSettings
-*.suo
 /.gtm/
