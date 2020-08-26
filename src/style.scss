@@ -21,6 +21,16 @@ $slideshowImageDuration: 6;
 $images: length($imagelist);
 
 
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
 html
 {
 }
@@ -169,9 +179,11 @@ ul.cb-slideshow {
 
     /* Set up div's for image rotation */
     @each $i, $filename in $imagelist {
+	$webpFileName: str-replace($filename, ".jpg", ".webp");
         li:nth-child(#{$i}) {
             span {
                 background-image: url("#{$filename}");
+                background-image: -webkit-imageset(url("#{$webpFileName}") 1x);
                 @if ($i > 0) {
                     animation-delay: #{$slideshowImageDuration * ($i - 1) }s;
                 }
