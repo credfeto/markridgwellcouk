@@ -18,18 +18,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new ImageminWebpWebpackPlugin({
-            config: [{
-                test: /\.(jpe?g|png)/,
-                options: {
-                    quality:  75
-                }
-            }],
-            overrideExtension: true,
-            detailedLogs: false,
-            silent: false,
-            strict: true
-        }),
         new ManifestPlugin(),
         new RobotstxtPlugin(),
         new MiniCssExtractPlugin({
@@ -41,6 +29,18 @@ module.exports = {
             template: "src/index.html",
             compile: true,
             inject: false
+        }),
+        new ImageminWebpWebpackPlugin({
+            config: [{
+                test: /\.(jpe?g|png)/,
+                options: {
+                    quality:  75
+                }
+            }],
+            overrideExtension: true,
+            detailedLogs: false,
+            silent: false,
+            strict: true
         })
     ],
     module: {
