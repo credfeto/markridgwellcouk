@@ -2,34 +2,22 @@ $background-color: #000;
 $font: 'Verdana', 'Arial', 'Sans-serif';
 
 $imagelist: (
-                ( 1, "./img/01 Sunset in forest.jpg"),
-                ( 2, "./img/02 Bridge at moorhen marina.jpg"),
-                ( 3, "./img/03 Sunset.jpg"),
-                ( 4, "./img/04 Sunset.jpg"),
-                ( 5, "./img/05 Barley.jpg"),
-                ( 6, "./img/06 Thistle.jpg"),
-                ( 7, "./img/07 Pine.jpg"),
-                ( 8, "./img/08 Field of daisies.jpg"),
-                ( 9, "./img/09 Tree.jpg"),
-                (10, "./img/10 River Stort.jpg"),
-                (11, "./img/11 Sunset.jpg"),
-                (12, "./img/12 Swans on River Stort.jpg"),
+                (1, "./img/01 King Leviathan at The Dev, Camden.jpg"),
+                (2, "./img/02 Satan's Empire at The Dev, Camden.jpg"),
+                (3, "./img/03 The Naked Apes at The Shark, Harlow.jpg"),
+                (4, "./img/04 One Floyd at The GPCA, Harlow.jpg"),
+                (5, "./img/05 Archive at The Brentwood Festival.jpg"),
+                (6, "./img/06 Archive At The Brentwood Festival.jpg"),
+                (7, "./img/07 Gun Metal Grey at The Crown In Roneo Corner, Romford.jpg"),
+                (8, "./img/08 Gun Metal Grey at The Crown In Roneo Corner, Romford.jpg"),
+                (9, "./img/09 JOANovARC at The Black Heart, Camden.jpg"),
+                (10, "./img/10 Beat The Beast At The Herald, Harlow.jpg"),
 );
 
 
 $slideshowImageDuration: 6;
 $images: length($imagelist);
 
-
-@function str-replace($string, $search, $replace: '') {
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-
-  @return $string;
-}
 
 html
 {
@@ -179,11 +167,9 @@ ul.cb-slideshow {
 
     /* Set up div's for image rotation */
     @each $i, $filename in $imagelist {
-	$webpFileName: str-replace($filename, ".jpg", ".webp");
         li:nth-child(#{$i}) {
             span {
                 background-image: url("#{$filename}");
-                background-image: -webkit-imageset(url("#{$webpFileName}") 1x);
                 @if ($i > 0) {
                     animation-delay: #{$slideshowImageDuration * ($i - 1) }s;
                 }
