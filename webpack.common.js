@@ -18,18 +18,6 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new ManifestPlugin(),
-        new RobotstxtPlugin(),
-        new MiniCssExtractPlugin({
-            filename: isDevelopment ? '[name].css' : 'css/[hash].css',
-            chunkFilename: isDevelopment ? '[id].css' : 'css/[hash].css'
-        }),
-        new HtmlWebpackPlugin({
-            favicon: 'src/img/favicon.ico',
-            template: "src/index.html",
-            compile: true,
-            inject: false
-        }),
         new ImageminWebpWebpackPlugin({
             config: [{
                 test: /\.(jpe?g|png)/,
@@ -41,6 +29,18 @@ module.exports = {
             detailedLogs: false,
             silent: false,
             strict: true
+        }),
+        new ManifestPlugin(),
+        new RobotstxtPlugin(),
+        new MiniCssExtractPlugin({
+            filename: isDevelopment ? '[name].css' : 'css/[hash].css',
+            chunkFilename: isDevelopment ? '[id].css' : 'css/[hash].css'
+        }),
+        new HtmlWebpackPlugin({
+            favicon: 'src/img/favicon.ico',
+            template: "src/index.html",
+            compile: true,
+            inject: false
         })
     ],
     module: {
