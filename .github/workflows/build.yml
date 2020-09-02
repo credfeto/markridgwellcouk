@@ -1,0 +1,25 @@
+name: Build and deploy
+
+on:
+  push:
+    branches-ignore:
+    - master
+
+jobs:
+  build_only:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - run: npm install
+      env:
+        CI: false
+    - run: |
+            npm run build
+            echo '***************************************************************************************************'
+            echo '***************************************************************************************************'
+            echo '***************************************************************************************************'
+            ls -lR dst
+      env:
+        CI: false
