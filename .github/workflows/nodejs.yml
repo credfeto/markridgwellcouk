@@ -16,7 +16,7 @@ jobs:
       with:
         version: '270.0.0'
         service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} #service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v2.1.2
       with:
         node-version: 14.x
     - name: npm install
