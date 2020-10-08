@@ -32,7 +32,7 @@ jobs:
             ls -lR dst
       env:
         CI: false
-    - name: Deploy
-      run: |
-             ls -lR dst
-             gcloud app deploy dst/app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} --version v2020
+#    - name: Deploy
+#      run: |
+#             ls -lR dst
+#             gcloud app deploy dst/app.yaml --project ${{secrets.GCLOUD_PROJECT_ID}} --version v2020
