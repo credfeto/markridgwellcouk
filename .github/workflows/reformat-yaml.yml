@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.3
       with:
         fetch-depth: 0
     - run: |
         echo Current Branch ${GITHUB_REF#refs/heads/}
         echo ::set-env name=GIT_BRANCH::$(echo ${GITHUB_REF#refs/heads/})
         echo User: ${{github.actor}}
-    - uses: credfeto/action-yaml-format@v1
+    - uses: credfeto/action-yaml-format@v1.1.0
     - run: |
         git status
         git config --local user.email "credfeto@users.noreply.github.com"
