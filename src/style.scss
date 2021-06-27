@@ -1,7 +1,7 @@
 $background-color: #000;
 $font: 'Verdana', 'Arial', 'Sans-serif';
 
-$imagelist: (
+$image_list: (
   ( 1, "./img/01 Sunset in forest.jpg"),
   ( 2, "./img/02 Bridge at moorhen marina.jpg"),
   ( 3, "./img/03 Sunset.jpg"),
@@ -17,7 +17,7 @@ $imagelist: (
 );
 
 $slideshowImageDuration: 6;
-$images: length($imagelist);
+$images: length($image_list);
 
 body
 {
@@ -164,7 +164,7 @@ ul.cb-slideshow {
   }
 
   /* Set up div for image rotation */
-  @each $i, $filename in $imagelist {
+  @each $i, $filename in $image_list {
     li:nth-child(#{$i}) {
       span {
         background-image: url("#{$filename}");
