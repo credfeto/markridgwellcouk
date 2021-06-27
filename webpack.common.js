@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RobotstxtPlugin = require("robotstxt-webpack-plugin");
 const ImageminWebpWebpackPlugin= require("imagemin-webp-webpack-plugin");
 
-const isDevelopment = process.env.NODE_ENV === 'development'
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const manifestOptions = {};
 
