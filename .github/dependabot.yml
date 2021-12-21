@@ -3,7 +3,7 @@ updates:
 
 
 - package-ecosystem: npm
-  directory: "/"
+  directory: ""
   schedule:
     interval: daily
     time: "03:00"
