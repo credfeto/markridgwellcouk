@@ -29,8 +29,5 @@
   },
   "dependencies": {
     "lodash": "^4.17.21"
-  },
-  "optionalDependencies": {
-    "fsevents": "^2.3.2"
   }
 }
