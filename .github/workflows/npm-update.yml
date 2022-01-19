@@ -47,7 +47,6 @@ jobs:
         env:
           CI: false
       - name: npm audit fix
-        working-directory: ./solidity
         run: npm audit fix
         env:
           CI: false
