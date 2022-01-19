@@ -1,4 +1,4 @@
-name: Update Contract Build Environment
+name: Update NPM Packages
 
 on:
   schedule:
