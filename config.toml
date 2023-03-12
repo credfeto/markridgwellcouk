@@ -1,4 +1,4 @@
-baseURL      = "https://www.markridgwell.com/"
+baseURL      = "https://www.markridgwell.co.uk/"
 title        = "Mark Ridgwell Photography"
 disableKinds = ["section", "taxonomy", "term"]
 
