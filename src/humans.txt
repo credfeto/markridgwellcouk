@@ -1,6 +1,0 @@
-/* TEAM */
-	Your title: Mark Ridgwell
-	Site: https://www.markridgwell.co.uk/about/
-	Twitter: @credfeto
-	ADN: @credfeto
-	Location: Harlow, United Kingdom.
