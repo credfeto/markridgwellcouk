@@ -1,32 +1,8 @@
 version: 2
 updates:
 
-
 - package-ecosystem: npm
   directory: ""
-  schedule:
-    interval: daily
-    time: "03:00"
-    timezone: "Europe/London"
-  open-pull-requests-limit: 20
-  reviewers:
-  - credfeto
-  assignees:
-  - credfeto
-  allow:
-  - dependency-type: all
-  commit-message:
-    prefix: "[Dependencies]"
-  rebase-strategy: "auto"
-  versioning-strategy: increase-if-necessary
-  labels:
-  - "npm"
-  - "dependencies"
-  - "Changelog Not Required"
-
-
-- package-ecosystem: github-actions
-  directory: "/"
   schedule:
     interval: daily
     time: "03:00"
@@ -36,13 +12,12 @@ updates:
   - credfeto
   assignees:
   - credfeto
-  allow:
-  - dependency-type: all
   commit-message:
     prefix: "[Dependencies]"
-  rebase-strategy: "auto"
   labels:
-  - "github-actions"
+  - "npm"
   - "dependencies"
   - "Changelog Not Required"
-
+  versioning-strategy: increase-if-necessary
+  allow:
+  - dependency-type: all
