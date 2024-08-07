@@ -19,7 +19,7 @@
     "mini-css-extract-plugin": "^1.6.2",
     "robotstxt-webpack-plugin": "^7.0.0",
     "sass": "^1.43.4",
-    "sass-loader": "^14.1.0",
+    "sass-loader": "^16.0.0",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
     "webpack": "^4.46.0",
