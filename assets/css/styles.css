@@ -47,3 +47,8 @@ body {
   display: none;
 }
 
+a.clearspace {
+    font-size: 1px;
+    color: transparent;
+    text-decoration: none;
+}
